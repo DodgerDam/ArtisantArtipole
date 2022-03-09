@@ -1,0 +1,75 @@
+//
+// Component: Breadcrumb
+//
+// ========================================================================
+section.header-title {
+    #breadcrumb-position {
+        position: relative;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        @media (min-width: $breakpoint-medium) {
+            position: absolute;
+            top: 94.5vh;
+        }
+        @media (min-width: $breakpoint-medium-light) {
+            top: 92vh;
+        }
+        @media (min-width: $breakpoint-xlarge) {
+            top: 94.5vh;
+        }
+        @media (min-width: $breakpoint-xxlarge) {
+            top: 95vh;
+        }
+        @media (min-width: $breakpoint-xlarge-max) {
+            top: 96vh;
+        }
+        #breadcrumb {
+            .uk-breadcrumb {
+                height: auto;
+                max-width: 94%;
+                margin: ($margin-margin/2) auto;
+                @media (min-width: $breakpoint-medium) {
+                    margin: 0 auto;
+                }
+                @media (min-width: $breakpoint-medium-light) {
+                    max-width: 88%;
+                }
+                @media (min-width: $breakpoint-xlarge) {
+                    max-width: 91.05%;
+                }
+                @media (min-width: $breakpoint-xxlarge) {
+                    max-width: 92.18%;
+                }
+                @media (min-width: $breakpoint-xlarge-max) {
+                    max-width: 94%;
+                }
+                li {
+                    a {
+                        color: $global-color-yellow;
+                        &:after {
+                            content: '';
+                            display: block;
+                            width: 0;
+                            height: 3px;
+                            background: $global-color-yellow;
+                            transition: width .3s;
+                        }
+                        &:hover {
+                            &:after {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+            .uk-breadcrumb> :nth-child(n+2):not(.uk-first-column)::before {
+                color: $global-color-yellow;
+                margin: 0 $margin-margin/2;
+            }
+            .uk-breadcrumb> :last-child>* {
+                color: $global-color-white;
+            }
+        }
+    }
+}

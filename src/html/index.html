@@ -1,0 +1,1026 @@
+<!-- Include Head -->
+@@include("common/header.html", {"meta": {"title":"Artisans Artipôle en Bourgogne Franche-Comté" } })
+
+<section class="section-swiper">
+    <div class="swiper swiper-home">
+        <ul class="swiper-wrapper">
+            <li class="swiper-slide">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-768w-home-01.webp" type="image/webp">
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/slider-768w-home-01.jpg" type="image/jpg">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-1400w-home-01.webp" type="image/webp">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/slider-1400w-home-01.jpg" type="image/jpg">
+                    <img data-src="@@webRoot/assets/images/sliders/home/slider-2500w-home-01.jpg" width="2500" height="1400" alt="" uk-img />
+                </picture>
+            </li>
+            <li class="swiper-slide">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-768w-home-02.webp" type="image/webp">
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/slider-768w-home-02.jpg" type="image/jpg">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-1400w-home-02.webp" type="image/webp">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/slider-1400w-home-02.jpg" type="image/jpg">
+                    <img data-src="@@webRoot/assets/images/sliders/home/slider-2500w-home-02.jpg" width="2500" height="1400" alt="" uk-img />
+                </picture>
+            </li>
+            <li class="swiper-slide">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-768w-home-03.webp" type="image/webp">
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/slider-768w-home-03.jpg" type="image/jpg">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-1400w-home-03.webp" type="image/webp">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/slider-1400w-home-03.jpg" type="image/jpg">
+                    <img data-src="@@webRoot/assets/images/sliders/home/slider-2500w-home-03.jpg" width="2500" height="1400" alt="" uk-img />
+                </picture>
+            </li>
+            <li class="swiper-slide">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-768w-home-04.webp" type="image/webp">
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/sliders/home/slider-768w-home-04.jpg" type="image/jpg">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/webp/slider-1400w-home-04.webp" type="image/webp">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/sliders/home/slider-1400w-home-04.jpg" type="image/jpg">
+                    <img data-src="@@webRoot/assets/images/sliders/home/slider-2500w-home-04.jpg" width="2500" height="1400" alt="" uk-img />
+                </picture>
+            </li>
+        </ul>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="uk-position-center container-home-h1">
+        <h1>ARTISANS ARTIPÔLE<br>en Bourgogne Franche-Comté</h1>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+    </div>
+</section>
+
+<div class="search-container">
+    <div class="uk-container">
+        <div class="container-items-search">
+            <div class="container-picto">
+                <svg class="icon">
+                    <use xlink:href="@@webRoot/assets/images/sprite.svg#artisan"></use>
+                </svg>
+                <p class="title-search">Je recherche un artisan...</p>
+            </div>
+            <form action="" method="GET" id="search_form">
+                <div class="container-select-field">
+                    <label class="uk-form-label sr-only" for="metiers-search-form">Métiers</label>
+                    <select id="metiers-search-form" name="metiers">
+                        <option value="none" selected disabled hidden>Métiers</option>
+                        <option value="1">Métier 01</option>
+                        <option value="2">Métier 02</option>
+                        <option value="3">Métier 03</option>
+                        <option value="4">Métier 04</option>
+                    </select>
+                </div>
+                <div class="container-flex uk-margin">
+                    <div class="input-data">
+                        <input class="uk-input" placeholder=" " id="zip-search-form" type="text" name="zip" value="">
+                        <label class="uk-form-label" for="zip-search-form">Code postal</label>
+                    </div>
+                    <div class="input-data">
+                        <input class="uk-input" placeholder=" " id="ville-search-form" type="text" name="ville" value="">
+                        <label class="uk-form-label" for="ville-search-form">Ville</label>
+                    </div>
+                </div>
+                <div class="rayon-container">
+                    <label class="uk-form-label" for="ville-search-form">Dans un rayon de :</label>
+                    <div class="uk-flex">
+                        <div>
+                            <label class="uk-form-label sr-only" for="km-search-form-01">5 km</label>
+                            <button type="button" class="tag-rayon-button" name="rayon" id="km-search-form-01">5 km</button>
+                        </div>
+                        <div>
+                            <label class="uk-form-label sr-only" for="km-search-form-02">10 km</label>
+                            <button type="button" class="tag-rayon-button" name="rayon" id="km-search-form-02">10 km</button>
+                        </div>
+                        <div>
+                            <label class="uk-form-label sr-only" for="km-search-form-03">50 km</label>
+                            <button type="button" class="tag-rayon-button" name="rayon" id="km-search-form-03">50 km</button>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="submit-search-button" aria-label="Valider votre recherche"><span class="txt-search-button">Rechercher</span><span uk-search-icon></span></button>
+            </form>
+        </div>
+        <div class="pattern"></div>
+    </div>
+</div>
+
+<section class="section section-edito">
+    <div class="uk-container">
+        <div class="container-flex">
+            <div class="uk-width-1-1 uk-width-1-2@m container-txt" data-aos="fade-right" data-aos-delay="300">
+                <div class="content">
+                    <span class="pre-title">Edito</span>
+                    <h2>Lorem ipsum dolor sit amet</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam dolorum quia repellendus libero neque eaque temporibus in illo cupiditate distinctio accusantium consequatur est ex, magni sapiente. Mollitia modi necessitatibus placeat.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam dolorum quia repellendus libero neque eaque temporibus in illo cupiditate distinctio accusantium consequatur est ex, magni sapiente. Mollitia modi necessitatibus placeat.</p>
+
+                </div>
+                <a href="#" class="content-button" title="En savoir plus">
+                    <span>En savoir plus</span>
+                    <svg class="icon">
+                        <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                    </svg>
+                </a>
+            </div>
+            <div class="uk-width-1-1 uk-width-1-2@m container-imgs">
+                <picture class="uk-width-1-2" data-aos="fade-down">
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/content/home/img-content-home-165w-01.jpg" type="image/jpg">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/content/home/img-content-home-350w-01.jpg" type="image/jpg">
+                    <img data-src="@@webRoot/assets/images/content/home/img-content-home-350w-01.jpg" width="350" height="550" alt="" uk-img />
+                </picture>
+                <picture class="uk-width-1-2" data-aos="fade-up">
+                    <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/content/home/img-content-home-165w-02.jpg" type="image/jpg">
+                    <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/content/home/img-content-home-350w-02.jpg" type="image/jpg">
+                    <img data-src="@@webRoot/assets/images/content/home/img-content-home-350w-02.jpg" width="350" height="550" alt="" uk-img />
+                </picture>
+                <div class="pattern"></div>
+            </div>
+        </div>
+        <div class="uk-position-bottom-center img-tampon">
+            <img data-src="@@webRoot/assets/images/tampon.png" width="210" height="210" alt="" uk-img />
+        </div>
+    </div>
+</section>
+
+<section class="section section-metiers">
+    <div class="uk-container" data-aos="fade-down">
+        <span class="pre-title">Nos métiers</span>
+        <h2>Lorem ipsum dolor sit amet</h2>
+    </div>
+    <div class="container-metiers">
+        <ul>
+            <li class="card-metiers card-metiers-1" data-aos="fade-down" data-aos-delay="300">
+                <a href="#" title="Agencement">
+                    <figure>
+                        <p class="title">Agencement</p>
+                        <img data-src="@@webRoot/assets/images/metiers/agencement.jpg" alt="" uk-img />
+                        <figcaption>
+                            <h3>Agencement</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-2" data-aos="fade-up" data-aos-delay="300">
+                <a href="#" title="Charpente">
+                    <figure>
+                        <p class="title">Charpente</p>
+                        <img data-src="@@webRoot/assets/images/metiers/charpente.jpg" alt="" uk-img />
+                        <figcaption>
+                            <h3>Charpente</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-3" data-aos="fade-down">
+                <a href="#" title="Couverture">
+                    <figure>
+                        <p class="title">Couverture</p>
+                        <img data-src="@@webRoot/assets/images/metiers/couverture.jpg" alt="" uk-img />
+                        <figcaption>
+                            <h3>Couverture</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-4" data-aos="fade-left" data-aos-delay="400">
+                <a href="#" title="Cuisine">
+                    <figure>
+                        <p class="title">Cuisine</p>
+                        <img data-src="@@webRoot/assets/images/metiers/cuisine.jpg" alt="" uk-img />
+                        <figcaption>
+                            <h3>Cuisine</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-5" data-aos="fade-up" data-aos-delay="500">
+                <a href="#" title="Isolation">
+                    <figure>
+                        <p class="title">Isolation</p>
+                        <img data-src="@@webRoot/assets/images/metiers/isolation.jpg" alt="" uk-img />
+                        <figcaption>
+                            <h3>Isolation</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-6" data-aos="fade-right" data-aos-delay="250">
+                <a href="#" title="Menuiserie">
+                    <figure>
+                        <p class="title">Menuiserie</p>
+                        <img data-src="@@webRoot/assets/images/metiers/menuiserie-ext.jpg" alt="" uk-img />
+                        <figcaption>
+                            <h3>Menuiserie</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-7" data-aos="flip-down">
+                <a href="#" title="Menuiserie intérieure">
+                    <figure>
+                        <p class="title">Menuiserie intérieure</p>
+                        <img data-src="@@webRoot/assets/images/metiers/menuiserie-int.jpg" alt="" uk-img />
+                        <figcaption>
+                            <h3>Menuiserie intérieure</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-8" data-aos="fade-up-left" data-aos-delay="300">
+                <a href="# " title="Maison ossature bois ">
+                    <figure>
+                        <p class="title ">Maison ossature bois</p>
+                        <img data-src="@@webRoot/assets/images/metiers/maison-bois.jpg " alt=" " uk-img />
+                        <figcaption>
+                            <h3>Maison ossature bois</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-9" data-aos="fade-up-right">
+                <a href="# " title="Bardage ">
+                    <figure>
+                        <p class="title ">Bardage</p>
+                        <img data-src="@@webRoot/assets/images/metiers/bardage.jpg " alt=" " uk-img />
+                        <figcaption>
+                            <h3>Bardage</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-10" data-aos="fade-up" data-aos-delay="300">
+                <a href="# " title="Meuble ">
+                    <figure>
+                        <p class="title ">Meuble</p>
+                        <img data-src="@@webRoot/assets/images/metiers/meuble.jpg " alt=" " uk-img />
+                        <figcaption>
+                            <h3>Meuble</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+            <li class="card-metiers card-metiers-11" data-aos="fade-left" data-aos-delay="100">
+                <a href="# " title="Autre métier ">
+                    <figure>
+                        <p class="title ">Autre métier</p>
+                        <img data-src="@@webRoot/assets/images/metiers/autre.jpg " alt=" " uk-img />
+                        <figcaption>
+                            <h3>Autre métier</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo minus pariatur non assumenda reiciendis aliquid aperiam sint qui. Eius debitis praesentium ut fugit illum iusto atque tempore nobis deserunt harum.</p>
+                        </figcaption>
+                    </figure>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="section section-actus">
+    <div class="uk-container">
+        <div class="container-clip" data-aos="fade-down">
+            <h2>actus</h2>
+        </div>
+        <div class="container-actus">
+            <ul>
+                <li class="card-actus" data-aos="fade-right" data-aos-delay="200">
+                    <a href="# " title="Titre de l 'article">
+                        <figure>
+                            <img data-src="@@webRoot/assets/images/actus/img-actus-01.jpg" alt="" uk-img/>
+                        </figure>
+                    </a>
+                    <div class="content">
+                        <div class="content-tags">
+                            <span class="tag">Agencement</span>
+                            <span class="tag">Menuiserie</span>
+                        </div>
+                        <h3>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</h3>
+                        <a href="#" class="article-link">
+                            <span>Lire l'article</span>
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </li>
+                <li class="card-actus" data-aos="fade-up" data-aos-delay="300">
+                    <a href="#" title="Titre de l'article">
+                        <figure>
+                            <img data-src="@@webRoot/assets/images/actus/img-actus-02.jpg" alt="" uk-img/>
+                        </figure>
+                    </a>
+                    <div class="content">
+                        <div class="content-tags">
+                            <span class="tag">Menuiserie</span>
+                            <span class="tag">Meuble</span>
+                        </div>
+                        <h3>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</h3>
+                        <a href="#" class="article-link">
+                            <span>Lire l'article</span>
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </li>
+                <li class="card-actus" data-aos="fade-left" data-aos-delay="200">
+                    <a href="#" title="Titre de l'article">
+                        <figure>
+                            <img data-src="@@webRoot/assets/images/actus/img-actus-03.jpg" alt="" uk-img/>
+                        </figure>
+                    </a>
+                    <div class="content">
+                        <div class="content-tags">
+                            <span class="tag">Cuisine</span>
+                            <span class="tag">Agencement</span>
+                        </div>
+                        <h3>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</h3>
+                        <a href="#" class="article-link">
+                            <span>Lire l'article</span>
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <a href="#" class="content-button" title="Toute l'actualité">
+            <span>Toute l'actualité</span>
+            <svg class="icon">
+                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+            </svg>
+        </a>
+    </div>
+</section>
+
+<section class="section section-chiffres" data-aos="fade-down">
+    <div class="uk-background-cover">
+        <div class="uk-container">
+            <span class="pre-title">Artisans Artipôle Dole Choisey</span>
+            <h2>En chiffres...</h2>
+            <div class="container-chiffres">
+                <ul>
+                    <li>
+                        <span class="count">84</span>
+                        <p>artisans artipôle</p>
+                    </li>
+                    <li>
+                        <span class="count">1</span>
+                        <p>coopérative en<br>Bourgogne-Franche-Comté</p>
+                    </li>
+                    <li>
+                        <span class="count">20</span>
+                        <p>ans d'expérience</p>
+                    </li>
+                    <li>
+                        <span class="count">250</span>
+                        <p>fournisseurs</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <figure class="elt-graphique">
+        <img data-src="@@webRoot/assets/images/totem-bois.png" width="1033" height="581" alt="" uk-img />
+    </figure>
+</section>
+
+<section class="section section-valeurs">
+    <div class="container-flex">
+        <div class="uk-width-1-1 uk-width-1-2@m container-imgs" data-aos="fade-right" data-delay="400">
+            <picture class="uk-width-1-1">
+                <source media="(max-width: 768px)" srcset="@@webRoot/assets/images/content/home/photo-valeurs-768.jpg" type="image/jpg">
+                <source media="(max-width: 1400px)" srcset="@@webRoot/assets/images/content/home/photo-valeurs.jpg" type="image/jpg">
+                <img data-src="@@webRoot/assets/images/content/home/photo-valeurs.jpg" width="1299" height="866" alt="" uk-img />
+            </picture>
+            <div class="pattern"></div>
+            <div class="img-tampon">
+                <img data-src="@@webRoot/assets/images/tampon.png" width="210" height="210" alt="" uk-img />
+            </div>
+        </div>
+        <div class="uk-width-1-1 uk-width-1-2@m container-txt">
+            <div class="content">
+                <span class="pre-title">Nos valeurs</span>
+                <h2>Pourquoi choisir un artisan artipôle ?</h2>
+                <ul class="liste-valeurs">
+                    <li>
+                        <div class="icon-svg" data-aos="fade-right" data-delay="200">
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#savoir-faire"></use>
+                            </svg>
+                        </div>
+                        <div class="content-valeur" data-aos="fade-left" data-delay="200">
+                            <h3>Savoir-faire & garantie</h3>
+                            <p>Mon savoir-faire au service de votre projet pour la garantie d'un travail bien fait.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-svg" data-aos="fade-right" data-delay="350">
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#innovation"></use>
+                            </svg>
+                        </div>
+                        <div class="content-valeur" data-aos="fade-left" data-delay="350">
+                            <h3>Innovation & qualité</h3>
+                            <p>Un vaste choix de produits innovants, de gradnes marques et de qualité.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-svg" data-aos="fade-right" data-delay="500">
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#budget"></use>
+                            </svg>
+                        </div>
+                        <div class="content-valeur" data-aos="fade-left" data-delay="500">
+                            <h3>Budget maîtrisé</h3>
+                            <p>Des solutions personnalisées et adaptées à tous les budgets.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-svg" data-aos="fade-right" data-delay="650">
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#valeurs"></use>
+                            </svg>
+                        </div>
+                        <div class="content-valeur" data-aos="fade-left" data-delay="650">
+                            <h3>Valeurs & engagements</h3>
+                            <p>Le partage de valeurs et d'engagement coopératifs.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section section-background">
+    <div class="uk-background-cover" uk-parallax="media: @m; bgy: -1000" style="background-image: url(@@webRoot/assets/images/content/home/background-visite-virtuelle.jpg);">
+        <div class="uk-position-center container-title-section">
+            <h2>Salle d'exposition à Dole-Choisey</h2>
+            <a href="#" class="virtuel-button" title="Visite virtuelle">
+                <svg class="icon">
+                    <use xlink:href="@@webRoot/assets/images/sprite.svg#360"></use>
+                </svg>
+                <span>Visite virtuelle</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-swiper-galerie">
+    <div class="uk-container" data-aos="fade-down">
+        <span class="pre-title">Inspiration</span>
+        <h2>Laissez-vous séduire par nos univers</h2>
+    </div>
+    <div class="swiper swiper-tabs" data-aos="fade-left">
+        <div class="swiper-wrapper tab-swipe-desktop">
+            <div class="swiper-slide tab-swiper">Agencement</div>
+            <div class="swiper-slide tab-swiper">Bardage</div>
+            <div class="swiper-slide tab-swiper">Charpente</div>
+            <div class="swiper-slide tab-swiper">Couverture</div>
+            <div class="swiper-slide tab-swiper">Cuisine</div>
+            <div class="swiper-slide tab-swiper">Isolation</div>
+            <div class="swiper-slide tab-swiper">Menuiserie</div>
+            <div class="swiper-slide tab-swiper">Meuble</div>
+            <div class="swiper-slide tab-swiper">Maison ossature bois</div>
+        </div>
+        <select class="uk-select" id="select-swipe-mobile">
+            <option class="swiper-slide tab-swiper" value="1">Agencement</option>
+            <option class="swiper-slide tab-swiper" value="2">Bardage</option>
+            <option class="swiper-slide tab-swiper" value="3">Charpente</option>
+            <option class="swiper-slide tab-swiper" value="4">Couverture</option>
+            <option class="swiper-slide tab-swiper" value="5">Cuisine</option>
+            <option class="swiper-slide tab-swiper" value="6">Isolation</option>
+            <option class="swiper-slide tab-swiper" value="7">Menuiserie</option>
+            <option class="swiper-slide tab-swiper" value="8">Meuble</option>
+            <option class="swiper-slide tab-swiper" value="9">Maison ossature bois</option>
+        </select>
+    </div>
+
+    <div class="container-swiper-galerie">
+        <div class="swiper swiper-slide-galerie">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos agencement</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos bardage</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos charpente</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos couverture</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos cuisine</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos isolation</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos menuiserie</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos meuble</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide">
+                    <ul class="container-photos">
+                        <li class="item-photo item-photo-1" data-aos="fade-up">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-04.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-2" data-aos="fade-down-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-01.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-3" data-aos="fade-down-left" data-aos-delay="400">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-05.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-4" data-aos="fade-up-right" data-aos-delay="200">
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-02.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                        <li class="item-photo item-photo-5" data-aos="fade-up-left" data-aos-delay="400">
+                            <div class="univers-link">
+                                <a href="#" class="uk-position-center">
+                                    <svg class="icon">
+                                        <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                                    </svg>
+                                    <span>Plus de photos maison ossature bois</span>
+                                </a>
+                            </div>
+                            <figure>
+                                <img data-src="@@webRoot/assets/images/galeries/agencement/photo-agencement-03.jpg" width="1265" height="910" alt="" uk-img />
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container-swiper-buttons">
+                <div class="swiper-button-prev button-galerie">
+                    <svg class="icon">
+                        <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                    </svg>
+                </div>
+                <div class="swiper-button-next button-galerie">
+                    <svg class="icon">
+                        <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="section section-swiper-marques">
+    <div class="uk-container">
+        <div class="swiper swiper-marques">
+            <ul class="swiper-wrapper">
+                <li class="swiper-slide">
+                    <figure>
+                        <img data-src="@@webRoot/assets/images/content/home/marques/marque-01.png" width="175" height="110" alt="" uk-img />
+                    </figure>
+                </li>
+                <li class="swiper-slide">
+                    <figure>
+                        <img data-src="@@webRoot/assets/images/content/home/marques/marque-02.png" width="175" height="110" alt="" uk-img />
+                    </figure>
+                </li>
+                <li class="swiper-slide">
+                    <figure>
+                        <img data-src="@@webRoot/assets/images/content/home/marques/marque-03.png" width="175" height="110" alt="" uk-img />
+                    </figure>
+                </li>
+                <li class="swiper-slide">
+                    <figure>
+                        <img data-src="@@webRoot/assets/images/content/home/marques/marque-04.png" width="175" height="110" alt="" uk-img />
+                    </figure>
+                </li>
+                <li class="swiper-slide">
+                    <figure>
+                        <img data-src="@@webRoot/assets/images/content/home/marques/marque-05.png" width="175" height="110" alt="" uk-img />
+                    </figure>
+                </li>
+                <li class="swiper-slide">
+                    <figure>
+                        <img data-src="@@webRoot/assets/images/content/home/marques/marque-06.png" width="175" height="110" alt="" uk-img />
+                    </figure>
+                </li>
+            </ul>
+        </div>
+
+        <div class="swiper-button-prev swiper-button-prev-marques">
+            <svg class="icon">
+                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+            </svg>
+        </div>
+        <div class="swiper-button-next swiper-button-next-marques">
+            <svg class="icon">
+                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+            </svg>
+        </div>
+
+    </div>
+</section>
+
+<section class="section section-contact">
+    <div class="uk-container">
+        <div class="container-flex">
+            <div class="uk-width-1-1 uk-width-1-2@m" data-aos="fade-left">
+                <span class="pre-title">Nous contacter</span>
+                <h2>Salle d'expo artisans Artipôle Dole Choisey</h2>
+                <div class="container-social">
+                    <ul>
+                        <li>
+                            <a href="#" title="Notre page Facebook" aria-label="Lien sur la page Facebook" target="_blank" uk-tooltip="Notre page Facebook">
+                                <svg class="icon">
+                                    <use xlink:href="@@webRoot/assets/images/sprite.svg#facebook"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Notre page Instagram" aria-label="Lien sur la page Instagram" target="_blank" uk-tooltip="Notre page Instagram">
+                                <svg class="icon">
+                                    <use xlink:href="@@webRoot/assets/images/sprite.svg#instagram"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Notre page Pinterest" aria-label="Lien sur la page Pinterest" target="_blank" uk-tooltip="Notre page Pinterest">
+                                <svg class="icon">
+                                    <use xlink:href="@@webRoot/assets/images/sprite.svg#pinterest"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Notre page YouTube" aria-label="Lien sur la page YouTube" target="_blank" uk-tooltip="Notre page YouTube">
+                                <svg class="icon">
+                                    <use xlink:href="@@webRoot/assets/images/sprite.svg#youtube"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="liste-info-contact">
+                    <li data-aos="fade-left">
+                        <span>
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#adresse"></use>
+                            </svg>
+                        </span>
+                        <p>5 Avenue Innovia 39100 Choisey</p>
+                    </li>
+                    <li data-aos="fade-left">
+                        <span>
+                            <img src="@@webRoot/assets/images/phone.svg" alt="" />
+                        </span>
+                        <a href="tel:+33384352350" uk-tooltip="Numéro de téléphone +33 3 84 35 23 50" target="_blank">+33 3 84 35 23 50</a>
+                    </li>
+                    <li data-aos="fade-left">
+                        <span>
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#mail"></use>
+                            </svg>
+                        </span>
+                        <a href="mailto:contact@artipole-choisey.com" uk-tooltip="Email de contact contact@artipole-choisey.com" target="_blank">contact@artipole-choisey.com</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="uk-width-1-1 uk-width-1-2@m" data-aos="fade-up">
+                <form action="" method="GET" class="uk-grid-small" id="contact-form" uk-grid>
+                    <div class="uk-margin-bottom uk-width-1-2@s">
+                        <div class="input-data">
+                            <input class="uk-input" placeholder=" " id="nom-contact-form" type="text" name="nom" value="" required>
+                            <label class="uk-form-label" for="nom-contact-form">Nom <sup>*</sup></label>
+                        </div>
+                    </div>
+                    <div class="uk-margin-bottom uk-width-1-2@s">
+                        <div class="input-data">
+                            <input class="uk-input" placeholder=" " id="prenom-contact-form" type="text" name="prenom" value="" required>
+                            <label class="uk-form-label" for="prenom-contact-form">Prénom <sup>*</sup></label>
+                        </div>
+                    </div>
+                    <div class="uk-margin-bottom uk-width-1-2@s">
+                        <div class="input-data">
+                            <input class="uk-input" placeholder=" " id="email-contact-form" type="text" name="email" value="" required>
+                            <label class="uk-form-label" for="email-contact-form">Email <sup>*</sup></label>
+                        </div>
+                    </div>
+                    <div class="uk-margin-bottom uk-width-1-2@s">
+                        <div class="input-data">
+                            <input class="uk-input" placeholder=" " id="phone-contact-form" type="text" name="phone" value="" required>
+                            <label class="uk-form-label" for="phone-contact-form">Téléphone <sup>*</sup></label>
+                        </div>
+                    </div>
+                    <div class="uk-margin-bottom uk-width-1-1@s">
+                        <div class="input-data textarea-data">
+                            <textarea class="uk-textarea" row="5" placeholder=" " id="message-contact-form" name="message" required></textarea>
+                            <label class="uk-form-label" for="message-contact-form">Message <sup>*</sup></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="content-button" uk-tooltip="Envoyer votre formulaire">
+                        <span>Envoyer</span>
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Include Footer -->
+@@include("common/footer.html")

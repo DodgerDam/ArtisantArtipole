@@ -1,0 +1,17 @@
+//
+// Component: Container
+//
+// ========================================================================
+// Variables
+// ========================================================================
+.uk-container {
+    padding: 0;
+    position: relative;
+    max-width: 90%;
+    @media (min-width: $breakpoint-medium-light) {
+        max-width: 80%;
+    }
+    @media (min-width: $breakpoint-xxlarge) {
+        max-width: 1600px;
+    }
+}

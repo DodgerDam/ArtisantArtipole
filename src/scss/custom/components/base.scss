@@ -1,0 +1,80 @@
+//
+// Component: Base
+//
+// ========================================================================
+// Variables
+// ========================================================================
+// Base
+// ========================================================================
+html {
+    overflow-x: hidden;
+    background: white;
+    font-family: $global-heading-font-family;
+}
+
+a {
+    transition: all .2s ease-in-out;
+}
+
+.main {
+    position: relative;
+    width: 100%;
+    padding-top: 105px;
+    @media (min-width: $breakpoint-medium) {
+        padding-top: 125px;
+    }
+}
+
+h1 {
+    color: white;
+    font-family: $global-font-family;
+    font-size: 2.5rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    @media (min-width: $breakpoint-small) {
+        font-size: 3rem;
+    }
+    @media (min-width: 800px) {
+        font-size: 2rem;
+    }
+    @media (min-width: $breakpoint-medium) {
+        font-size: 2.5rem;
+    }
+    @media (min-width: $breakpoint-xlarge-max) {
+        font-size: 6rem;
+    }
+}
+
+h2 {
+    font-family: $global-font-family;
+    text-transform: uppercase;
+    font-size: 1.9rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1;
+    color: $global-color-blue;
+    margin: $margin-margin/2 0 $margin-margin*2 0;
+    @media (min-width: $breakpoint-small) {
+        font-size: 3.8rem;
+    }
+}
+
+h3 {
+    font-family: $global-font-family;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1;
+    color: white;
+    @media (min-width: $breakpoint-medium) {
+        font-size: 1.5rem;
+    }
+}
+
+body {
+    background: url("../images/lines.png") repeat-y center center;
+    background-size: cover auto;
+}

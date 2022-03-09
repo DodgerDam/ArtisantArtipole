@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>Artisans Artipôle en Bourgogne Franche-Comté</title>
+		<link rel="Stylesheet" href="css/styles.min.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Teko:wght@300;400;500;600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+		<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="./src/images/favicon/apple-touch-icon-72x72.png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="./src/images/favicon/apple-touch-icon-144x144.png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="./src/images/favicon/apple-touch-icon-120x120.png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="./src/images/favicon/apple-touch-icon-152x152.png"/>
+		<link rel="icon" type="image/png" href="./src/images/favicon/favicon-32x32.png" sizes="32x32"/>
+		<link rel="icon" type="image/png" href="./src/images/favicon/favicon-16x16.png" sizes="16x16"/>
+		<meta name="application-name" content="ARTISANS ARTIPÔLE | La signature des Artisans en Coopérative du Bâtiment"/>
+		<meta name="msapplication-TileColor" content="#FFFFFF"/>
+		<meta name="msapplication-TileImage" content="./src/images/favicon/mstile-144x144.png"/>
+		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body id="body"> {% block body %}{% endblock %}
+		</body>
+	</html>

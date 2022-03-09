@@ -1,0 +1,177 @@
+//
+// Component: Card
+//
+// ========================================================================
+.card-metiers {
+    a {
+        figure {
+            height: 445px;
+            width: 310px;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            @media (min-width: $breakpoint-medium-light) {
+                height: 330px;
+                width: initial;
+            }
+            &:before {
+                content: "";
+                background: $global-color-dark-blue;
+                width: 100%;
+                height: 100%;
+                display: block;
+                position: absolute;
+                z-index: 10;
+                opacity: .2;
+            }
+            .title {
+                position: absolute;
+                z-index: 10;
+                bottom: 20px;
+                left: 20px;
+                text-transform: uppercase;
+                margin: 0;
+                font-family: $global-font-family;
+                font-size: 1.3rem;
+                display: none;
+                opacity: 1;
+                transition: all .2s ease-in-out;
+                text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+                @media (min-width: $breakpoint-medium-light) {
+                    display: block;
+                    font-size: 1.5rem;
+                }
+            }
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            figcaption {
+                position: absolute;
+                z-index: 11;
+                color: #fff;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 0 $padding-padding;
+                @media (min-width: $breakpoint-medium-light) {
+                    transform: scale(1.15);
+                    transition: 0.2s;
+                    opacity: 0;
+                    top: 0;
+                    padding: $padding-padding*2;
+                    background: rgba(#001121, 0.6);
+                }
+            }
+            h3 {
+                text-transform: uppercase;
+                text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+            }
+            p {
+                color: white;
+                font-size: .8rem;
+            }
+        }
+        &:hover {
+            .title {
+                opacity: 0;
+            }
+            figcaption {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    }
+}
+
+.card-actus {
+    margin: 0 auto;
+    width: 100%;
+    @media (min-width: $breakpoint-medium) {
+        max-width: 430px;
+    }
+    a {
+        display: block;
+        figure {
+            padding: 0;
+            margin: 0;
+            height: 255px;
+            overflow: hidden;
+            @media (min-width: $breakpoint-medium) {
+                height: 530px;
+            }
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                transition: all .2s ease-in-out;
+            }
+        }
+        &:hover {
+            figure {
+                img {
+                    transform: scale(1.03);
+                }
+            }
+        }
+    }
+    .content {
+        position: relative;
+        padding: $padding-padding;
+        margin-top: -75px;
+        margin-bottom: 0;
+        .content-tags {
+            min-height: 80px;
+            .tag {
+                display: table;
+                background: $global-color-red;
+                padding: 0 10px;
+                color: white;
+                text-transform: uppercase;
+                font-family: $global-font-family;
+                line-height: 30px;
+                letter-spacing: 1px;
+                height: 30px;
+                margin: 5px 0;
+            }
+        }
+        h3 {
+            text-transform: none;
+            font-weight: 100;
+            font-family: $global-heading-font-family;
+            color: $global-color;
+            margin-top: 20px;
+        }
+        .article-link {
+            display: flex;
+            align-items: center;
+            &:hover {
+                color: $global-color-dark-blue;
+                transition: all .2s ease-in-out;
+                span {
+                    color: $global-color-dark-blue;
+                    transition: all .2s ease-in-out;
+                }
+                svg {
+                    fill: $global-color-dark-blue;
+                }
+            }
+            span {
+                color: $global-color-red;
+                text-transform: uppercase;
+                font-family: $global-font-family;
+                line-height: 1;
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+                margin-right: 10px;
+            }
+            svg {
+                width: 20px;
+                height: 20px;
+                fill: $global-color-red;
+                transition: all .2s ease-in-out;
+            }
+        }
+    }
+}

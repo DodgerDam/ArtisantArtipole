@@ -1,0 +1,38 @@
+//
+// Component: Button
+//
+// ========================================================================
+.content-button {
+    border: 1px solid $global-color-red;
+    background: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+    display: flex;
+    max-width: 250px;
+    text-transform: uppercase;
+    font-family: "Teko", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    line-height: 45px;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: $global-color;
+    cursor: pointer;
+    .icon {
+        fill: $global-color;
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+        transition: all .2s ease-in-out;
+    }
+    &:hover {
+        background: $global-color-red;
+        text-decoration: none;
+        color: white;
+        .icon {
+            fill: white;
+        }
+    }
+}
