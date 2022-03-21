@@ -1,26 +1,67 @@
 {% extends "base.html.twig" %}
 
+{% block title %}
+	Hello ArtisantController!
+{% endblock %}
+
 {% block body %}
 	<div class="site-container">
-
-
-		<div class="project-navigation-container" id="fast-acces" data-aos="fade-right">
+		<header class="site-header aos-init aos-animate" data-aos="fade-down" id="header" itemscope="" itemtype="https://schema.org/WPHeader">
+			<div class="container-nav-header">
+				<div class="uk-container">
+					<div class="container-logo">
+						<a href="index.html" uk-tooltip="Artisans Artipôle - Dôle Choisey" class="logo-client" title="" aria-expanded="false"><img data-src="/images/logo-artipole.svg" alt="Artisans Artipôle - Dôle Choisey" uk-img="" src="file:///C:/Temp/KOREDGE/dist/assets/images/logo-artipole.svg" width="191" height="103"></a>
+					</div>
+					<div class="container-nav" id="nav-container-id">
+						<nav class="kg-navigation" itemscope="" itemtype="https://schema.org/SiteNavigationElement" role="navigation" aria-label="Menu principal">
+							<ul class="uk-navbar-nav">
+								<li>
+									<a href="#" class="nav-links" title="Mon artisan Artipôle">Mon artisan Artipôle</a>
+								</li>
+								<li>
+									<a href="services.html" class="nav-links" title="Inspirations">Inspirations</a>
+								</li>
+								<li>
+									<a href="#" class="nav-links" title="Nos métiers">Nos métiers</a>
+								</li>
+								<li>
+									<a href="contact.html" class="nav-links" title="Salle d'exposition">Salle d'exposition</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="container-social">
+							<ul>
+								<li><a href="#" title="" aria-label="Lien sur la page Facebook" target="_blank" uk-tooltip="Notre page Facebook" aria-expanded="false"><svg class="icon"><use xlink:href="/images/sprite.svg#facebook"></use></svg></a></li>
+								<li><a href="#" title="" aria-label="Lien sur la page Instagram" target="_blank" uk-tooltip="Notre page Instagram" aria-expanded="false"><svg class="icon"><use xlink:href="/images/sprite.svg#instagram"></use></svg></a></li>
+								<li><a href="#" title="" aria-label="Lien sur la page Pinterest" target="_blank" uk-tooltip="Notre page Pinterest" aria-expanded="false"><svg class="icon"><use xlink:href="/images/sprite.svg#pinterest"></use></svg></a></li>
+								<li><a href="#" title="" aria-label="Lien sur la page YouTube" target="_blank" uk-tooltip="Notre page YouTube" aria-expanded="false"><svg class="icon"><use xlink:href="/images/sprite.svg#youtube"></use></svg></a></li>
+							</ul>
+						</div>
+						<div class="container-progress">
+							<div class="progress"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div
+			class="project-navigation-container" id="fast-acces">
+			{# <div class="project-navigation-container" id="fast-acces" data-aos="fade-right"> #}
 			<div class="project">
 				<a href="#" title="J'ai un projet !" class="project-link">
 					<span class="txt">J'ai un projet !</span>
 					<div class="svg-item">
 						<svg class="icon">
-							<use xlink:href="images/sprite.svg#projet"></use>
+							<use xlink:href="/images/sprite.svg#projet"></use>
 						</svg>
 					</div>
 				</a>
 			</div>
 			<button type="button" aria-label="Bouton d'accès rapide" class="open-fast-acces" uk-tooltip="title: Ouvrir l'accès rapide; pos: right">
 				<svg class="icon">
-					<use xlink:href="images/sprite.svg#arrow"></use>
+					<use xlink:href="/images/sprite.svg#arrow"></use>
 				</svg>
 			</button>
 		</div>
 	</div>
-
 {% endblock %}
