@@ -10,7 +10,7 @@
 			<div class="container-nav-header">
 				<div class="uk-container">
 					<div class="container-logo">
-						<a href="index.html" uk-tooltip="Artisans Artipôle - Dôle Choisey" class="logo-client" title="" aria-expanded="false"><img data-src="/images/logo-artipole.svg" alt="Artisans Artipôle - Dôle Choisey" uk-img="" src="file:///C:/Temp/KOREDGE/dist/assets/images/logo-artipole.svg" width="191" height="103"></a>
+						<a href="index.html" uk-tooltip="Artisans Artipôle - Dôle Choisey" class="logo-client" title="" aria-expanded="false"><img data-src="/images/logo-artipole.svg" alt="Artisans Artipôle - Dôle Choisey" uk-img="" src="/images/logo-artipole.svg" width="191" height="103"></a>
 					</div>
 					<div class="container-nav" id="nav-container-id">
 						<nav class="kg-navigation" itemscope="" itemtype="https://schema.org/SiteNavigationElement" role="navigation" aria-label="Menu principal">
@@ -64,4 +64,39 @@
 			</button>
 		</div>
 	</div>
+
+	<div class="site-content main" data-aos="fade">
+		<section class="section section-swiper-galerie">
+			<div class="uk-container" data-aos="fade-down">
+				<span class="pre-title">Inspiration</span>
+				<h2>{{ age }}
+					Laissez-vous séduire par nos univers</h2>
+			</div>
+			<div class="swiper swiper-tabs" data-aos="fade-left">
+				<div class="swiper-wrapper tab-swipe-desktop">
+					<div class="swiper-slide tab-swiper">Agencement</div>
+					<div class="swiper-slide tab-swiper">Bardage</div>
+					<div class="swiper-slide tab-swiper">Charpente</div>
+					<div class="swiper-slide tab-swiper">Couverture</div>
+					<div class="swiper-slide tab-swiper">Cuisine</div>
+					<div class="swiper-slide tab-swiper">Isolation</div>
+					<div class="swiper-slide tab-swiper">Menuiserie</div>
+					<div class="swiper-slide tab-swiper">Meuble</div>
+					<div class="swiper-slide tab-swiper">Maison ossature bois</div>
+				</div>
+				<select class="uk-select" id="select-swipe-mobile">
+					<option class="swiper-slide tab-swiper" value="1">Agencement</option>
+					<option class="swiper-slide tab-swiper" value="2">Bardage</option>
+					<option class="swiper-slide tab-swiper" value="3">Charpente</option>
+					<option class="swiper-slide tab-swiper" value="4">Couverture</option>
+					<option class="swiper-slide tab-swiper" value="5">Cuisine</option>
+					<option class="swiper-slide tab-swiper" value="6">Isolation</option>
+					<option class="swiper-slide tab-swiper" value="7">Menuiserie</option>
+					<option class="swiper-slide tab-swiper" value="8">Meuble</option>
+					<option class="swiper-slide tab-swiper" value="9">Maison ossature bois</option>
+				</select>
+			</div>
+		</section>
+	</div>
+
 {% endblock %}
