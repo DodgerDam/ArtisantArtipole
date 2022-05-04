@@ -52,6 +52,18 @@ class ArtisantController extends AbstractController
     }
 
     /**
+     * 
+     * @route("/inspirations", name="inspirations")
+     * 
+     */
+    public function inspirations()
+    {
+        return $this->render('artisant/inspirations.html.twig',[
+            'selecteur_metiers'=> $this->SelectMetier(),
+        ]);
+    }
+
+    /**
      * compteurs des adhérents et des fournisseurs
      *
      * @return void
