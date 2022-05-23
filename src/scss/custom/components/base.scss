@@ -50,14 +50,14 @@ h1 {
 h2 {
     font-family: $global-font-family;
     text-transform: uppercase;
-    font-size: 1.9rem;
+    font-size: 1.5rem;
     font-weight: normal;
     letter-spacing: 1px;
     line-height: 1;
     color: $global-color-blue;
     margin: $margin-margin/2 0 $margin-margin*2 0;
     @media (min-width: $breakpoint-small) {
-        font-size: 3.8rem;
+        font-size: 2rem;
     }
 }
 

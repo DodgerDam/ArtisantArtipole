@@ -1,7 +1,15 @@
 // Layout
 @import "layout/header";
 @import "layout/footer";
+@import "layout/actualites";
+@import "layout/contact";
+@import "layout/contenu";
+@import "layout/inspirations";
+@import "layout/metier";
+@import "layout/detail-actu";
 @import "layout/home";
+@import "layout/listing";
+@import "layout/fiche-artisan";
 // Components
 @import "components/base";
 @import "components/breadcrumb";
@@ -15,3 +23,4 @@
 @import "components/search";
 @import "components/site-logo";
 @import "components/sticky";
+@import "components/v-suggestions";

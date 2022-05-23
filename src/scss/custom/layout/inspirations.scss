@@ -1,0 +1,163 @@
+//
+// Layout: Inspirations
+//
+// Inspirations
+// ========================================================================
+.section-switcher-inspirations {
+    @media (max-width: $breakpoint-small-max) {
+        padding: 2rem 0 0 0;
+    }
+    padding: 4rem 0 0 0;
+    position: relative;
+    .uk-subnav {
+        background-color: white;
+        text-align: center;
+        display: block;
+        position: relative;
+        margin: -80px 0 0 0;
+        padding: 2rem 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        @media (min-width: $breakpoint-small) {
+            margin: -100px 0 0 0;
+        }
+        @media (min-width: $breakpoint-medium-light) {
+            margin: -140px 0 0 0;
+        }
+        &:after {
+            content: "";
+            background: url('../images/pattern-01.png') repeat center center;
+            width: 50%;
+            height: 90%;
+            display: block;
+            position: absolute;
+            z-index: -1;
+            bottom: -30px;
+            right: -30px;
+        }
+        .title {
+            text-align: center;
+            text-transform: uppercase;
+            font-family: $global-font-family;
+            font-size: 1.3rem;
+            padding: 0;
+        }
+        div {
+            display: inline-block;
+            padding: 0;
+            button {
+                cursor: pointer;
+                background: none;
+                border: none;
+                color: $global-color;
+                font-family: $global-font-family;
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            &.uk-active {
+                button {
+                    color: $global-color-red;
+                }
+            }
+        }
+    }
+    #switcher-inspiration-content {
+        @media (max-width: $breakpoint-small-max) {
+            padding: 2rem 2rem 0 2rem;
+        }
+        padding: 4rem 4rem 0 4rem;
+        .items-imgs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin: 0;
+            grid-gap: 5px;
+            padding: 0;
+            list-style: none;
+            @media (min-width: $breakpoint-small) {
+                grid-gap: 20px;
+            }
+            &__photo {
+                grid-column: span 1;
+                grid-row: span 1;
+                figure {
+                    margin: 0;
+                    aspect-ratio: 1/1;
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            &__photo__1 {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+        }
+        .items-imgs-txt {
+            gap: 15px;
+            margin: 5px 0;
+            @media (min-width: $breakpoint-small) {
+                display: flex;
+                align-items: center;
+                margin: 20px 0;
+            }
+            .container-imgs {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                margin: 0;
+                grid-gap: 5px;
+                padding: 0;
+                list-style: none;
+                @media (min-width: $breakpoint-small) {
+                    grid-gap: 20px;
+                }
+                figure {
+                    margin: 0;
+                    aspect-ratio: 1/1;
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            .container-txt {
+                padding: 1rem;
+                @media (min-width: $breakpoint-small) {
+                    padding: 2rem;
+                }
+                @media (min-width: $breakpoint-medium-light) {
+                    padding: 4rem 6rem;
+                }
+                .content {
+                    display: flex;
+                    align-items: start;
+                    justify-content: center;
+                    flex-direction: column;
+                    width: 70%;
+                    margin: 0 auto;
+                    position: relative;
+                    .quote {
+                        position: relative;
+                        margin-bottom: .5rem;
+                        width: 15%;
+                    }
+                    p {
+                        margin: 0;
+                        padding: 0;
+                        font-family: $global-font-family;
+                        font-size: 1rem;
+                        text-transform: uppercase;
+                        color: $global-color-blue;
+                        @media (min-width: $breakpoint-small) {
+                            font-size: 1rem;
+                        }
+                        @media (min-width: $breakpoint-medium-light) {
+                            font-size: 1.3rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

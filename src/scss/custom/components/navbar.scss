@@ -53,12 +53,15 @@
             }
             >li {
                 display: block;
-                >a {
+                >.nav-links {
                     color: $global-color-dark-blue;
                     font-family: $global-font-family;
+                    background: none;
+                    border: none;
                     text-transform: none;
                     font-size: 1.44444444rem;
                     position: relative;
+                    cursor: pointer;
                     display: block;
                     min-height: initial;
                     padding: 0;

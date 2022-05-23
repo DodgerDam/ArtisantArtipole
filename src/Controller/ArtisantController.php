@@ -63,6 +63,19 @@ class ArtisantController extends AbstractController
         ]);
     }
 
+        /**
+     * 
+     * @route("/adherents", name="adh")
+     * 
+     */
+    public function liste_adh()
+    {
+        return $this->render('artisant/liste_adh.html.twig',[
+            'selecteur_metiers'=> $this->SelectMetier(),
+        ]);
+    }
+
+
     /**
      * compteurs des adhérents et des fournisseurs
      *

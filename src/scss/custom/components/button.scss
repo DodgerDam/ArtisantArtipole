@@ -20,6 +20,7 @@
     width: 100%;
     color: $global-color;
     cursor: pointer;
+    position: relative;
     .icon {
         fill: $global-color;
         width: 30px;
@@ -33,6 +34,13 @@
         color: white;
         .icon {
             fill: white;
+        }
+    }
+    &__back {
+        width: fit-content;
+        z-index: 1000;
+        .icon {
+            transform: rotate(180deg);
         }
     }
 }

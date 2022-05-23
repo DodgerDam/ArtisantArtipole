@@ -8,9 +8,13 @@
         max-width: 80%;
     }
     @media (min-width: $breakpoint-medium-light) {
-        justify-content: center;
+        justify-content: space-evenly;
         display: flex;
         align-items: center;
+        gap: .5rem;
+    }
+    .container-select-field .ts-wrapper:not(.form-select) {
+        min-width: 230px;
     }
     .container-flex {
         display: flex;
@@ -30,6 +34,9 @@
 }
 
 .search-container {
+    @media (max-width: $breakpoint-small-max) {
+        margin-top: 0;
+    }
     margin-top: -140px;
     position: relative;
     z-index: 1;
@@ -168,7 +175,7 @@
 .rayon-container {
     @media (min-width: $breakpoint-medium-light) {
         width: 240px;
-        margin-right: 20px;
+        //margin-right: 20px;
     }
     .uk-flex {
         justify-content: space-evenly;
@@ -206,4 +213,8 @@
             background: $global-color-soft-blue;
         }
     }
+}
+
+.ts-wrapper .ts-control>input {
+    display: none!important;
 }

@@ -1,0 +1,70 @@
+//
+// Layout: Contact
+//
+// Contact
+// ========================================================================
+.section-formulaire {
+    @media (max-width: $breakpoint-small-max) {
+        padding: 2rem 0;
+    }
+    padding: 4rem 0;
+}
+
+#contact_form_artisan {
+    @media (max-width: $breakpoint-small-max) {
+        max-width: 100%;
+    }
+    max-width: 70%;
+    margin: 0 auto;
+    legend {
+        text-transform: uppercase;
+        font-family: $global-font-family;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        color: $global-color-blue;
+    }
+    .radio-container {
+        .uk-radio {
+            margin-right: 7px;
+        }
+        label {
+            text-transform: uppercase;
+            font-family: $global-font-family;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+    }
+    .uk-input {
+        border-radius: 0;
+    }
+    .input-data {
+        label {
+            left: 30px;
+        }
+    }
+    .uk-grid-margin {
+        margin-top: 40px;
+    }
+    .input-data-textarea {
+        height: auto;
+        .uk-textarea {
+            border: 1px solid $global-color-blue;
+        }
+        label {
+            @media (max-width: $breakpoint-small-max) {
+                left: 10px;
+            }
+            font-size: .8rem;
+        }
+    }
+    .checkbox-protection-des-donnees .uk-checkbox {
+        margin-right: .5rem;
+    }
+    .content-link {
+        color: $global-color-blue;
+        text-transform: none;
+        display: inline;
+        text-decoration: underline;
+    }
+}

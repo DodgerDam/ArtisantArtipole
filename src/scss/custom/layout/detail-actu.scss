@@ -1,0 +1,55 @@
+//
+// Layout: Détail actualité
+//
+// Détail actualité
+// ========================================================================
+.section-bandeau-header {
+    &.section-bandeau-header__detail__actu {
+        &:before {
+            height: 368px;
+        }
+        .section-bandeau-header__flex {
+            margin: 4rem 0 3rem 0;
+        }
+        .container-h1 {
+            @media (max-width: $breakpoint-small-max) {
+                margin: 4vh auto 0 auto;
+                max-width: 80%;
+            }
+            margin: -5vh auto 0 auto;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            max-width: 50%;
+            text-align: center;
+            h1 {
+                @media (max-width: $breakpoint-small-max) {
+                    font-size: 2rem;
+                }
+                color: $global-color-blue;
+                text-shadow: none;
+                text-transform: uppercase;
+                font-size: 4rem;
+            }
+        }
+        .container-tags {
+            @media (max-width: $breakpoint-small-max) {
+                left: 2rem;
+            }
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            span {
+                display: flex;
+                background-color: $global-color-red;
+                color: white;
+                width: fit-content;
+                text-transform: uppercase;
+                padding: .2rem .5rem;
+                font-family: $global-font-family;
+                font-size: 1.2rem;
+                margin: .5rem 0;
+            }
+        }
+    }
+}

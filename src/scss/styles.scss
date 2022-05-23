@@ -10,6 +10,7 @@
 @import "uikit/src/scss/variables-theme";
 @import "uikit/src/scss/mixins-theme";
 @import 'uikit-theme/_import';
+//@import 'nice-select2.scss';
 // 4. Import UIkit
 @import "uikit/src/scss/uikit";
 // 5. Custom Files
@@ -26,9 +27,11 @@ html {
 
 html,
 body {
+    @media (max-width: $breakpoint-small-max) {
+        overflow-x: hidden;
+    }
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
 }
 
 .uk-tooltip {
@@ -73,14 +76,9 @@ body {
 }
 
 .container-social {
-    height: 55px;
     display: flex;
     align-items: center;
-    @media (min-width: $breakpoint-medium) {
-        height: 125px;
-    }
     ul {
-        height: 55px;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -90,7 +88,6 @@ body {
         width: 205px;
         @media (min-width: $breakpoint-medium) {
             width: 165px;
-            height: 125px;
         }
         @media (min-width: $breakpoint-medium-light) {
             width: 205px;
@@ -103,6 +100,7 @@ body {
                 align-items: center;
                 svg {
                     fill: $global-color-gold;
+                    height: 40px;
                     transition: all .2s ease-in-out;
                 }
                 &:hover {
@@ -112,5 +110,52 @@ body {
                 }
             }
         }
+    }
+}
+
+.pattern {
+    &:after {
+        content: "";
+        background: url('../images/pattern-01.png') repeat center center;
+        width: 25%;
+        height: 90%;
+        display: block;
+        position: absolute;
+        z-index: -1;
+        bottom: -30px;
+        right: -30px;
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+figure {
+    margin: 0;
+}
+
+.section-txt {
+    @media (max-width: $breakpoint-small-max) {
+        margin: 2rem 0;
+    }
+    margin: 4rem 0;
+    .uk-container {
+        @media (max-width: $breakpoint-small-max) {
+            max-width: 90%;
+        }
+        @media (min-width: $breakpoint-small) {
+            max-width: 80%;
+        }
+        @media (min-width: $breakpoint-medium) {
+            max-width: 960px;
+        }
+    }
+    h2 {
+        text-transform: none;
+        margin: 2rem 0 0 0;
+    }
+    p {
+        margin-top: 0;
     }
 }
