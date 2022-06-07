@@ -41,7 +41,7 @@ class ArtisantController extends AbstractController
 
         // list($nbAdh,$nbfournisseurs)=$this->counter();
 
-        return $this->render('artisant/home.html.twig',[
+        return $this->render('artisant/home2.html.twig',[
             // 'nbadh' =>$nbAdh[0]['cnt'],
             // 'fournisseurs' => $nbfournisseurs[0]['cnt_fournisseurs'],
             'rand_metiers'=>$this->RandMetier(),
@@ -60,18 +60,21 @@ class ArtisantController extends AbstractController
     {
         return $this->render('artisant/inspirations.html.twig',[
             'selecteur_metiers'=> $this->SelectMetier(),
+            'inspirations_page'=>$this->PageInspi(),
+            'rand_metiers'=>$this->RandMetier(),
         ]);
     }
 
         /**
      * 
-     * @route("/adherents", name="adh")
+     * @route("/listing_artisans", name="listing_artisans")
      * 
      */
     public function liste_adh()
     {
         return $this->render('artisant/liste_adh.html.twig',[
             'selecteur_metiers'=> $this->SelectMetier(),
+            'rand_metiers'=>$this->RandMetier(),
         ]);
     }
 
@@ -140,7 +143,6 @@ class ArtisantController extends AbstractController
         $inspi=$this->pdo->query("SELECT m.id, m.nom, '' as img
         FROM metiers m
         where m.id != 6
-        ORDER BY RAND()
         ");
         $inspi->execute();
         $inspirations= $inspi->fetchAll(PDO::FETCH_ASSOC);
@@ -175,5 +177,39 @@ class ArtisantController extends AbstractController
         $fournisseurs=$logo_fournisseurs->fetchAll(PDO::FETCH_ASSOC);
 
         return $fournisseurs;
+    }
+
+
+
+    /**
+     * Requete pour la page inspirations
+     *
+     * @return void
+     */
+    private function PageInspi(){
+
+        // $pdo2 = new PDO('mysql:host=localhost;dbname=artipole;port=3380;charset=utf8', 'artipole',  'artipole');
+        $inspi=$this->pdo->query("SELECT m.id, m.nom, '' as img
+        FROM metiers m
+        where m.id != 6
+        ");
+        $inspi->execute();
+        $inspirations_page= $inspi->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($inspirations_page as &$valeur){
+            $val=$valeur["id"];
+            $inspi_img=$this->pdo->prepare("SELECT p.images
+            from photos p
+            inner join photos_inspirations pi2 on pi2.id_photos =p.id 
+            where pi2.id_metiers = $val
+            ");
+
+            $inspi_img->execute();
+            $inspi_img= $inspi_img->fetchAll(PDO::FETCH_ASSOC);
+
+            $valeur["img"] = $inspi_img;
+
+        }
+        return $inspirations_page;
     }
 }

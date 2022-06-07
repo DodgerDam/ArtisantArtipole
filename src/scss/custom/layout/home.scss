@@ -835,6 +835,57 @@
             }
         }
     }
+    .container-swiper-tabs-button {
+        position: absolute;
+        width: 130px;
+        height: 80px;
+        top: -80px;
+        left: 0;
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        @media (min-width: $breakpoint-medium) {
+            display: flex;
+        }
+        @media (min-width: $breakpoint-xxlarge) {
+            left: 220px;
+        }
+        .swiper-button-prev {
+            transform: rotate(-180deg);
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+            position: relative;
+            left: initial;
+            right: initial;
+            top: initial;
+            margin: 0;
+            display: none;
+            color: white;
+            background: rgba(0, 55, 106, 0.7);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all .2s ease-in-out;
+            &:hover {
+                background: $global-color-blue;
+            }
+            .icon {
+                fill: white;
+                width: 50px;
+                height: 50px;
+            }
+            &:after {
+                content: none;
+            }
+        }
+        .swiper-button-lock {
+            display: none;
+        }
+    }
     .swiper-scrollbar {
         @media (max-width: $breakpoint-small-max) {
             bottom: -10px;

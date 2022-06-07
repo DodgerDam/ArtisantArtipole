@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#00376A;}
+	.st1{filter:url(#Adobe_OpacityMaskFilter);}
+	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
+	.st3{mask:url(#mask-2_00000178198781915119127980000009206807870956066447_);fill-rule:evenodd;clip-rule:evenodd;fill:#00376A;}
+</style>
+<g id="Maquette_00000172407886778083566050000016045313286731824818_">
+	<g id="_x30_5_x5F_fiche-artisan_00000179617274406696099340000009615323338097459341_" transform="translate(-1214 -1118)">
+		<g id="infos-pratiques" transform="translate(1151 344)">
+			<g id="horaire" transform="translate(63 770)">
+				<g id="icon-horaire" transform="translate(0 4)">
+					<path id="Fill-1" class="st0" d="M27,23v-6.5c0-0.8-0.7-1.5-1.5-1.5S24,15.7,24,16.5v8c0,0.8,0.7,1.5,1.5,1.5h8
+						c0.8,0,1.5-0.7,1.5-1.5S34.3,23,33.5,23H27z"/>
+					<g id="Group-5" transform="translate(0 .336)">
+						<defs>
+							<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="10.3" y="8.9" width="30.4" height="30.4">
+								<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+							</filter>
+						</defs>
+						
+							<mask maskUnits="userSpaceOnUse" x="10.3" y="8.9" width="30.4" height="30.4" id="mask-2_00000178198781915119127980000009206807870956066447_">
+							<g class="st1">
+								<path id="path-1_00000005985074098818263210000011760607498367448251_" class="st2" d="M10.3,8.9h30.4v30.5H10.3V8.9z"/>
+							</g>
+						</mask>
+						<path id="Fill-3" class="st3" d="M37.8,24.2c0,6.8-5.5,12.3-12.3,12.3S13.2,31,13.2,24.2s5.5-12.3,12.3-12.3
+							S37.8,17.4,37.8,24.2 M25.5,8.9c-8.4,0-15.2,6.8-15.2,15.2s6.8,15.2,15.2,15.2s15.2-6.8,15.2-15.2S33.9,8.9,25.5,8.9"/>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

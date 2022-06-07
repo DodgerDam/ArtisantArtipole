@@ -1,1 +1,480 @@
-!function(e){var t={};function n(i){if(t[i])return t[i].exports;var s=t[i]={i:i,l:!1,exports:{}};return e[i].call(s.exports,s,s.exports,n),s.l=!0,s.exports}n.m=e,n.c=t,n.d=function(e,t,i){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var s in e)n.d(i,s,function(t){return e[t]}.bind(null,s));return i},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=37)}({37:function(e,t,n){"use strict";n.r(t);var i=function(){var e=document.querySelector(".event-map-detail");if(!e)return!1;var t=e.dataset.zoom,n=e.dataset.latitude,i=e.dataset.longitude,s=L.map(e,{preferCanvas:!1,scrollWheelZoom:!1,zoomControl:!1});L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(s),s.setView([n,i],t);var o=L.divIcon({className:"map-icon-artisan",iconSize:null,iconAnchor:[20,20]});L.marker([n,i],{icon:o}).addTo(s)},s=function(){UIkit.util.on(".uk-accordion","show",(function(e){var t,n;t=e.target.firstElementChild,n=t.nextElementSibling,console.log("show",t,n),t.setAttribute("aria-selected","true"),t.setAttribute("aria-expanded","true"),t.classList.add("is-open"),n.setAttribute("aria-hidden","false")})),UIkit.util.on(".uk-accordion","hide",(function(e){var t,n;t=e.target.firstElementChild,n=t.nextElementSibling,t.setAttribute("aria-selected","false"),t.setAttribute("aria-expanded","false"),t.classList.remove("is-open"),n.setAttribute("aria-hidden","true")}))},o=document.getElementById("burger-menu"),r=document.querySelector(".nav-icon"),a=document.getElementById("nav-container-id"),c=[].slice.call(document.querySelectorAll(".tag-rayon-button")),l=document.querySelector(".project-mobile-button"),d=document.querySelector(".project-link"),u=document.getElementById("container-projet-mobile"),p=document.getElementById("close-container-project"),f=[].slice.call(document.querySelectorAll(".custom-select"));function m(){window.innerWidth<1024?(document.body.classList.remove("desktop"),document.body.classList.add("mobile")):(document.body.classList.remove("mobile"),document.body.classList.add("desktop"))}function w(){if(document.body.classList.contains("desktop")){var e=window.pageYOffset||document.documentElement.scrollTop,t=document.getElementById("header"),n=document.getElementById("container-menu-metier");e>300?(t.classList.add("smaller"),n&&n.classList.add("smaller")):(t.classList.remove("smaller"),n&&n.classList.add("smaller"))}}if(window.addEventListener("resize",m),window.addEventListener("scroll",w),window.addEventListener("scroll",(function(){var e=document.getElementById("fast-acces"),t=document.querySelector(".open-fast-acces");window.scrollY>700&&e.classList.add("close"),t.addEventListener("click",(function(){e.classList.remove("close")}))})),document.body.classList.contains("section-chiffres")){$(window).scroll((function(){var e,t,n,i;e=$(".section-chiffres"),t=$(window).scrollTop(),n=t+$(window).height(),(i=$(e).offset().top)+$(e).height()<=n&&i>=t&&!g&&(g=!0,$(".count").each((function(){$(this).prop("Counter",0).animate({Counter:$(this).text()},{duration:4e3,easing:"swing",step:function(e){$(this).text(Math.ceil(e))}})})))}));var g=!1}function v(){f&&f.forEach((function(e){new TomSelect(e,{create:!1,sortField:{field:"text",direction:"asc"}})}))}document.addEventListener("DOMContentLoaded",(function(){var e,t,n,f,g,b,L,h,y;m(),w(),new Swiper(".swiper-home",{effect:"fade",loop:!0,autoplay:{delay:2500,disableOnInteraction:!1},pagination:{el:".swiper-pagination",type:"custom",renderCustom:function(e,t,n){if(t<10)var i="0"+t;else i=t;if(n<10)var s="0 "+n;else s=n;return'<span class="current">'+i+'</span> <span class="total">'+s+"</span>"}},speed:1500}),new Swiper(".swiper-marques",{slidesPerView:"6",spaceBetween:20,loop:!0,freeMode:!0,autoplay:{delay:1e3,disableOnInteraction:!1,pauseOnMouseEnter:!0},speed:500,navigation:{nextEl:".swiper-button-next-marques",prevEl:".swiper-button-prev-marques"},breakpoints:{200:{slidesPerView:2,spaceBetween:10},768:{slidesPerView:3,spaceBetween:20},1400:{slidesPerView:6,spaceBetween:20}}}),new Swiper(".swiper-autres-artisans",{slidesPerView:"4",spaceBetween:20,freeMode:!0,scrollbar:{el:".swiper-scrollbar",hide:!1,draggable:!0},breakpoints:{200:{slidesPerView:1,spaceBetween:10},1024:{slidesPerView:3,spaceBetween:20},1400:{slidesPerView:4,spaceBetween:20}}}),new Swiper(".swiper-actus",{loop:!0,speed:1500,pagination:{el:".swiper-pagination",clickable:!0}}),new Swiper(".swiper-avis",{slidesPerView:"1",spaceBetween:20,freeMode:!0,navigation:{nextEl:".swiper-button-next-avis",prevEl:".swiper-button-prev-avis"}}),$(document).on("scroll",(function(){var e=100*$(document).scrollTop()/($(document).height()-$(window).height());$("div.progress").css("width",e+"%")})),document.body.classList.contains("mobile")&&o.addEventListener("click",(function(){u.classList.contains("open")&&(u.classList.toggle("open"),l.classList.toggle("active")),a.classList.toggle("open"),r.classList.toggle("open")})),c&&c.forEach((function(e){e.addEventListener("click",(function(t){e.classList.toggle("active"),t.preventDefault()}))})),function(){var e=new Swiper(".swiper-tabs",{spaceBetween:10,slidesPerView:9,scrollbar:{el:".swiper-scrollbar",hide:!1,draggable:!0}}),t=new Swiper(".swiper-slide-galerie",{spaceBetween:10,effect:"fade",navigation:{nextEl:".swiper-button-next",prevEl:".swiper-button-prev"},thumbs:{swiper:e}}),n=document.getElementById("select-swipe-mobile");n&&n.addEventListener("change",(function(){t.slideTo(this.value)}))}(),e=[].slice.call(document.querySelectorAll(".button-galerie")),t=[].slice.call(document.querySelectorAll(".container-swiper-galerie .swiper-slide")),n=[].slice.call(document.querySelectorAll(".container-swiper-galerie .swiper-slide .item-photo")),f=[].slice.call(document.querySelectorAll(".swiper-tabs .tab-swiper")),e.forEach((function(e){e.addEventListener("click",(function(){t&&t.forEach((function(e){e.classList.contains("swiper-slide-active")?setTimeout((function(){n.forEach((function(e){e.classList.toggle("aos-animate")}))}),800):n.forEach((function(e){e.classList.remove("aos-animate")}))}))}))})),f.forEach((function(e){e.addEventListener("click",(function(){t&&t.forEach((function(e){e.classList.contains("swiper-slide-active")?setTimeout((function(){n.forEach((function(e){e.classList.toggle("aos-animate")}))}),800):n.forEach((function(e){e.classList.remove("aos-animate")}))}))}))})),l.addEventListener("click",(function(){a.classList.contains("open")&&(a.classList.toggle("open"),r.classList.toggle("open")),u.classList.toggle("open"),l.classList.toggle("active")})),d.addEventListener("click",(function(){a.classList.contains("open")&&(a.classList.toggle("open"),r.classList.toggle("open")),u.classList.toggle("open"),d.classList.toggle("active")})),p.addEventListener("click",(function(){u.classList.toggle("open"),l.classList.toggle("active")})),i(),g=document.querySelector(".container-fiche-artisan-mobile"),b=document.querySelector(".fiche-artisan"),document.body.classList.contains("mobile")&&g&&g.appendChild(b),s(),new Swiper(".swiper_cooperateur_1",{slidesPerView:1,slidesPerGroupSkip:1,spaceBetween:20,breakpoints:{769:{slidesPerView:2,slidesPerGroup:2},1200:{slidesPerView:3,slidesPerGroup:3}},pagination:{el:".swiper-pagination-cooperateur_1",clickable:!0,renderBullet:function(e,t){return'<span class="'+t+'">'+(e+1)+"</span>"}}}),new Swiper(".swiper_cooperateur_2",{slidesPerView:1,slidesPerGroupSkip:1,spaceBetween:20,breakpoints:{769:{slidesPerView:2,slidesPerGroup:2},1200:{slidesPerView:3,slidesPerGroup:3}},pagination:{el:".swiper-pagination-cooperateur_2",clickable:!0,renderBullet:function(e,t){return'<span class="'+t+'">'+(e+1)+"</span>"}}}),new Swiper(".swiper_cooperateur_3",{slidesPerView:1,slidesPerGroupSkip:1,spaceBetween:20,breakpoints:{769:{slidesPerView:2,slidesPerGroup:2},1200:{slidesPerView:3,slidesPerGroup:3}},pagination:{el:".swiper-pagination-cooperateur_3",clickable:!0,renderBullet:function(e,t){return'<span class="'+t+'">'+(e+1)+"</span>"}}}),L=document.querySelectorAll(".metier-button"),h=document.getElementById("container-menu-metier"),y=document.getElementById("close-metier-container"),h&&(L.forEach((function(e){e.addEventListener("click",(function(){a.classList.contains("open")&&(a.classList.remove("open"),r.classList.remove("open")),h.classList.toggle("open")}))})),y.addEventListener("click",(function(){h.classList.toggle("open")}))),function(){var e=[].slice.call(document.querySelectorAll(".container-photos-inspirations")),t=[].slice.call(document.querySelectorAll(".items-imgs__photo"));[].slice.call(document.querySelectorAll(".button-cat-inspiration")).forEach((function(n){n.addEventListener("click",(function(){e&&e.forEach((function(e){e.classList.contains("uk-active")?setTimeout((function(){t.forEach((function(e){e.classList.toggle("aos-animate")}))}),800):t.forEach((function(e){e.classList.remove("aos-animate")}))}))}))}))}(),setTimeout(v,100),AOS.init({easing:"ease-out-cubic",duration:800,once:!0})}))}});
+/**
+ * Init Function to Launch on document Ready
+ */
+import contentMap from './vendor/contentMap';
+import Accordion from './vendor/Accordion';
+
+const menuButton = document.getElementById('burger-menu');
+const menuBtnAnim = document.querySelector('.nav-icon');
+const menuOuvert = document.getElementById('nav-container-id');
+const tagRayonButtons = [].slice.call(document.querySelectorAll('.tag-rayon-button'));
+const projectMobileButton = document.querySelector('.project-mobile-button');
+const projectLinkButton = document.querySelector('.project-link');
+const projectMobilecontainer = document.getElementById('container-projet-mobile');
+const closeProjectButton = document.getElementById('close-container-project');
+
+const customSelects = [].slice.call(document.querySelectorAll('.custom-select'));
+
+/* TAG RAYON SEARCH BUTTONS */
+function activeClassRayonButtons() {
+    if (tagRayonButtons) {
+        tagRayonButtons.forEach(function(tagRayonButton) {
+            tagRayonButton.addEventListener('click', (event) => {
+                tagRayonButton.classList.toggle('active');
+                event.preventDefault();
+            });
+        });
+    }
+}
+/* END */
+
+/* PROJECT MOBILE FUNCTION  */
+function projectMobile() {
+    projectMobileButton.addEventListener('click', () => {
+        if (menuOuvert.classList.contains('open')) {
+            menuOuvert.classList.toggle('open');
+            menuBtnAnim.classList.toggle('open');
+        }
+        projectMobilecontainer.classList.toggle('open');
+        projectMobileButton.classList.toggle('active');
+    });
+    projectLinkButton.addEventListener('click', () => {
+        if (menuOuvert.classList.contains('open')) {
+            menuOuvert.classList.toggle('open');
+            menuBtnAnim.classList.toggle('open');
+        }
+        projectMobilecontainer.classList.toggle('open');
+        projectLinkButton.classList.toggle('active');
+    });
+    closeProjectButton.addEventListener('click', () => {
+        projectMobilecontainer.classList.toggle('open');
+        projectMobileButton.classList.toggle('active');
+    });
+}
+/* END */
+
+/* MÉTIERS CONTAINER FUNCTION  */
+function metiersContainer() {
+    var metiersButtons = document.querySelectorAll('.metier-button');
+    var menuMetiersContainer = document.getElementById('container-menu-metier');
+    var closeButton = document.getElementById('close-metier-container');
+    if (menuMetiersContainer) {
+        metiersButtons.forEach(metiersButton => {
+            metiersButton.addEventListener('click', () => {
+                if (menuOuvert.classList.contains('open')) {
+                    menuOuvert.classList.remove('open');
+                    menuBtnAnim.classList.remove('open');
+                }
+                menuMetiersContainer.classList.toggle('open');
+            });
+        });
+        closeButton.addEventListener('click', () => {
+            menuMetiersContainer.classList.toggle('open');
+        });
+    }
+}
+/* END */
+
+/* NAV MOBILE FUNCTION  */
+function navMobile() {
+    if (document.body.classList.contains('mobile')) {
+        menuButton.addEventListener('click', () => {
+            if (projectMobilecontainer.classList.contains('open')) {
+                projectMobilecontainer.classList.toggle('open');
+                projectMobileButton.classList.toggle('active');
+            }
+            menuOuvert.classList.toggle('open');
+            menuBtnAnim.classList.toggle('open');
+        });
+    }
+}
+/* END */
+
+/* GET RESOLUTION / ADD MOBILE CLASS & DESKTOP CLASS  */
+function getResolution() {
+    if (window.innerWidth < 1024) {
+        document.body.classList.remove('desktop');
+        document.body.classList.add('mobile');
+    } else {
+        document.body.classList.remove('mobile');
+        document.body.classList.add('desktop');
+    }
+}
+window.addEventListener('resize', getResolution);
+/* END */
+
+/* RESIZE HEADER ON SCROLL */
+function resizeHeaderOnScroll() {
+    if (document.body.classList.contains('desktop')) {
+        var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+            shrinkOn = 300,
+            headerEl = document.getElementById('header'),
+            menuMetiersContainer = document.getElementById('container-menu-metier');
+
+        if (distanceY > shrinkOn) {
+            headerEl.classList.add("smaller");
+            if (menuMetiersContainer) {
+                menuMetiersContainer.classList.add("smaller");
+            }
+
+
+        } else {
+            headerEl.classList.remove("smaller");
+            if (menuMetiersContainer) {
+                menuMetiersContainer.classList.add("smaller");
+            }
+        }
+    }
+}
+window.addEventListener('scroll', resizeHeaderOnScroll);
+/* END */
+
+/* PROGRESS BAR */
+function progress() {
+    $(document).on("scroll", function() {
+        var pixels = $(document).scrollTop();
+        var pageHeight = $(document).height() - $(window).height();
+        var progress = 100 * pixels / pageHeight;
+        $("div.progress").css("width", progress + "%");
+    });
+}
+/* END */
+
+/* FAST ACCES */
+function fastAcces() {
+    var acces = document.getElementById("fast-acces");
+    var btnCloseAcces = document.querySelector(".open-fast-acces");
+    var distanceY = window.scrollY;
+    if (distanceY > 700) {
+        acces.classList.add("close");
+    }
+    btnCloseAcces.addEventListener('click', () => {
+        acces.classList.remove('close');
+    });
+}
+window.addEventListener('scroll', fastAcces);
+/* END */
+
+/* SWIPERS  */
+function swipers() {
+    var swiper_home = new Swiper(".swiper-home", {
+        effect: "fade",
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            type: "custom",
+            renderCustom: function(swiper, current, total) {
+                if (current < 10) {
+                    var $nbrCurrent = '0' + current;
+                } else {
+                    var $nbrCurrent = current;
+                }
+                if (total < 10) {
+                    var $nbrTotal = '0 ' + total;
+                } else {
+                    var $nbrTotal = total;
+                }
+                return '<span class="current">' + $nbrCurrent + '</span>' + ' ' + '<span class="total">' + $nbrTotal + '</span>';
+            }
+        },
+        speed: 1500,
+    });
+    var swiper_marques = new Swiper(".swiper-marques", {
+        slidesPerView: "6",
+        spaceBetween: 20,
+        loop: true,
+        freeMode: true,
+        autoplay: {
+            delay: 1000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        speed: 500,
+        navigation: {
+            nextEl: ".swiper-button-next-marques",
+            prevEl: ".swiper-button-prev-marques",
+        },
+        breakpoints: {
+            200: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+            },
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+            },
+            1400: {
+                slidesPerView: 6,
+                spaceBetween: 20,
+            },
+        },
+    });
+    var swiper_autres_artisans = new Swiper(".swiper-autres-artisans", {
+        slidesPerView: "4",
+        spaceBetween: 20,
+        freeMode: true,
+        scrollbar: {
+            el: ".swiper-scrollbar",
+            hide: false,
+            draggable: true,
+        },
+        breakpoints: {
+            200: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+            },
+            1400: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+            },
+        },
+    });
+    var swiper_actus = new Swiper(".swiper-actus", {
+        loop: true,
+        speed: 1500,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+    var swiper_avis = new Swiper(".swiper-avis", {
+        slidesPerView: "1",
+        spaceBetween: 20,
+        freeMode: true,
+        navigation: {
+            nextEl: ".swiper-button-next-avis",
+            prevEl: ".swiper-button-prev-avis",
+        },
+    });
+}
+
+function swiperGalerie() {
+    var swiperTabs = new Swiper(".swiper-tabs", {
+        spaceBetween: 10,
+        slidesPerView: 9,
+        navigation: {
+            nextEl: ".swiper-button-next-galerie",
+            prevEl: ".swiper-button-prev-galerie",
+        },
+    });
+    var swiperGalerie = new Swiper(".swiper-slide-galerie", {
+        spaceBetween: 10,
+        effect: "fade",
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiperTabs,
+        },
+    });
+
+    var select = document.getElementById("select-swipe-mobile");
+    if (select) {
+        select.addEventListener('change', function() {
+            swiperGalerie.slideTo(this.value);
+        });
+    }
+
+}
+
+function swiperCooperateurs() {
+    var swiper_cooperateur_1 = new Swiper(".swiper_cooperateur_1", {
+        slidesPerView: 1,
+        slidesPerGroupSkip: 1,
+        spaceBetween: 20,
+        breakpoints: {
+            769: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+            },
+            1200: {
+                slidesPerView: 3,
+                slidesPerGroup: 3,
+            },
+        },
+        pagination: {
+            el: ".swiper-pagination-cooperateur_1",
+            clickable: true,
+            renderBullet: function(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + "</span>";
+            },
+        },
+    });
+    var swiper_cooperateur_2 = new Swiper(".swiper_cooperateur_2", {
+        slidesPerView: 1,
+        slidesPerGroupSkip: 1,
+        spaceBetween: 20,
+        breakpoints: {
+            769: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+            },
+            1200: {
+                slidesPerView: 3,
+                slidesPerGroup: 3,
+            },
+        },
+        pagination: {
+            el: ".swiper-pagination-cooperateur_2",
+            clickable: true,
+            renderBullet: function(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + "</span>";
+            },
+        },
+    });
+    var swiper_cooperateur_3 = new Swiper(".swiper_cooperateur_3", {
+        slidesPerView: 1,
+        slidesPerGroupSkip: 1,
+        spaceBetween: 20,
+        breakpoints: {
+            769: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+            },
+            1200: {
+                slidesPerView: 3,
+                slidesPerGroup: 3,
+            },
+        },
+        pagination: {
+            el: ".swiper-pagination-cooperateur_3",
+            clickable: true,
+            renderBullet: function(index, className) {
+                return '<span class="' + className + '">' + (index + 1) + "</span>";
+            },
+        },
+    });
+}
+
+/* END */
+
+
+function animeSwiperGalerie() {
+    var galerieButtons = [].slice.call(document.querySelectorAll('.button-galerie'));
+    var galerieSlides = [].slice.call(document.querySelectorAll('.container-swiper-galerie .swiper-slide'));
+    var itemPhotos = [].slice.call(document.querySelectorAll('.container-swiper-galerie .swiper-slide .item-photo'));
+    var swiperTabs = [].slice.call(document.querySelectorAll('.swiper-tabs .tab-swiper'));
+
+    galerieButtons.forEach(function(galerieButton) {
+        galerieButton.addEventListener('click', () => {
+            if (galerieSlides) {
+                galerieSlides.forEach(function(galerieSlide) {
+                    if (galerieSlide.classList.contains('swiper-slide-active')) {
+                        setTimeout(function() {
+                            itemPhotos.forEach(function(itemPhoto) {
+                                itemPhoto.classList.toggle('aos-animate');
+                            });
+                        }, 800);
+                    } else {
+                        itemPhotos.forEach(function(itemPhoto) {
+                            itemPhoto.classList.remove('aos-animate');
+                        });
+                    }
+                });
+            }
+        });
+    });
+    swiperTabs.forEach(function(swiperTab) {
+        swiperTab.addEventListener('click', () => {
+            if (galerieSlides) {
+                galerieSlides.forEach(function(galerieSlide) {
+                    if (galerieSlide.classList.contains('swiper-slide-active')) {
+                        setTimeout(function() {
+                            itemPhotos.forEach(function(itemPhoto) {
+                                itemPhoto.classList.toggle('aos-animate');
+                            });
+                        }, 800);
+                    } else {
+                        itemPhotos.forEach(function(itemPhoto) {
+                            itemPhoto.classList.remove('aos-animate');
+                        });
+                    }
+                });
+            }
+        });
+    });
+}
+
+function moveFicheArtisanMobile() {
+    var cible = document.querySelector('.container-fiche-artisan-mobile');
+    var fiche = document.querySelector('.fiche-artisan');
+    if (document.body.classList.contains('mobile') && (cible)) {
+        cible.appendChild(fiche);
+    }
+}
+
+function customTomSelects() {
+    if (customSelects) {
+        customSelects.forEach(function(customSelect) {
+            new TomSelect(customSelect, {
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                }
+            });
+        });
+    }
+}
+
+function animeGalerieInspiration() {
+    var contentInspirations = [].slice.call(document.querySelectorAll('.container-photos-inspirations'));
+    var itemPhotos = [].slice.call(document.querySelectorAll('.items-imgs__photo'));
+    var buttonCarInspirations = [].slice.call(document.querySelectorAll('.button-cat-inspiration'));
+    buttonCarInspirations.forEach(function(buttonCarInspiration) {
+        buttonCarInspiration.addEventListener('click', () => {
+            if (contentInspirations) {
+                contentInspirations.forEach(function(contentInspiration) {
+                    if (contentInspiration.classList.contains('uk-active')) {
+                        setTimeout(function() {
+                            itemPhotos.forEach(function(itemPhoto) {
+                                itemPhoto.classList.toggle('aos-animate');
+                            });
+                        }, 800);
+                    } else {
+                        itemPhotos.forEach(function(itemPhoto) {
+                            itemPhoto.classList.remove('aos-animate');
+                        });
+                    }
+                });
+            }
+        });
+    });
+}
+
+
+const initReady = () => {
+    getResolution();
+    resizeHeaderOnScroll();
+    swipers();
+    progress();
+    navMobile();
+    activeClassRayonButtons();
+    swiperGalerie();
+    animeSwiperGalerie();
+    projectMobile();
+    contentMap();
+    moveFicheArtisanMobile();
+    Accordion();
+    swiperCooperateurs();
+    metiersContainer();
+    animeGalerieInspiration();
+    setTimeout(customTomSelects, 100);
+    AOS.init({
+        easing: 'ease-out-cubic',
+        duration: 800,
+        once: true
+    });
+};
+
+// Document ready
+document.addEventListener('DOMContentLoaded', initReady);

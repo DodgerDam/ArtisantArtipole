@@ -1,0 +1,244 @@
+{
+    "moteur": {
+        "metiers": [{
+                "id": 1,
+                "label": "Charpentier"
+            },
+            {
+                "id": 2,
+                "label": "Couvreur"
+            },
+            {
+                "id": 3,
+                "label": "Menuiserie"
+            },
+            {
+                "id": 4,
+                "label": "Ossature bois"
+            },
+            {
+                "id": 5,
+                "label": "Plaquiste"
+            },
+            {
+                "id": 6,
+                "label": "Ebeniste"
+            },
+            {
+                "id": 7,
+                "label": "Agenceur"
+            },
+            {
+                "id": 8,
+                "label": "Cuisiniste"
+            }
+        ],
+        "villes": [{
+                "id_ville": 1,
+                "code": "39110",
+                "label": "La chapelle sur Furieuse",
+                "lat": 47.00061202902875,
+                "lng": 5.862686634063721
+            },
+            {
+                "id_ville": 2,
+                "code": "39100",
+                "label": "Champvans",
+                "lat": 47.105901647695916,
+                "lng": 5.434455871582031
+            },
+            {
+                "id_ville": 3,
+                "code": "39700",
+                "label": "Falletans",
+                "lat": 47.104105194258125,
+                "lng": 5.5625152587890625
+            }
+        ]
+    },
+
+    "items": [{
+            "link": "fiche-artisan.html",
+            "photo": "assets/images/artisans/artisan-02.jpg",
+            "title": "Mermet Au louis Emmanuel",
+            "specialite": {
+                "metier": [{
+                        "id": 6,
+                        "label": "Ébéniste"
+                    },
+                    {
+                        "id": 3,
+                        "label": "Menuiserie"
+                    }
+                ]
+            },
+            "info_adresse": [{
+                "id_ville": 2,
+                "adresse": "11 Rue du Miarle",
+                "code": "39100",
+                "ville": "Champvans"
+            }],
+            "email": "contact@contact.fr",
+            "phone": "601020304",
+            "id": 6,
+            "active": 1,
+            "coordinates": {
+                "lat": 47.105901647695916,
+                "lng": 5.434455871582031
+            }
+
+        },
+        {
+            "link": "fiche-artisan.html",
+            "photo": "assets/images/artisans/artisan-01.jpg",
+            "title": "MCF Menuiserie Charpente Faivre",
+            "specialite": {
+                "metier": [{
+                        "id": 1,
+                        "label": "Charpentier"
+                    },
+                    {
+                        "id": 2,
+                        "label": "Couvreur"
+                    },
+                    {
+                        "id": 3,
+                        "label": "Menuiserie"
+                    },
+                    {
+                        "id": 4,
+                        "label": "Ossature bois"
+                    },
+                    {
+                        "id": 5,
+                        "label": "Plaquiste"
+                    }
+                ]
+            },
+            "info_adresse": [{
+                "id_ville": 1,
+                "adresse": "5 Chemin de By",
+                "code": "39110",
+                "ville": "La chapelle sur Furieuse"
+            }],
+            "email": "contact@contact.fr",
+            "phone": "601020304",
+            "id": 1,
+            "active": 1,
+            "coordinates": {
+                "lat": 47.00061202902875,
+                "lng": 5.862686634063721
+            }
+
+        },
+        {
+            "link": "fiche-artisan.html",
+            "photo": "assets/images/artisans/artisan-02.jpg",
+            "title": "Mermet Au louis Emmanuel",
+            "specialite": {
+                "metier": [{
+                        "id": 6,
+                        "label": "Ébéniste"
+                    },
+                    {
+                        "id": 3,
+                        "label": "Menuiserie"
+                    }
+                ]
+            },
+            "info_adresse": [{
+                "id_ville": 2,
+                "adresse": "11 Rue du Miarle",
+                "code": "39100",
+                "ville": "Champvans"
+            }],
+            "email": "contact@contact.fr",
+            "phone": "601020304",
+            "id": 2,
+            "active": 1,
+            "coordinates": {
+                "lat": 47.105901647695916,
+                "lng": 5.464455871582031
+            }
+
+        },
+        {
+            "link": "fiche-artisan.html",
+            "photo": "assets/images/artisans/artisan-03.jpg",
+            "title": "Lopez Pascal Menuiserie",
+            "specialite": {
+                "metier": [{
+                        "id": 6,
+                        "label": "Ébéniste"
+                    },
+                    {
+                        "id": 7,
+                        "label": "Agenceur"
+                    },
+                    {
+                        "id": 8,
+                        "label": "Cuisiniste"
+                    },
+                    {
+                        "id": 3,
+                        "label": "Menuiserie"
+                    }
+                ]
+            },
+
+            "info_adresse": [{
+                "id_ville": 3,
+                "adresse": "4 rue de l'Église",
+                "code": "39700",
+                "ville": "Falletans"
+            }],
+            "email": "contact@contact.fr",
+            "phone": "601020304",
+            "id": 3,
+            "active": 1,
+            "coordinates": {
+                "lat": 47.105105194258125,
+                "lng": 5.5025152587890625
+            }
+        },
+        {
+            "link": "fiche-artisan.html",
+            "photo": "assets/images/artisans/artisan-03.jpg",
+            "title": "Lopez Pascal Menuiserie",
+            "specialite": {
+                "metier": [{
+                        "id": 6,
+                        "label": "Ébéniste"
+                    },
+                    {
+                        "id": 7,
+                        "label": "Agenceur"
+                    },
+                    {
+                        "id": 8,
+                        "label": "Cuisiniste"
+                    },
+                    {
+                        "id": 3,
+                        "label": "Menuiserie"
+                    }
+                ]
+            },
+
+            "info_adresse": [{
+                "id_ville": 3,
+                "adresse": "4 rue de l'Église",
+                "code": "39700",
+                "ville": "Falletans"
+            }],
+            "email": "contact@contact.fr",
+            "phone": "601020304",
+            "id": 4,
+            "active": 1,
+            "coordinates": {
+                "lat": 47.104105194258125,
+                "lng": 5.5625152587890625
+            }
+        }
+    ]
+}

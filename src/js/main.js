@@ -258,12 +258,11 @@ function swipers() {
 
 function swiperGalerie() {
     var swiperTabs = new Swiper(".swiper-tabs", {
-        spaceBetween: 10,
-        slidesPerView: 9,
-        scrollbar: {
-            el: ".swiper-scrollbar",
-            hide: false,
-            draggable: true,
+        spaceBetween: 25,
+        slidesPerView: "7",
+        navigation: {
+            nextEl: ".swiper-button-next-galerie",
+            prevEl: ".swiper-button-prev-galerie",
         },
     });
     var swiperGalerie = new Swiper(".swiper-slide-galerie", {
@@ -357,41 +356,7 @@ function swiperCooperateurs() {
 }
 
 /* END */
-/* COUNT ANIMATION */
 
-if (document.body.classList.contains('section-chiffres')) {
-    function countAnime() {
-        if (isScrolledIntoView($(".section-chiffres")) && !viewed) {
-            viewed = true;
-            $('.count').each(function() {
-                $(this).prop('Counter', 0).animate({
-                    Counter: $(this).text()
-                }, {
-                    duration: 4000,
-                    easing: 'swing',
-                    step: function(now) {
-                        $(this).text(Math.ceil(now));
-                    }
-                });
-            });
-        }
-    }
-
-    $(window).scroll(countAnime);
-    var viewed = false;
-}
-
-function isScrolledIntoView(elem) {
-    var docViewTop = $(window).scrollTop();
-    var docViewBottom = docViewTop + $(window).height();
-
-    var elemTop = $(elem).offset().top;
-    var elemBottom = elemTop + $(elem).height();
-
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-}
-
-/* END */
 
 function animeSwiperGalerie() {
     var galerieButtons = [].slice.call(document.querySelectorAll('.button-galerie'));
