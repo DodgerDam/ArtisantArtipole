@@ -28,20 +28,22 @@
     padding: @marker-padding;
     background: @marker-background;
     color: @marker-color;
-    .hook-marker();
+    .hook-marker;
 }
 
-/* Hover */
-.uk-marker:hover {
+/* Hover + Focus */
+.uk-marker:hover,
+.uk-marker:focus {
     color: @marker-hover-color;
-    .hook-marker-hover();
+    outline: none;
+    .hook-marker-hover;
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-marker-misc();
+.hook-marker-misc;
 
 .hook-marker() {}
 .hook-marker-hover() {}
@@ -60,12 +62,13 @@
     .uk-marker {
         background: @inverse-marker-background;
         color: @inverse-marker-color;
-        .hook-inverse-marker();
+        .hook-inverse-marker;
     }
 
-    .uk-marker:hover {
+    .uk-marker:hover,
+    .uk-marker:focus {
         color: @inverse-marker-hover-color;
-        .hook-inverse-marker-hover();
+        .hook-inverse-marker-hover;
     }
 
 }

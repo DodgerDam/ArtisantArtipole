@@ -94,12 +94,8 @@
 .uk-list-decimal { counter-reset: decimal; }
 .uk-list-decimal > * { counter-increment: decimal; }
 
-.uk-list-disc > ::before,
-.uk-list-circle > ::before,
-.uk-list-square > ::before,
-.uk-list-decimal > ::before,
-.uk-list-hyphen > ::before {
-    content: "";
+[class*='uk-list'] > ::before {
+    content: '';
     position: relative;
     left: -@list-padding-left;
     width: @list-padding-left;
@@ -133,7 +129,6 @@
 
 .uk-list-bullet > ::before {
     content: "";
-    display: list-item;
     position: relative;
     left: -@list-padding-left;
     width: @list-padding-left;
@@ -156,7 +151,7 @@
     margin-top: @list-divider-margin-top;
     padding-top: @list-divider-margin-top;
     border-top: @list-divider-border-width solid @list-divider-border;
-    .hook-list-divider();
+    .hook-list-divider;
 }
 
 /*
@@ -165,7 +160,7 @@
 
 .uk-list-striped > * {
     padding: @list-striped-padding-vertical @list-striped-padding-horizontal;
-    .hook-list-striped();
+    .hook-list-striped;
 }
 
 .uk-list-striped > :nth-of-type(odd) { background: @list-striped-background; }
@@ -214,7 +209,7 @@
 // Hooks
 // ========================================================================
 
-.hook-list-misc();
+.hook-list-misc;
 
 .hook-list-divider() {}
 .hook-list-striped() {}
@@ -247,11 +242,11 @@
 
     .uk-list-divider > :nth-child(n+2) {
         border-top-color: @inverse-list-divider-border;
-        .hook-inverse-list-divider();
+        .hook-inverse-list-divider;
     }
 
     .uk-list-striped > * {
-        .hook-inverse-list-striped();
+        .hook-inverse-list-striped;
     }
 
     .uk-list-striped > :nth-of-type(odd) { background-color: @inverse-list-striped-background; }

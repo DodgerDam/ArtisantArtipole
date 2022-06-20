@@ -1,103 +1,88 @@
-import rtlcss from 'rtlcss';
-import { basename } from 'path';
-import {
-    args,
-    banner,
-    glob,
-    minify,
-    pathExists,
-    read,
-    readJson,
-    renderLess,
-    write,
-} from './util.js';
+const fs = require('fs');
+const glob = require('glob');
+const path = require('path');
+const util = require('./util');
+const rtlcss = require('rtlcss');
+const postcss = require('postcss');
+const argv = require('minimist')(process.argv);
+const args = argv._;
+const rtl = ~args.indexOf('rtl');
 
-const { rtl } = args;
-const develop = args.develop || args.debug || args.d || args.nominify;
-const sources = [
-    { src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css` },
-    { src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css` },
-];
+argv._.forEach(arg => {
+    const tokens = arg.split('=');
+    argv[tokens[0]] = tokens[1] || true;
+});
 
-const themes = (await pathExists('themes.json')) ? await readJson('themes.json') : {};
+const develop = argv.develop || argv.debug || argv.d || argv.nominify;
 
-for (const src of await glob('custom/*.less')) {
-    const theme = basename(src, '.less');
+[
+    {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
+    {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css`}
+
+].forEach(config => compile(config.src, config.dist));
+
+const themes = fs.existsSync('themes.json') ? JSON.parse(fs.readFileSync('themes.json')) : {};
+
+glob.sync('custom/*.less').forEach(file => {
+
+    const theme = path.basename(file, '.less');
     const dist = `dist/css/uikit.${theme}${rtl ? '-rtl' : ''}.css`;
 
-    themes[theme] = { css: `../${dist}` };
+    themes[theme] = {css: `../${dist}`};
 
-    if (await pathExists(`dist/js/uikit-icons-${theme}.js`)) {
+    if (fs.existsSync(`dist/js/uikit-icons-${theme}.js`)) {
         themes[theme].icons = `../dist/js/uikit-icons-${theme}.js`;
     }
 
-    sources.push({ src, dist });
+    compile(file, dist)
+        .catch(({message}) => {
+            console.error(message);
+            process.exitCode = 1;
+        });
+
+});
+
+if (!rtl && (Object.keys(themes).length || !fs.existsSync('themes.json'))) {
+    util.write('themes.json', JSON.stringify(themes));
 }
 
-await Promise.all(sources.map(({ src, dist }) => compile(src, dist, develop, rtl)));
+async function compile(file, dist) {
 
-if (!rtl && (Object.keys(themes).length || !(await pathExists('themes.json')))) {
-    await write('themes.json', JSON.stringify(themes));
-}
+    const less = await util.read(file);
 
-async function compile(file, dist, develop, rtl) {
-    const less = await read(file);
-
-    let output = (
-        await renderLess(less, {
-            relativeUrls: true,
-            rootpath: '../../',
-            paths: ['src/less/', 'custom/'],
-        })
-    ).replace(/\.\.\/dist\//g, '');
+    let output = (await util.renderLess(less, {
+        relativeUrls: true,
+        rootpath: '../../',
+        paths: ['src/less/', 'custom/']
+    })).replace(/\.\.\/dist\//g, '');
 
     if (rtl) {
-        output = rtlcss.process(
-            output,
-            {
-                stringMap: [
-                    {
-                        name: 'previous-next',
-                        priority: 100,
-                        search: ['previous', 'Previous', 'PREVIOUS'],
-                        replace: ['next', 'Next', 'NEXT'],
-                        options: {
-                            scope: '*',
-                            ignoreCase: false,
-                        },
-                    },
-                ],
+        output = postcss([
+            css => {
+                css.insertBefore(css.nodes[0], postcss.comment({text: 'rtl:begin:rename'}));
+                css.insertAfter(css.nodes[css.nodes.length - 1], postcss.comment({text: 'rtl:end:rename'}));
             },
-            [
-                {
-                    name: 'customNegate',
-                    priority: 50,
-                    directives: {
-                        control: {},
-                        value: [],
-                    },
-                    processors: [
-                        {
-                            expr: ['--uk-position-translate-x', 'stroke-dashoffset'].join('|'),
-                            action(prop, value, context) {
-                                return { prop, value: context.util.negate(value) };
-                            },
-                        },
-                    ],
-                },
-            ],
-            {
-                pre(root, postcss) {
-                    root.prepend(postcss.comment({ text: 'rtl:begin:rename' }));
-                    root.append(postcss.comment({ text: 'rtl:end:rename' }));
-                },
-            }
-        );
+            rtlcss({
+                stringMap: [{
+                    name: 'previous-next',
+                    priority: 100,
+                    search: ['previous', 'Previous', 'PREVIOUS'],
+                    replace: ['next', 'Next', 'NEXT'],
+                    options: {
+                        scope: '*',
+                        ignoreCase: false
+                    }
+                }]
+            })
+        ]).process(output).css;
+
+        output = output.replace(/stroke-dashoffset: (\d+)px/g, 'stroke-dashoffset: -$1px');
     }
 
-    await write(dist, banner + output);
+    const res = await util.write(dist, util.banner + output);
 
     if (!develop) {
-        await minify(dist);
+        util.minify(res);
     }
+
 }

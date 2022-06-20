@@ -10,7 +10,6 @@
 //                  `uk-inline-*`
 //                  `uk-responsive-*`
 //                  `uk-preserve-width`
-//                  `uk-object-*`
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
 //                  `uk-box-shadow-bottom`
@@ -41,7 +40,6 @@ $border-rounded-border-radius:                   5px !default;
 $box-shadow-duration:                            0.1s !default;
 
 $box-shadow-bottom-height:                       30px !default;
-$box-shadow-bottom-bottom:                       (-$box-shadow-bottom-height) !default;
 $box-shadow-bottom-border-radius:                100% !default;
 $box-shadow-bottom-background:                   #444 !default;
 $box-shadow-bottom-blur:                         20px !default;
@@ -51,8 +49,8 @@ $dropcap-font-size:                              (($global-line-height * 3) * 1e
 
 $logo-font-size:                                 $global-large-font-size !default;
 $logo-font-family:                               $global-font-family !default;
-$logo-color:                                     $global-emphasis-color !default;
-$logo-hover-color:                               $global-emphasis-color !default;
+$logo-color:                                     $global-color !default;
+$logo-hover-color:                               $global-color !default;
 
 $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) !default;
 
@@ -244,37 +242,6 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
     max-width: none;
 }
 
-/*
- * Fix initial iframe width. Without the viewport is expanded on iOS devices
- */
-
-[uk-responsive],
-[data-uk-responsive] { max-width: 100%; }
-
-
-/* Object
- ========================================================================== */
-
-.uk-object-cover { object-fit: cover; }
-.uk-object-contain { object-fit: contain; }
-.uk-object-fill { object-fit: fill; }
-.uk-object-none { object-fit: none; }
-.uk-object-scale-down { object-fit: scale-down; }
-
-/* 
- * Position
- */
-
-.uk-object-top-left { object-position: 0 0; }
-.uk-object-top-center { object-position: 50% 0; }
-.uk-object-top-right { object-position: 100% 0; }
-.uk-object-center-left { object-position: 0 50%; }
-.uk-object-center-center { object-position: 50% 50%; }
-.uk-object-center-right { object-position: 100% 50%; }
-.uk-object-bottom-left { object-position: 0 100%; }
-.uk-object-bottom-center { object-position: 50% 100%; }
-.uk-object-bottom-right { object-position: 100% 100%; }
-
 
 /* Border
  ========================================================================== */
@@ -320,7 +287,7 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
  */
 
 @supports (filter: blur(0)) {
-
+ 
     .uk-box-shadow-bottom {
         display: inline-block;
         position: relative;
@@ -330,10 +297,10 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
     }
 
     .uk-box-shadow-bottom::after {
-        content: "";
+        content: '';
         /* 1 */
         position: absolute;
-        bottom: $box-shadow-bottom-bottom;
+        bottom: (-$box-shadow-bottom-height);
         left: 0;
         right: 0;
         z-index: -1;
@@ -358,6 +325,8 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
  *    https://bugzilla.mozilla.org/show_bug.cgi?id=214004
  * 2. In Firefox, a floating `::first-letter` doesn't have a line box and there for no `line-height`
  *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
+ * 3. Caused by 1.: Edge creates two nested `::first-letter` containers, one for each selector
+ *    This doubles the `font-size` exponential when using the `em` unit.
  */
 
 .uk-dropcap::first-letter,
@@ -379,6 +348,13 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 
 }
 
+/* 3 */
+@supports (-ms-ime-align: auto) {
+
+  .uk-dropcap > p:first-of-type::first-letter { font-size: 1em; }
+
+}
+
 
 /* Logo
  ========================================================================== */
@@ -396,15 +372,15 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
     @if(mixin-exists(hook-logo)) {@include hook-logo();}
 }
 
-/* Hover */
-.uk-logo:hover {
+/* Hover + Focus */
+.uk-logo:hover,
+.uk-logo:focus {
     color: $logo-hover-color;
+    outline: none;
     /* 1 */
     text-decoration: none;
     @if(mixin-exists(hook-logo-hover)) {@include hook-logo-hover();}
 }
-
-.uk-logo > :where(img, svg, video) { display: block; }
 
 .uk-logo-inverse { display: none; }
 
@@ -496,8 +472,8 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 // Inverse
 // ========================================================================
 
-$inverse-logo-color:                            $inverse-global-emphasis-color !default;
-$inverse-logo-hover-color:                      $inverse-global-emphasis-color !default;
+$inverse-logo-color:                            $inverse-global-color !default;
+$inverse-logo-hover-color:                      $inverse-global-color !default;
 
 
 

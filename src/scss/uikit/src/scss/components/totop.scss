@@ -31,9 +31,11 @@ $totop-active-color:                             $global-emphasis-color !default
     @if(mixin-exists(hook-totop)) {@include hook-totop();}
 }
 
-/* Hover */
-.uk-totop:hover {
+/* Hover + Focus */
+.uk-totop:hover,
+.uk-totop:focus {
     color: $totop-hover-color;
+    outline: none;
     @if(mixin-exists(hook-totop-hover)) {@include hook-totop-hover();}
 }
 

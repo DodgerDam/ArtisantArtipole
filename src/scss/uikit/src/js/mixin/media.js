@@ -1,45 +1,30 @@
-import {
-    getCssVar,
-    isString,
-    on,
-    trigger,
-    toFloat,
-    startsWith,
-    isNumeric,
-    createEvent,
-} from 'uikit-util';
+import {getCssVar, isString, toFloat} from 'uikit-util';
 
 export default {
+
     props: {
-        media: Boolean,
+        media: Boolean
     },
 
     data: {
-        media: false,
+        media: false
     },
 
-    connected() {
-        const media = toMedia(this.media);
-        this.mediaObj = window.matchMedia(media);
-        const handler = () => {
-            this.matchMedia = this.mediaObj.matches;
-            trigger(this.$el, createEvent('mediachange', false, true, [this.mediaObj]));
-        };
-        this.offMediaObj = on(this.mediaObj, 'change', () => {
-            handler();
-            this.$emit('resize');
-        });
-        handler();
-    },
+    computed: {
 
-    disconnected() {
-        this.offMediaObj?.();
-    },
+        matchMedia() {
+            const media = toMedia(this.media);
+            return !media || window.matchMedia(media).matches;
+        }
+
+    }
+
 };
 
 function toMedia(value) {
+
     if (isString(value)) {
-        if (startsWith(value, '@')) {
+        if (value[0] === '@') {
             const name = `breakpoint-${value.substr(1)}`;
             value = toFloat(getCssVar(name));
         } else if (isNaN(value)) {
@@ -47,5 +32,5 @@ function toMedia(value) {
         }
     }
 
-    return value && isNumeric(value) ? `(min-width: ${value}px)` : '';
+    return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
 }

@@ -55,10 +55,12 @@ $accordion-content-margin-top:                  $global-margin !default;
     @if(mixin-exists(hook-accordion-title)) {@include hook-accordion-title();}
 }
 
-/* Hover */
-.uk-accordion-title:hover {
+/* Hover + Focus */
+.uk-accordion-title:hover,
+.uk-accordion-title:focus {
     color: $accordion-title-hover-color;
     text-decoration: none;
+    outline: none;
     @if(mixin-exists(hook-accordion-title-hover)) {@include hook-accordion-title-hover();}
 }
 

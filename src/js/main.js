@@ -258,8 +258,8 @@ function swipers() {
 
 function swiperGalerie() {
     var swiperTabs = new Swiper(".swiper-tabs", {
-        spaceBetween: 25,
-        slidesPerView: "7",
+        spaceBetween: 10,
+        slidesPerView: "9",
         navigation: {
             nextEl: ".swiper-button-next-galerie",
             prevEl: ".swiper-button-prev-galerie",

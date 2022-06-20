@@ -93,7 +93,7 @@
     display: flex;
     /* 1 */
     position: relative;
-    .hook-navbar();
+    .hook-navbar;
 }
 
 
@@ -102,12 +102,19 @@
 
 .uk-navbar-container:not(.uk-navbar-transparent) {
     background: @navbar-background;
-    .hook-navbar-container();
+    .hook-navbar-container;
 }
 
 // Color Mode
 .uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-light all) when (@navbar-color-mode = light) {}
 .uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-dark all) when (@navbar-color-mode = dark) {}
+
+/*
+ * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
+ */
+
+.uk-navbar-container > ::before,
+.uk-navbar-container > ::after { display: none !important; }
 
 
 /* Groups
@@ -202,10 +209,9 @@
 /*
  * Items
  * 1. Center content vertically and horizontally
- * 2. Imitate white space gap when using flexbox
- * 3. Dimensions
- * 4. Style
- * 5. Required for `a`
+ * 2. Dimensions
+ * 3. Style
+ * 4. Required for `a`
  */
 
 .uk-navbar-nav > li > a,    // Nav item
@@ -216,15 +222,13 @@
     justify-content: center;
     align-items: center;
     /* 2 */
-    column-gap: 0.25em;
-    /* 3 */
     box-sizing: border-box;
     min-height: @navbar-nav-item-height;
     padding: 0 @navbar-nav-item-padding-horizontal;
-    /* 4 */
+    /* 3 */
     font-size: @navbar-nav-item-font-size;
     font-family: @navbar-nav-item-font-family;
-    /* 5 */
+    /* 4 */
     text-decoration: none;
 }
 
@@ -234,30 +238,32 @@
 
 .uk-navbar-nav > li > a {
     color: @navbar-nav-item-color;
-    .hook-navbar-nav-item();
+    .hook-navbar-nav-item;
 }
 
 /*
  * Hover
- * Apply hover style also if dropdown is opened
+ * Apply hover style also to focus state and if dropdown is opened
  */
 
 .uk-navbar-nav > li:hover > a,
-.uk-navbar-nav > li > a[aria-expanded="true"] {
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li > a.uk-open {
     color: @navbar-nav-item-hover-color;
-    .hook-navbar-nav-item-hover();
+    outline: none;
+    .hook-navbar-nav-item-hover;
 }
 
 /* OnClick */
 .uk-navbar-nav > li > a:active {
     color: @navbar-nav-item-onclick-color;
-    .hook-navbar-nav-item-onclick();
+    .hook-navbar-nav-item-onclick;
 }
 
 /* Active */
 .uk-navbar-nav > li.uk-active > a {
     color: @navbar-nav-item-active-color;
-    .hook-navbar-nav-item-active();
+    .hook-navbar-nav-item-active;
 }
 
 
@@ -266,14 +272,8 @@
 
 .uk-navbar-item {
     color: @navbar-item-color;
-    .hook-navbar-item();
+    .hook-navbar-item;
 }
-
-/*
- * Remove margin from the last-child
- */
-
-.uk-navbar-item > :last-child { margin-bottom: 0; }
 
 
 /* Toggle
@@ -281,14 +281,16 @@
 
 .uk-navbar-toggle {
     color: @navbar-toggle-color;
-    .hook-navbar-toggle();
+    .hook-navbar-toggle;
 }
 
 .uk-navbar-toggle:hover,
-.uk-navbar-toggle[aria-expanded="true"] {
+.uk-navbar-toggle:focus,
+.uk-navbar-toggle.uk-open {
     color: @navbar-toggle-hover-color;
+    outline: none;
     text-decoration: none;
-    .hook-navbar-toggle-hover();
+    .hook-navbar-toggle-hover;
 }
 
 /*
@@ -297,12 +299,13 @@
  */
 
 .uk-navbar-toggle-icon {
-    .hook-navbar-toggle-icon();
+    .hook-navbar-toggle-icon;
 }
 
-/* Hover */
-:hover > .uk-navbar-toggle-icon {
-    .hook-navbar-toggle-icon-hover();
+/* Hover + Focus */
+:hover > .uk-navbar-toggle-icon,
+:focus > .uk-navbar-toggle-icon {
+    .hook-navbar-toggle-icon-hover;
 }
 
 
@@ -311,7 +314,7 @@
 
 .uk-navbar-subtitle {
     font-size: @navbar-subtitle-font-size;
-    .hook-navbar-subtitle();
+    .hook-navbar-subtitle;
 }
 
 
@@ -319,15 +322,15 @@
  ========================================================================== */
 
 .uk-navbar-primary {
-    .hook-navbar-primary();
+    .hook-navbar-primary;
 }
 
 .uk-navbar-transparent {
-    .hook-navbar-transparent();
+    .hook-navbar-transparent;
 }
 
 .uk-navbar-sticky {
-    .hook-navbar-sticky();
+    .hook-navbar-sticky;
 }
 
 
@@ -355,7 +358,7 @@
     padding: @navbar-dropdown-padding;
     background: @navbar-dropdown-background;
     color: @navbar-dropdown-color;
-    .hook-navbar-dropdown();
+    .hook-navbar-dropdown;
 }
 
 /* Show */
@@ -402,7 +405,7 @@
 .uk-navbar-dropdown-dropbar {
     margin-top: @navbar-dropdown-dropbar-margin-top;
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
-    .hook-navbar-dropdown-dropbar();
+    .hook-navbar-dropdown-dropbar;
 }
 
 
@@ -411,7 +414,7 @@
  ========================================================================== */
 
 .uk-navbar-dropdown-nav {
-    .hook-navbar-dropdown-nav();
+    .hook-navbar-dropdown-nav;
 }
 
 /*
@@ -420,19 +423,20 @@
 
 .uk-navbar-dropdown-nav > li > a {
     color: @navbar-dropdown-nav-item-color;
-    .hook-navbar-dropdown-nav-item();
+    .hook-navbar-dropdown-nav-item;
 }
 
-/* Hover */
-.uk-navbar-dropdown-nav > li > a:hover {
+/* Hover + Focus */
+.uk-navbar-dropdown-nav > li > a:hover,
+.uk-navbar-dropdown-nav > li > a:focus {
     color: @navbar-dropdown-nav-item-hover-color;
-    .hook-navbar-dropdown-nav-item-hover();
+    .hook-navbar-dropdown-nav-item-hover;
 }
 
 /* Active */
 .uk-navbar-dropdown-nav > li.uk-active > a {
     color: @navbar-dropdown-nav-item-active-color;
-    .hook-navbar-dropdown-nav-item-active();
+    .hook-navbar-dropdown-nav-item-active;
 }
 
 /*
@@ -441,7 +445,7 @@
 
 .uk-navbar-dropdown-nav .uk-nav-header {
     color: @navbar-dropdown-nav-header-color;
-    .hook-navbar-dropdown-nav-header();
+    .hook-navbar-dropdown-nav-header;
 }
 
 /*
@@ -450,7 +454,7 @@
 
 .uk-navbar-dropdown-nav .uk-nav-divider {
     border-top: @navbar-dropdown-nav-divider-border-width solid @navbar-dropdown-nav-divider-border;
-    .hook-navbar-dropdown-nav-divider();
+    .hook-navbar-dropdown-nav-divider;
 }
 
 /*
@@ -459,7 +463,8 @@
 
 .uk-navbar-dropdown-nav .uk-nav-sub a { color: @navbar-dropdown-nav-sublist-item-color; }
 
-.uk-navbar-dropdown-nav .uk-nav-sub a:hover { color: @navbar-dropdown-nav-sublist-item-hover-color; }
+.uk-navbar-dropdown-nav .uk-nav-sub a:hover,
+.uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: @navbar-dropdown-nav-sublist-item-hover-color; }
 
 .uk-navbar-dropdown-nav .uk-nav-sub li.uk-active > a { color: @navbar-dropdown-nav-sublist-item-active-color; }
 
@@ -469,7 +474,7 @@
 
 .uk-navbar-dropbar {
     background: @navbar-dropbar-background;
-    .hook-navbar-dropbar();
+    .hook-navbar-dropbar;
 }
 
 /*
@@ -481,14 +486,14 @@
     z-index: @navbar-dropbar-z-index;
     left: 0;
     right: 0;
-    .hook-navbar-dropbar-slide();
+    .hook-navbar-dropbar-slide;
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-navbar-misc();
+.hook-navbar-misc;
 
 .hook-navbar() {}
 .hook-navbar-container() {}
@@ -533,39 +538,41 @@
 
     .uk-navbar-nav > li > a {
         color: @inverse-navbar-nav-item-color;
-        .hook-inverse-navbar-nav-item();
+        .hook-inverse-navbar-nav-item;
     }
 
     .uk-navbar-nav > li:hover > a,
-    .uk-navbar-nav > li > a[aria-expanded="true"] {
+    .uk-navbar-nav > li > a:focus,
+    .uk-navbar-nav > li > a.uk-open {
         color: @inverse-navbar-nav-item-hover-color;
-        .hook-inverse-navbar-nav-item-hover();
+        .hook-inverse-navbar-nav-item-hover;
     }
 
     .uk-navbar-nav > li > a:active {
         color: @inverse-navbar-nav-item-onclick-color;
-        .hook-inverse-navbar-nav-item-onclick();
+        .hook-inverse-navbar-nav-item-onclick;
     }
 
     .uk-navbar-nav > li.uk-active > a {
         color: @inverse-navbar-nav-item-active-color;
-        .hook-inverse-navbar-nav-item-active();
+        .hook-inverse-navbar-nav-item-active;
     }
 
     .uk-navbar-item {
         color: @inverse-navbar-item-color;
-        .hook-inverse-navbar-item();
+        .hook-inverse-navbar-item;
     }
 
     .uk-navbar-toggle {
         color: @inverse-navbar-toggle-color;
-        .hook-inverse-navbar-toggle();
+        .hook-inverse-navbar-toggle;
     }
 
     .uk-navbar-toggle:hover,
-    .uk-navbar-toggle[aria-expanded="true"] {
+    .uk-navbar-toggle:focus,
+    .uk-navbar-toggle.uk-open {
         color: @inverse-navbar-toggle-hover-color;
-        .hook-inverse-navbar-toggle-hover();
+        .hook-inverse-navbar-toggle-hover;
     }
 
 }

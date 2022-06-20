@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Navbar - UIkit tests</title>
         <script src="js/test.js"></script>
-        <style>
+        <style type="text/css">
 
             .test {
                 display: block;
@@ -528,7 +528,7 @@
                 </div>
             </nav>
 
-            <nav class="uk-navbar-container uk-margin" uk-navbar="align: center; boundary: html">
+            <nav class="uk-navbar-container uk-margin" uk-navbar="align: center">
                 <div class="uk-navbar-left">
 
                     <ul class="uk-navbar-nav">
@@ -1345,7 +1345,7 @@
                     <div class="uk-navbar-item">
                         <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
                     </div>
-                    <div class="uk-navbar-item"><img src="images/photo.jpg" width="100" height="67" alt=""></div>
+                    <div class="uk-navbar-item"><img src="images/photo.jpg" width="100" alt=""></div>
                     <div class="uk-navbar-item">Search</div>
                     <div class="uk-navbar-item">
                         <form>
@@ -1955,8 +1955,8 @@
                         <tr>
                             <td><code>boundary</code></td>
                             <td>CSS selector</td>
-                            <td>true</td>
-                            <td>Referenced element to keep Drop's visibility. By default, it's the navbar component's element.</td>
+                            <td>window</td>
+                            <td>Referenced element to keep Drop's visibility.</td>
                         </tr>
                         <tr>
                             <td><code>boundary-align</code></td>
@@ -2001,7 +2001,7 @@
             <h2>Mouse Tracker</h2>
 
             <div id="js-mousetracker" class="uk-position-relative">
-                <img src="images/photo.jpg" width="1800" height="1200" alt="">
+                <img src="images/photo.jpg" alt="">
                 <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center" style="height: 150px; width: 150px;">
                     <div id="js-mousetarget" class="uk-position-center"></div>
                 </div>

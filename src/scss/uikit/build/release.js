@@ -1,65 +1,95 @@
-import archiver from 'archiver';
-import inquirer from 'inquirer';
-import dateFormat from 'dateformat/lib/dateformat.js';
-import { createWriteStream } from 'fs';
-import semver from 'semver';
-import { args, getVersion, glob, logFile, replaceInFile, run } from './util.js';
+const fs = require('fs');
+const {promisify} = require('util');
+const archiver = require('archiver');
+const inquirer = require('inquirer');
+const pkg = require('../package.json');
+const dateFormat = require('dateformat');
+const args = require('minimist')(process.argv);
+const {glob, logFile, read, write} = require('./util');
+const {coerce, inc, prerelease, valid} = require('semver');
+const exec = promisify(require('child_process').exec);
 
-const { coerce, inc, prerelease, valid } = semver;
-
-const prevVersion = await getVersion();
-const version = await inquireVersion(args.v || args.version);
-
-await Promise.all([
-    run(`npm version ${version} --git-tag-version false`),
-    replaceInFile('CHANGELOG.md', (data) =>
-        data.replace(
-            /^##\s*WIP/m,
-            `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`
-        )
-    ),
-    replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', (data) =>
-        data.replace(prevVersion, version)
-    ),
-]);
-
-await run('yarn compile');
-await run('yarn compile-rtl');
-await run('yarn build-scss');
-
-await createPackage(version);
+inquireVersion(args.v || args.version)
+    .then(updateVersion)
+    .then(compile)
+    .then(createPackage)
+    .catch(({message}) => {
+        console.error(message);
+        process.exitCode = 1;
+    });
 
 async function inquireVersion(v) {
+
     if (valid(v)) {
         return v;
     }
 
     const prompt = inquirer.createPromptModule();
 
-    return (
-        await prompt({
-            name: 'version',
-            message: 'Enter a version',
-            default: () => inc(prevVersion, prerelease(prevVersion) ? 'prerelease' : 'patch'),
-            validate: (val) => !!val.length || 'Invalid version',
-        })
-    ).version;
+    const {version} = await prompt({
+        name: 'version',
+        message: 'Enter a version',
+        default: () => inc(pkg.version, prerelease(pkg.version) ? 'prerelease' : 'patch'),
+        validate: val => !!val.length || 'Invalid version'
+    });
+
+    return version;
+
+}
+
+async function updateVersion(version) {
+    await Promise.all([
+        run(`npm version ${version} --git-tag-version false`),
+        replaceInFile('CHANGELOG.md', data => data.replace(/^##\s*WIP/m, `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`)),
+        replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', data => data.replace(pkg.version, version)),
+    ]);
+
+    return version;
+}
+
+async function compile(version) {
+    await sequential([
+        () => run('yarn compile'),
+        () => run('yarn compile-rtl'),
+        () => run('yarn build-scss')
+    ]);
+
+    return version;
 }
 
 async function createPackage(version) {
-    const file = `dist/uikit-${version}.zip`;
-    const archive = archiver('zip');
+    return new Promise(async resolve => {
+        const archive = archiver('zip');
+        const file = `dist/uikit-${version}.zip`;
 
-    archive.pipe(createWriteStream(file));
-
-    (await glob('dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}')).forEach((file) =>
-        archive.file(file, { name: file.substring(5) })
-    );
-
-    await archive.finalize();
-    await logFile(file);
+        archive.pipe(fs.createWriteStream(file).on('close', () => {
+            logFile(file);
+            resolve();
+        }));
+        await globToArchive(archive, 'dist/{js,css}/uikit?(-icons|-rtl)?(.min).{js,css}');
+        archive.finalize();
+    });
 }
 
 function versionFormat(version) {
     return [coerce(version).version].concat(prerelease(version) || []).join(' ');
+}
+
+async function replaceInFile(file, fn) {
+    await write(file, fn(await read(file)));
+}
+
+async function globToArchive(archive, pattern) {
+    await glob(pattern).then(files => files.forEach(file => archive.file(file, {name: file.substring(5)})));
+}
+
+async function sequential(tasks) {
+    await tasks.reduce((promise, task) => promise.then(task), Promise.resolve());
+}
+
+async function run(cmd) {
+    const {stdout, stderr} = await exec(cmd);
+
+    stdout && console.log(stdout.trim());
+    stderr && console.log(stderr.trim());
 }

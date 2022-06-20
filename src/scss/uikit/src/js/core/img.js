@@ -1,199 +1,193 @@
-import {
-    append,
-    attr,
-    children,
-    createEvent,
-    css,
-    data,
-    escape,
-    fragment,
-    hasAttr,
-    includes,
-    isArray,
-    isEmpty,
-    isTag,
-    observeIntersection,
-    parent,
-    parseOptions,
-    queryAll,
-    removeAttr,
-    startsWith,
-    toFloat,
-    toPx,
-    trigger,
-} from 'uikit-util';
-
-const nativeLazyLoad = 'loading' in HTMLImageElement.prototype;
+import {createEvent, css, Dimensions, escape, getImage, includes, isUndefined, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
 
 export default {
+
     args: 'dataSrc',
 
     props: {
         dataSrc: String,
-        sources: String,
+        dataSrcset: Boolean,
+        sizes: String,
+        width: Number,
+        height: Number,
         offsetTop: String,
         offsetLeft: String,
-        target: String,
-        loading: String,
+        target: String
     },
 
     data: {
         dataSrc: '',
-        sources: false,
+        dataSrcset: false,
+        sizes: false,
+        width: false,
+        height: false,
         offsetTop: '50vh',
         offsetLeft: '50vw',
-        target: false,
-        loading: 'lazy',
+        target: false
+    },
+
+    computed: {
+
+        cacheKey({dataSrc}) {
+            return `${this.$name}.${dataSrc}`;
+        },
+
+        width({width, dataWidth}) {
+            return width || dataWidth;
+        },
+
+        height({height, dataHeight}) {
+            return height || dataHeight;
+        },
+
+        sizes({sizes, dataSizes}) {
+            return sizes || dataSizes;
+        },
+
+        isImg(_, $el) {
+            return isImg($el);
+        },
+
+        target: {
+
+            get({target}) {
+                return [this.$el, ...queryAll(target, this.$el)];
+            },
+
+            watch() {
+                this.observe();
+            }
+
+        },
+
+        offsetTop({offsetTop}) {
+            return toPx(offsetTop, 'height');
+        },
+
+        offsetLeft({offsetLeft}) {
+            return toPx(offsetLeft, 'width');
+        }
+
     },
 
     connected() {
-        if (this.loading !== 'lazy') {
-            this.load();
+
+        if (!window.IntersectionObserver) {
+            setSrcAttrs(this.$el, this.dataSrc, this.dataSrcset, this.sizes);
             return;
         }
 
-        const target = [this.$el, ...queryAll(this.$props.target, this.$el)];
-
-        if (nativeLazyLoad && isImg(this.$el)) {
-            this.$el.loading = 'lazy';
-            setSrcAttrs(this.$el);
-
-            if (target.length === 1) {
-                return;
-            }
+        if (storage[this.cacheKey]) {
+            setSrcAttrs(this.$el, storage[this.cacheKey], this.dataSrcset, this.sizes);
+        } else if (this.isImg && this.width && this.height) {
+            setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
 
-        ensureSrcAttribute(this.$el);
+        this.observer = new IntersectionObserver(this.load, {
+            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`
+        });
 
-        this.registerObserver(
-            observeIntersection(
-                target,
-                (entries, observer) => {
-                    this.load();
-                    observer.disconnect();
-                },
-                {
-                    rootMargin: `${toPx(this.offsetTop, 'height')}px ${toPx(
-                        this.offsetLeft,
-                        'width'
-                    )}px`,
-                }
-            )
-        );
+        requestAnimationFrame(this.observe);
+
     },
 
     disconnected() {
-        if (this._data.image) {
-            this._data.image.onload = '';
-        }
+        this.observer && this.observer.disconnect();
     },
 
     update: {
-        write(store) {
-            if (!this.observer || isImg(this.$el)) {
+
+        read({image}) {
+
+            if (!this.observer) {
                 return false;
             }
 
-            const srcset = data(this.$el, 'data-srcset');
-            if (srcset && window.devicePixelRatio !== 1) {
-                const bgSize = css(this.$el, 'backgroundSize');
-                if (bgSize.match(/^(auto\s?)+$/) || toFloat(bgSize) === store.bgSize) {
-                    store.bgSize = getSourceSize(srcset, data(this.$el, 'sizes'));
-                    css(this.$el, 'backgroundSize', `${store.bgSize}px`);
-                }
+            if (!image && document.readyState === 'complete') {
+                this.load(this.observer.takeRecords());
             }
+
+            if (this.isImg) {
+                return false;
+            }
+
+            image && image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
+
         },
 
-        events: ['resize'],
+        write(data) {
+
+            if (this.dataSrcset && window.devicePixelRatio !== 1) {
+
+                const bgSize = css(this.$el, 'backgroundSize');
+                if (bgSize.match(/^(auto\s?)+$/) || toFloat(bgSize) === data.bgSize) {
+                    data.bgSize = getSourceSize(this.dataSrcset, this.sizes);
+                    css(this.$el, 'backgroundSize', `${data.bgSize}px`);
+                }
+
+            }
+
+        },
+
+        events: ['resize']
+
     },
 
     methods: {
-        load() {
-            if (this._data.image) {
-                return this._data.image;
+
+        load(entries) {
+
+            // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
+            if (!entries.some(entry => isUndefined(entry.isIntersecting) || entry.isIntersecting)) {
+                return;
             }
 
-            const image = isImg(this.$el)
-                ? this.$el
-                : getImageFromElement(this.$el, this.dataSrc, this.sources);
+            this._data.image = getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
 
-            removeAttr(image, 'loading');
-            setSrcAttrs(this.$el, image.currentSrc);
-            return (this._data.image = image);
+                setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
+                storage[this.cacheKey] = currentSrc(img);
+                return img;
+
+            }, e => trigger(this.$el, new e.constructor(e.type, e)));
+
+            this.observer.disconnect();
         },
-    },
+
+        observe() {
+            if (this._connected && !this._data.image) {
+                this.target.forEach(el => this.observer.observe(el));
+            }
+        }
+
+    }
+
 };
 
-function setSrcAttrs(el, src) {
+function setSrcAttrs(el, src, srcset, sizes) {
+
     if (isImg(el)) {
-        const parentNode = parent(el);
-        const elements = isPicture(parentNode) ? children(parentNode) : [el];
-        elements.forEach((el) => setSourceProps(el, el));
+        sizes && (el.sizes = sizes);
+        srcset && (el.srcset = srcset);
+        src && (el.src = src);
     } else if (src) {
+
         const change = !includes(el.style.backgroundImage, src);
         if (change) {
             css(el, 'backgroundImage', `url(${escape(src)})`);
             trigger(el, createEvent('load', false));
         }
+
     }
+
 }
 
-const srcProps = ['data-src', 'data-srcset', 'sizes'];
-function setSourceProps(sourceEl, targetEl) {
-    srcProps.forEach((prop) => {
-        const value = data(sourceEl, prop);
-        if (value) {
-            attr(targetEl, prop.replace(/^(data-)+/, ''), value);
-        }
-    });
-}
+function getPlaceholderImage(width, height, sizes) {
 
-function getImageFromElement(el, src, sources) {
-    const img = new Image();
-
-    wrapInPicture(img, sources);
-    setSourceProps(el, img);
-    img.onload = () => {
-        setSrcAttrs(el, img.currentSrc);
-    };
-    attr(img, 'src', src);
-    return img;
-}
-
-function wrapInPicture(img, sources) {
-    sources = parseSources(sources);
-
-    if (sources.length) {
-        const picture = fragment('<picture>');
-        for (const attrs of sources) {
-            const source = fragment('<source>');
-            attr(source, attrs);
-            append(picture, source);
-        }
-        append(picture, img);
-    }
-}
-
-function parseSources(sources) {
-    if (!sources) {
-        return [];
+    if (sizes) {
+        ({width, height} = Dimensions.ratio({width, height}, 'width', toPx(sizesToPixel(sizes))));
     }
 
-    if (startsWith(sources, '[')) {
-        try {
-            sources = JSON.parse(sources);
-        } catch (e) {
-            sources = [];
-        }
-    } else {
-        sources = parseOptions(sources);
-    }
-
-    if (!isArray(sources)) {
-        sources = [sources];
-    }
-
-    return sources.filter((source) => !isEmpty(source));
+    return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"></svg>`;
 }
 
 const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
@@ -217,11 +211,11 @@ const additionRe = /[+-]?(\d+)/g;
 function evaluateSize(size) {
     return startsWith(size, 'calc')
         ? size
-              .slice(5, -1)
-              .replace(sizeRe, (size) => toPx(size))
-              .replace(/ /g, '')
-              .match(additionRe)
-              .reduce((a, b) => a + +b, 0)
+            .slice(5, -1)
+            .replace(sizeRe, size => toPx(size))
+            .replace(/ /g, '')
+            .match(additionRe)
+            .reduce((a, b) => a + +b, 0)
         : size;
 }
 
@@ -230,19 +224,25 @@ function getSourceSize(srcset, sizes) {
     const srcSize = toPx(sizesToPixel(sizes));
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
 
-    return descriptors.filter((size) => size >= srcSize)[0] || descriptors.pop() || '';
-}
-
-function ensureSrcAttribute(el) {
-    if (isImg(el) && !hasAttr(el, 'src')) {
-        attr(el, 'src', 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"></svg>');
-    }
-}
-
-function isPicture(el) {
-    return isTag(el, 'picture');
+    return descriptors.filter(size => size >= srcSize)[0] || descriptors.pop() || '';
 }
 
 function isImg(el) {
-    return isTag(el, 'img');
+    return el.tagName === 'IMG';
+}
+
+function currentSrc(el) {
+    return el.currentSrc || el.src;
+}
+
+const key = '__test__';
+let storage;
+
+// workaround for Safari's private browsing mode and accessing sessionStorage in Blink
+try {
+    storage = window.sessionStorage || {};
+    storage[key] = 1;
+    delete storage[key];
+} catch (e) {
+    storage = {};
 }

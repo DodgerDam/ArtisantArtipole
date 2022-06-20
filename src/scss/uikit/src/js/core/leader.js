@@ -1,26 +1,28 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import { attr, getCssVar, toggleClass, unwrap, wrapInner } from 'uikit-util';
-import Resize from '../mixin/resize';
+import {attr, getCssVar, toggleClass, unwrap, wrapInner} from 'uikit-util';
 
 export default {
-    mixins: [Class, Media, Resize],
+
+    mixins: [Class, Media],
 
     props: {
-        fill: String,
+        fill: String
     },
 
     data: {
         fill: '',
         clsWrapper: 'uk-leader-fill',
         clsHide: 'uk-leader-hide',
-        attrFill: 'data-fill',
+        attrFill: 'data-fill'
     },
 
     computed: {
-        fill({ fill }) {
+
+        fill({fill}) {
             return fill || getCssVar('leader-fill-content');
-        },
+        }
+
     },
 
     connected() {
@@ -32,21 +34,34 @@ export default {
     },
 
     update: {
-        read() {
-            const width = Math.trunc(this.$el.offsetWidth / 2);
+
+        read({changed, width}) {
+
+            const prev = width;
+
+            width = Math.floor(this.$el.offsetWidth / 2);
 
             return {
                 width,
                 fill: this.fill,
-                hide: !this.matchMedia,
+                changed: changed || prev !== width,
+                hide: !this.matchMedia
             };
         },
 
-        write({ width, fill, hide }) {
-            toggleClass(this.wrapper, this.clsHide, hide);
-            attr(this.wrapper, this.attrFill, new Array(width).join(fill));
+        write(data) {
+
+            toggleClass(this.wrapper, this.clsHide, data.hide);
+
+            if (data.changed) {
+                data.changed = false;
+                attr(this.wrapper, this.attrFill, new Array(data.width).join(data.fill));
+            }
+
         },
 
-        events: ['resize'],
-    },
+        events: ['resize']
+
+    }
+
 };

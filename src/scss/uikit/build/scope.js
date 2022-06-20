@@ -1,6 +1,12 @@
-import { args, glob, minify, read, renderLess, replaceInFile, validClassName } from './util.js';
+const {glob, minify, read, renderLess, write, validClassName} = require('./util');
+const argv = require('minimist')(process.argv.slice(2));
 
-if (args.h || args.help) {
+argv._.forEach(arg => {
+    const tokens = arg.split('=');
+    argv[tokens[0]] = tokens[1] || true;
+});
+
+if (argv.h || argv.help) {
     console.log(`
         usage:
 
@@ -13,43 +19,63 @@ if (args.h || args.help) {
         scope.js cleanup // will remove current scope
 
     `);
-    process.exit(0);
-}
-const currentScopeRe = /\/\* scoped: ([^*]*) \*\/\n/;
-const currentScopeLegacyRe = /\.(uk-scope)/;
-
-const files = await glob('dist/**/!(*.min).css');
-const prevScope = await getScope(files);
-
-if (args.cleanup && prevScope) {
-    await cleanup(files, prevScope);
-} else if (prevScope) {
-    const newScope = getNewScope();
-
-    if (prevScope === newScope) {
-        console.warn(`Already scoped with: ${prevScope}`);
-        process.exit(0);
-    }
-
-    await cleanup(files, prevScope);
-    await scope(files, newScope);
 } else {
-    await scope(files, getNewScope());
+    run().catch(({message}) => {
+        console.error(message);
+        process.exitCode = 1;
+    });
 }
 
-async function getScope(files) {
-    for (const file of files) {
-        const data = await read(file);
-        const [, scope] = data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || [];
-        if (scope) {
-            return scope;
+async function run() {
+
+    const files = await readFiles();
+    const oldScope = getScope(files);
+
+    try {
+
+        if (argv.cleanup && oldScope) {
+            cleanup(files, oldScope);
+        } else if (oldScope) {
+            const newScope = getNewScope();
+
+            if (oldScope === newScope) {
+                throw new Error(`Already scoped with: ${oldScope}`);
+            }
+
+            cleanup(files, oldScope);
+            await scope(files, newScope);
+
+        } else {
+            await scope(files, getNewScope());
         }
+
+        await store(files);
+
+    } catch (e) {
+        console.error(e);
     }
-    return '';
+
+}
+
+async function readFiles() {
+
+    const files = await glob('dist/**/!(*.min).css');
+    return Promise.all(files.map(async file => {
+
+        const data = await read(file);
+        return {file, data};
+
+    }));
+
+}
+
+function getScope(files) {
+    return files.reduce((scope, {data}) => scope || isScoped(data), '');
 }
 
 function getNewScope() {
-    const scopeFromInput = args.scope || args.s || 'uk-scope';
+
+    const scopeFromInput = argv.scope || argv.s || 'uk-scope';
 
     if (validClassName.test(scopeFromInput)) {
         return scopeFromInput;
@@ -59,43 +85,49 @@ function getNewScope() {
 }
 
 async function scope(files, scope) {
-    for (const file of files) {
-        await replaceInFile(file, async (data) => {
-            const output = await renderLess(`.${scope} {\n${stripComments(data)}\n}`);
-            return `/* scoped: ${scope} */\n${
-                output.replace(
-                    new RegExp(
-                        `.${scope}\\s((\\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html|:root)`,
-                        'g'
-                    ),
-                    '$1'
-                ) // unescape
-            }`;
-        });
-        await minify(file);
-    }
+    await Promise.all(
+        files.map(async store => {
+            try {
+
+                const output = await renderLess(`.${scope} {\n${stripComments(store.data)}\n}`);
+                store.data = `/* scoped: ${scope} */\n${
+                    output
+                        .replace(new RegExp(`.${scope} ${/{(.|[\r\n])*?}/.source}`), '')
+                        .replace(new RegExp(`.${scope}${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
+                }`;
+
+            } catch (e) {
+                console.error(store.file, e);
+            }
+        })
+    );
 }
 
-async function cleanup(files, scope) {
-    const string = scope
-        .split(' ')
-        .map((scope) => `.${scope}`)
-        .join(' ');
-    for (const file of files) {
-        await replaceInFile(
-            file,
-            (data) =>
-                data
-                    .replace(currentScopeRe, '') // remove scope comment
-                    .replace(new RegExp(` *${string} ({[\\s\\S]*?})?`, 'g'), '') // replace classes
-        );
-    }
+async function store(files) {
+    return Promise.all(
+        files.map(async ({file, data}) => {
+            await write(file, data);
+            await minify(file);
+        })
+    );
+}
+
+const currentScopeRe = /\/\* scoped: ([^*]*) \*\//;
+const currentScopeLegacyRe = /\.(uk-scope)/;
+
+function cleanup(files, scope) {
+    const string = scope.split(' ').map(scope => `.${scope}`).join(' ');
+    files.forEach(store => {
+        store.data = store.data
+            .replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
+            .replace(new RegExp(currentScopeRe.source, 'g'), ''); // remove scope comment
+    });
+}
+
+function isScoped(data) {
+    return (data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || [])[1];
 }
 
 function stripComments(input) {
-    return input
-        .replace(/\/\*(.|\n)*?\*\//gm, '')
-        .split('\n')
-        .filter((line) => line.trim().substr(0, 2) !== '//')
-        .join('\n');
+    return input.replace(/\/\*(.|\n)*?\*\//gm, '').split('\n').filter(line => line.trim().substr(0, 2) !== '//').join('\n');
 }

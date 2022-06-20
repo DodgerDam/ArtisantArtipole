@@ -1,6 +1,7 @@
-import { isFunction, isObject, isUndefined, toNode, toNodes } from './lang';
+import {isFunction, isObject, isUndefined, toNode, toNodes} from './lang';
 
 export function attr(element, name, value) {
+
     if (isObject(name)) {
         for (const key in name) {
             attr(element, key, name[key]);
@@ -9,39 +10,42 @@ export function attr(element, name, value) {
     }
 
     if (isUndefined(value)) {
-        return toNode(element)?.getAttribute(name);
+        element = toNode(element);
+        return element && element.getAttribute(name);
     } else {
-        for (const el of toNodes(element)) {
+        toNodes(element).forEach(element => {
+
             if (isFunction(value)) {
-                value = value.call(el, attr(el, name));
+                value = value.call(element, attr(element, name));
             }
 
             if (value === null) {
-                removeAttr(el, name);
+                removeAttr(element, name);
             } else {
-                el.setAttribute(name, value);
+                element.setAttribute(name, value);
             }
-        }
+        });
     }
+
 }
 
 export function hasAttr(element, name) {
-    return toNodes(element).some((element) => element.hasAttribute(name));
+    return toNodes(element).some(element => element.hasAttribute(name));
 }
 
 export function removeAttr(element, name) {
-    const elements = toNodes(element);
-    for (const attribute of name.split(' ')) {
-        for (const element of elements) {
-            element.removeAttribute(attribute);
-        }
-    }
+    element = toNodes(element);
+    name.split(' ').forEach(name =>
+        element.forEach(element =>
+            element.hasAttribute(name) && element.removeAttribute(name)
+        )
+    );
 }
 
 export function data(element, attribute) {
-    for (const name of [attribute, `data-${attribute}`]) {
-        if (hasAttr(element, name)) {
-            return attr(element, name);
+    for (let i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
+        if (hasAttr(element, attrs[i])) {
+            return attr(element, attrs[i]);
         }
     }
 }

@@ -1,250 +1,173 @@
-import less from 'less';
-import fs from 'fs-extra';
-import pLimit from 'p-limit';
-import globImport from 'glob';
-import { optimize } from 'svgo';
-import { promisify } from 'util';
-import minimist from 'minimist';
-import CleanCSS from 'clean-css';
-import html from 'rollup-plugin-html';
-import alias from '@rollup/plugin-alias';
-import modify from 'rollup-plugin-modify';
-import { babel } from '@rollup/plugin-babel';
-import replace from '@rollup/plugin-replace';
-import { basename, dirname, join } from 'path';
-import { exec as execImport } from 'child_process';
-import { rollup, watch as rollupWatch } from 'rollup';
-import { minify as rollupMinify } from 'rollup-plugin-esbuild';
+const fs = require('fs');
+const less = require('less');
+const SVGO = require('svgo');
+const rollup = require('rollup');
+const postcss = require('postcss');
+const uglify = require('uglify-js');
+const {promisify} = require('util');
+const CleanCSS = require('clean-css');
+const html = require('rollup-plugin-html');
+const buble = require('@rollup/plugin-buble');
+const replace = require('@rollup/plugin-replace');
+const alias = require('@rollup/plugin-alias');
+const {basename, dirname, resolve} = require('path');
+const {version} = require('../package.json');
+const banner = `/*! UIkit ${version} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 
-const limit = pLimit(Number(process.env.cpus || 2));
+exports.banner = banner;
+exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
-export const exec = promisify(execImport);
-export const glob = promisify(globImport);
-export const { pathExists, readJson } = fs;
+exports.glob = promisify(require('glob'));
 
-export const banner = `/*! UIkit ${await getVersion()} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
-export const validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
+const readFile = promisify(fs.readFile);
+exports.read = async function (file, cb) {
 
-const argv = minimist(process.argv.slice(2));
+    const data = await readFile(file, 'utf8');
+    cb && cb(data);
+    return data;
 
-argv._.forEach((arg) => {
-    const tokens = arg.split('=');
-    argv[tokens[0]] = tokens[1] || true;
-});
+};
 
-export const args = argv;
+const writeFile = promisify(fs.writeFile);
+exports.write = async function (dest, data) {
 
-export function read(file) {
-    return fs.readFile(file, 'utf8');
-}
-
-export async function write(dest, data) {
-    const err = await fs.writeFile(dest, data);
+    const err = await writeFile(dest, data);
 
     if (err) {
         console.log(err);
         throw err;
     }
 
-    await logFile(dest);
+    exports.logFile(dest);
 
     return dest;
-}
 
-export async function logFile(file) {
-    const data = await read(file);
+};
+
+exports.logFile = async function (file) {
+    const data = await exports.read(file);
     console.log(`${cyan(file)} ${getSize(data)}`);
-}
+};
 
-export async function minify(file) {
-    const { styles } = await limit(() =>
-        new CleanCSS({
-            advanced: false,
-            keepSpecialComments: 0,
-            rebase: false,
-            returnPromise: true,
-        }).minify([file])
-    );
+exports.minify = async function (file) {
 
-    await write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
+    const {styles} = await new CleanCSS({
+        advanced: false,
+        keepSpecialComments: 0,
+        rebase: false,
+        returnPromise: true
+    }).minify([file]);
+
+    await exports.write(`${resolve(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
     return styles;
-}
 
-export function renderLess(data, options) {
-    return limit(async () => (await less.render(data, options)).css);
-}
+};
 
-export async function compile(file, dest, { external, globals, name, aliases, replaces } = {}) {
-    const minify = !args.nominify;
-    const debug = args.d || args.debug;
-    const watch = args.w || args.watch;
+exports.renderLess = async function (data, options) {
+    return postcss()
+        .use(postcss.plugin('calc', () =>
+            css => {
+                css.walk(node => {
+                    const {type} = node;
+
+                    if (type === 'decl') {
+                        node.value = postcss.list.space(node.value).map(value =>
+                            value.startsWith('calc(')
+                                ? value.replace(/(.)calc/g, '$1')
+                                : value
+                        ).join(' ');
+                    }
+                });
+            }
+        ))
+        .process((await less.render(data, options)).css)
+        .css;
+};
+
+exports.compile = async function (file, dest, {external, globals, name, aliases, replaces, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
-    const inputOptions = {
+    const bundle = await rollup.rollup({
         external,
-        input: file,
+        input: resolve(file),
         plugins: [
-            replace({
-                preventAssignment: true,
-                values: {
-                    VERSION: `'${await getVersion()}'`,
-                    ...replaces,
-                },
-            }),
+            replace(Object.assign({
+                VERSION: `'${version}'`
+            }, replaces)),
             alias({
-                entries: {
-                    'uikit-util': './src/js/util/index.js',
-                    ...aliases,
-                },
+                entries: Object.assign({
+                    'uikit-util': './src/js/util/index.js'
+                }, aliases)
             }),
             html({
                 include: '**/*.svg',
                 htmlMinifierOptions: {
-                    collapseWhitespace: true,
-                },
+                    collapseWhitespace: true
+                }
             }),
-            babel({
-                presets: [
-                    [
-                        '@babel/preset-env',
-                        {
-                            loose: true,
-                            targets: {
-                                safari: '12',
-                            },
-                        },
-                    ],
-                ],
-                extensions: ['.js'],
-                babelHelpers: 'bundled',
-                retainLines: true,
-            }),
-            modify({
-                find: /(>)\\n\s+|\\n\s+(<)/,
-                replace: (m, m1, m2) => `${m1 || ''} ${m2 || ''}`,
-            }),
-        ],
-    };
+            buble({namedFunctionExpressions: false})
+        ]
+    });
 
-    const outputOptions = {
+    let {output: [{code, map}]} = await bundle.generate({
         globals,
-        banner,
         format: 'umd',
-        amd: { id: `UIkit${name}`.toLowerCase() },
-        name: `UIkit${ucfirst(name)}`,
-        sourcemap: debug ? 'inline' : false,
-    };
+        banner: exports.banner,
+        amd: {id: `UIkit${name}`.toLowerCase()},
+        name: `UIkit${exports.ucfirst(name)}`,
+        sourcemap: !minify ? 'inline' : false
+    });
 
-    const output = [
-        {
-            ...outputOptions,
-            file: `${dest}.js`,
-        },
-    ];
+    code = code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2');
 
-    if (minify) {
-        output.push({
-            ...outputOptions,
-            file: `${dest}.min.js`,
-            plugins: [minify ? rollupMinify() : undefined],
-        });
-    }
+    return Promise.all([
+        exports.write(`${dest}.js`, code + (!minify ? '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' + Buffer.from(map.toString()).toString('base64') : '')),
+        minify ? exports.write(`${dest}.min.js`, uglify.minify(code, {output: {preamble: exports.banner}}).code) : null
+    ])[0];
 
-    if (!watch) {
-        const bundle = await rollup(inputOptions);
+};
 
-        for (const options of output) {
-            await limit(() => bundle.write(options));
-            logFile(options.file);
-        }
+exports.icons = async function (src) {
 
-        await bundle.close();
-    } else {
-        console.log('UIkit is watching the files...');
+    const svgo = new SVGO({
 
-        const watcher = rollupWatch({
-            ...inputOptions,
-            output,
-        });
-
-        watcher.on('event', ({ code, result, output, error }) => {
-            if (result) {
-                result.close();
-            }
-            if (code === 'BUNDLE_END' && output) {
-                output.map(logFile);
-            }
-            if (error) {
-                console.error(error);
-            }
-        });
-
-        watcher.close();
-    }
-}
-
-export async function icons(src) {
-    const options = {
         plugins: [
+            {removeViewBox: false},
             {
-                name: 'preset-default',
-                params: {
-                    overrides: {
-                        removeViewBox: false,
-                        cleanupNumericValues: {
-                            floatPrecision: 3,
-                        },
-                        convertPathData: false,
-                        convertShapeToPath: false,
-                        mergePaths: false,
-                        removeDimensions: false,
-                        removeStyleElement: false,
-                        removeScriptElement: false,
-                        removeUnknownsAndDefaults: false,
-                        removeUselessStrokeAndFill: false,
-                    },
-                },
+                cleanupNumericValues: {
+                    floatPrecision: 3
+                }
             },
-        ],
-    };
+            {convertPathData: false},
+            {convertShapeToPath: false},
+            {mergePaths: false},
+            {removeDimensions: false},
+            {removeStyleElement: false},
+            {removeScriptElement: false},
+            {removeUnknownsAndDefaults: false},
+            {removeUselessStrokeAndFill: false}
+        ]
 
-    const files = await glob(src, { nosort: true });
-    const icons = await Promise.all(
-        files.map((file) => limit(async () => (await optimize(await read(file), options)).data))
-    );
+    });
+    const files = await exports.glob(src, {nosort: true});
+    const icons = await Promise.all(files.map(async file => {
+        const data = await exports.read(file);
+        const {data: svg} = await svgo.optimize(data);
+        return svg;
+    }));
 
-    return JSON.stringify(
-        files.reduce((result, file, i) => {
-            result[basename(file, '.svg')] = icons[i];
-            return result;
-        }, {}),
-        null,
-        '    '
-    );
-}
+    return JSON.stringify(files.reduce((result, file, i) => {
+        result[basename(file, '.svg')] = icons[i];
+        return result;
+    }, {}), null, '    ');
 
-export async function run(cmd, options) {
-    const { stdout, stderr } = await limit(() => exec(cmd, options));
+};
 
-    stdout && console.log(stdout.trim());
-    stderr && console.log(stderr.trim());
-
-    return stdout;
-}
-
-export function ucfirst(str) {
+exports.ucfirst = function (str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-}
-
-export async function getVersion() {
-    return (await readJson('package.json')).version;
-}
-
-export async function replaceInFile(file, fn) {
-    await write(file, await fn(await read(file)));
-}
+};
 
 function cyan(str) {
     return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
