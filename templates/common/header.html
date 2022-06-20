@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@@meta.title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Teko:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@@webRoot/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="shortcut icon" type="image/png" href="@@webRoot/assets/images/favicon/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="@@webRoot/assets/images/favicon/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@@webRoot/assets/images/favicon/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@@webRoot/assets/images/favicon/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="@@webRoot/assets/images/favicon/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="@@webRoot/assets/images/favicon/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="@@webRoot/assets/images/favicon/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="@@webRoot/assets/images/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="@@webRoot/assets/images/favicon/favicon-16x16.png" sizes="16x16" />
+    <meta name="application-name" content="ARTISANS ARTIPÔLE | La signature des Artisans en Coopérative du Bâtiment" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="@@webRoot/assets/images/favicon/mstile-144x144.png" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</head>
+
+<body id="body">
+
+    <div class="site-container">
+
+        <header class="site-header" data-aos="fade-down" id="header" itemscope itemtype="https://schema.org/WPHeader">
+            <div class="container-nav-header">
+                <div class="uk-container">
+                    <div class="container-logo">
+                        <a href="index.html" uk-tooltip="Artisans Artipôle - Dôle Choisey" class="logo-client"><img data-src="@@webRoot/assets/images/logo-artipole.svg" alt="Artisans Artipôle - Dôle Choisey" width="191" height="103" uk-img /></a>
+                    </div>
+                    <div class="container-nav" id="nav-container-id">
+                        <nav class="kg-navigation" itemscope itemtype="https://schema.org/SiteNavigationElement" role="navigation" aria-label="Menu principal">
+                            <ul class="uk-navbar-nav">
+                                <li><a href="listing-artisan.html" class="nav-links">Mon artisan Artipôle</a></li>
+                                <li><a href="inspirations.html" class="nav-links">Inspirations</a></li>
+                                <!-- <li><a href="metiers.html" class="nav-links">Nos métiers</a></li> -->
+                                <li><button type="button" class="nav-links metier-button">Nos métiers</button></li>
+                                <li><a href="salle-exposition.html" class="nav-links">Salle d'exposition</a></li>
+                            </ul>
+                        </nav>
+                        <div class="container-social">
+                            <ul>
+                                <li>
+                                    <a href="#" title="Notre page Facebook" aria-label="Lien sur la page Facebook" target="_blank" uk-tooltip="Notre page Facebook">
+                                        <svg class="icon">
+                                            <use xlink:href="@@webRoot/assets/images/sprite.svg#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Notre page Instagram" aria-label="Lien sur la page Instagram" target="_blank" uk-tooltip="Notre page Instagram">
+                                        <svg class="icon">
+                                            <use xlink:href="@@webRoot/assets/images/sprite.svg#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Notre page Pinterest" aria-label="Lien sur la page Pinterest" target="_blank" uk-tooltip="Notre page Pinterest">
+                                        <svg class="icon">
+                                            <use xlink:href="@@webRoot/assets/images/sprite.svg#pinterest"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Notre page YouTube" aria-label="Lien sur la page YouTube" target="_blank" uk-tooltip="Notre page YouTube">
+                                        <svg class="icon">
+                                            <use xlink:href="@@webRoot/assets/images/sprite.svg#youtube"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="container-progress">
+                            <div class="progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="project-navigation-container" id="fast-acces" data-aos="fade-right">
+            <div class="project">
+                <button type="button" title="J'ai un projet !" class="project-link">
+                    <span class="txt">J'ai un projet !</span>
+                    <div class="svg-item">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#projet"></use>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+            <button type="button" aria-label="Bouton d'accès rapide" class="open-fast-acces" uk-tooltip="title: Ouvrir l'accès rapide; pos: right">
+                <svg class="icon">
+                    <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                </svg>
+            </button>
+            <ul class="liste-acces-rapide-items">
+                <li>
+                    <a href="actualites.html" class="item-acces-rapide">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#actualites"></use>
+                        </svg>
+                        <span>Actualités</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="listing-artisan.html" class="item-acces-rapide">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#carte-interactive"></use>
+                        </svg>
+                        <span>Carte interactive</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="item-acces-rapide">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#catalogues"></use>
+                        </svg>
+                        <span>Catalogues</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="container-projet-mobile">
+            <button type="button" id="close-container-project" uk-close></button>
+            <div class="uk-container">
+                <div class="container-picto uk-margin-large">
+                    <svg class="icon">
+                        <use xlink:href="@@webRoot/assets/images/sprite.svg#artisan"></use>
+                    </svg>
+                    <p class="title-projet">J'ai un projet</p>
+                </div>
+                <form action="" method="GET" id="search_form_artisan">
+                    <p class="title-search">Je recherche un artisan...</p>
+                    <div class="container-artisan-fields">
+                        <div class="container-select-field">
+                            <label class="uk-form-label sr-only" for="travaux-search-form">Type de travaux</label>
+                            <select id="travaux-search-form" name="travaux" class="custom-select" autocomplete="off">
+                                <option value="none" selected disabled hidden>Type de travaux</option>
+                                <option value="1">Type de travaux 01</option>
+                                <option value="2">Type de travaux 02</option>
+                                <option value="3">Type de travaux 03</option>
+                                <option value="4">Type de travaux 04</option>
+                            </select>
+                        </div>
+                        <div class="container-select-field">
+                            <label class="uk-form-label sr-only" for="specialite-search-form">Spécialité</label>
+                            <select id="specialite-search-form" name="specialite" class="custom-select" autocomplete="off">
+                                <option value="none" selected disabled hidden>Spécialité</option>
+                                <option value="1">Spécialité 01</option>
+                                <option value="2">Spécialité 02</option>
+                                <option value="3">Spécialité 03</option>
+                                <option value="4">Spécialité 04</option>
+                            </select>
+                        </div>
+                        <div class="container-flex">
+                            <div class="input-data">
+                                <input class="uk-input" placeholder=" " id="zip-search-form" type="text" name="zip" value="">
+                                <label class="uk-form-label" for="zip-search-form">Code postal</label>
+                            </div>
+                            <div class="input-data">
+                                <input class="uk-input" placeholder=" " id="ville-search-form" type="text" name="ville" value="">
+                                <label class="uk-form-label" for="ville-search-form">Ville</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-artisan-fields uk-margin">
+                        <div class="rayon-container">
+                            <p class="title-search">Dans un rayon de :</p>
+                            <label class="uk-form-label sr-only" for="ville-search-form">Dans un rayon de :</label>
+                            <div class="uk-flex">
+                                <div>
+                                    <label class="uk-form-label sr-only" for="km-search-form-01">5 km</label>
+                                    <button type="button" class="tag-rayon-button" name="rayon" id="km-search-form-01">5 km</button>
+                                </div>
+                                <div>
+                                    <label class="uk-form-label sr-only" for="km-search-form-02">10 km</label>
+                                    <button type="button" class="tag-rayon-button" name="rayon" id="km-search-form-02">10 km</button>
+                                </div>
+                                <div>
+                                    <label class="uk-form-label sr-only" for="km-search-form-03">50 km</label>
+                                    <button type="button" class="tag-rayon-button" name="rayon" id="km-search-form-03">50 km</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-search-button" aria-label="Valider votre recherche" id="artisan-submit-button">
+                            <span class="txt-search-button">Rechercher</span>
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                <form action="" method="GET" id="search_form_metier" class="uk-margin-large">
+                    <p class="title-search">Je recherche un métier...</p>
+                    <div class="container-artisan-fields">
+                        <div class="container-select-field">
+                            <label class="uk-form-label sr-only" for="metiers-search-form">Métier</label>
+                            <select id="metiers-search-form" name="metiers" class="custom-select">
+                                <option value="none" selected disabled hidden>Métier</option>
+                                <option value="1">Métier 01</option>
+                                <option value="2">Métier 02</option>
+                                <option value="3">Métier 03</option>
+                                <option value="4">Métier 04</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-search-button" aria-label="Valider votre recherche" id="metier-submit-button">
+                            <span class="txt-search-button">Rechercher</span>
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                <div class="uk-container-catalogues-flex">
+                    <a href="actualites.html" title="Découvrez nos actualités" class="item-catalogue">
+                        <img src="@@webRoot/assets/images/actualites.png" width="202" height="176" alt="" />
+                        <div class="container-svgs">
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#actualites"></use>
+                            </svg>
+                            <span>Découvrez<br>nos actualités</span>
+                            <svg class="icon icon-arrow">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="#" title="Découvrez nos catalogues" class="item-catalogue">
+                        <img src="@@webRoot/assets/images/brochure.png" width="258" height="205" alt="" />
+                        <div class="container-svgs">
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#catalogues"></use>
+                            </svg>
+                            <span>Découvrez<br>nos catalogues</span>
+                            <svg class="icon icon-arrow">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="inspirations.html" title="Découvrez nos inspirations" class="item-catalogue">
+                        <img src="@@webRoot/assets/images/inspirations.png" width="202" height="176" alt="" />
+                        <div class="container-svgs">
+                            <svg class="icon">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#photo"></use>
+                            </svg>
+                            <span>Découvrez<br>nos inspirations</span>
+                            <svg class="icon icon-arrow">
+                                <use xlink:href="@@webRoot/assets/images/sprite.svg#arrow"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-nav-mobile">
+            <ul>
+                <li>
+                    <button type="button" class="item-acces-rapide project-mobile-button">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#projet"></use>
+                        </svg>
+                        <span>Projet</span>
+                    </button>
+                </li>
+                <li>
+                    <a href="actualites.html" class="item-acces-rapide">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#actualites"></use>
+                        </svg>
+                        <span>Actualités</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="listing-artisan.html" class="item-acces-rapide">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#carte-interactive"></use>
+                        </svg>
+                        <span>Carte</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="item-acces-rapide">
+                        <svg class="icon">
+                            <use xlink:href="@@webRoot/assets/images/sprite.svg#catalogues"></use>
+                        </svg>
+                        <span>Catalogues</span>
+                    </a>
+                </li>
+                <li>
+                    <button type="button" aria-label="Bouton Menu" id="burger-menu" class="item-acces-rapide">
+                        <div class="nav-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="title-menu">Menu</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div id="container-menu-metier">
+            <div class="container-metiers" uk-grid>
+                <div class="container-metiers__items uk-width-1-1 uk-width-3-4@m">
+                    <ul>
+                        <li class="card-metiers card-metiers-1">
+                            <a href="agencement.html">
+                                <figure>
+                                    <p class="title">Agencement</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/agencement.jpg" alt="" uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-2">
+                            <a href="charpente.html">
+                                <figure>
+                                    <p class="title">Charpente</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/charpente.jpg" alt="" uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-3">
+                            <a href="couverture.html">
+                                <figure>
+                                    <p class="title">Couverture</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/couverture.jpg" alt="" uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-4">
+                            <a href="cuisine.html">
+                                <figure>
+                                    <p class="title">Cuisine</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/cuisine.jpg" alt="" uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-5">
+                            <a href="isolation.html">
+                                <figure>
+                                    <p class="title">Isolation</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/isolation.jpg" alt="" uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-6">
+                            <a href="menuiserie.html">
+                                <figure>
+                                    <p class="title">Menuiserie</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/menuiserie-ext.jpg" alt="" uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-7">
+                            <a href="menuiserie-interieure.html">
+                                <figure>
+                                    <p class="title">Menuiserie intérieure</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/menuiserie-int.jpg" alt="" uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-8">
+                            <a href="maison-ossature-bois.html">
+                                <figure>
+                                    <p class="title ">Maison ossature bois</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/maison-bois.jpg " alt=" " uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-9">
+                            <a href="bardage.html">
+                                <figure>
+                                    <p class="title ">Bardage</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/bardage.jpg " alt=" " uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-10">
+                            <a href="meuble.html">
+                                <figure>
+                                    <p class="title ">Meuble</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/meuble.jpg " alt=" " uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                        <li class="card-metiers card-metiers-11">
+                            <a href="autre-metier.html">
+                                <figure>
+                                    <p class="title ">Autre métier</p>
+                                    <img data-src="@@webRoot/assets/images/metiers/autre.jpg " alt=" " uk-img />
+                                </figure>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="pattern"></div>
+                </div>
+                <div class="container-metiers__content uk-width-1-1 uk-width-1-4@m">
+                    <button type="button" aria-label="Fermer le menu métiers" id="close-metier-container" uk-close></button>
+                    <span class="container-metiers__content__title">Sélectionnez le métier de votre choix pour plus d'informations</span>
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+                        eu, pretium quis, sem. Nulla consequat massa quis enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                    <figure class="img-tampon">
+                        <img data-src="@@webRoot/assets/images/tampon.png" width="210" height="210" alt="" uk-img />
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-content main" data-aos="fade">

@@ -2,26 +2,29 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Artisans Artipôle en Bourgogne Franche-Comté</title>
-		<link rel="Stylesheet" href="/css/styles.min.css">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Teko:wght@300;400;500;600&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-		<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png"/>
-		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png"/>
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png"/>
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png"/>
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png"/>
-		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png"/>
-		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png"/>
-		<link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32"/>
-		<link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16"/>
-		<meta name="application-name" content="ARTISANS ARTIPÔLE | La signature des Artisans en Coopérative du Bâtiment"/>
-		<meta name="msapplication-TileColor" content="#FFFFFF"/>
-		<meta name="msapplication-TileImage" content="/images/favicon/mstile-144x144.png"/>
+		<link rel="stylesheet" href="/css/styles.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.bootstrap5.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+		<link rel="shortcut icon" type="image/png" href="/assets/images/favicon/favicon.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/assets/images/favicon/apple-touch-icon-57x57.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/favicon/apple-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/favicon/apple-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/favicon/apple-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/assets/images/favicon/apple-touch-icon-120x120.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/images/favicon/apple-touch-icon-152x152.png" />
+		<link rel="icon" type="image/png" href="/assets/images/favicon/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="/assets/images/favicon/favicon-16x16.png" sizes="16x16" />
+		<meta name="application-name" content="ARTISANS ARTIPÔLE | La signature des Artisans en Coopérative du Bâtiment" />
+		<meta name="msapplication-TileColor" content="#FFFFFF" />
+		<meta name="msapplication-TileImage" content="/assets/images/favicon/mstile-144x144.png" />
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 		{% block stylesheets %}
@@ -32,55 +35,10 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body id="body"> {% block body %}{% endblock %}
-		<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
-		<script src="/js/main.js"></script>
-		<script src="/js/vendor/postprocessing.min.js"></script>
-		<script src="/js/vendor/Accordion.js"></script>
-		<script src="/js/vendor/contentMap.js"></script>
-		<script src="/js/vendor/map.js"></script>
-		<script src="/js/vendor/dist/map.dev.js"></script>
-		<script src="/js/vendors~vuejs-listing.js"></script>
-		<script src="/js/vuejs-listing.js"></script>
-		<script>
-			/* COUNT ANIMATION */
-$(window).scroll(countAnime);
-var viewed = false;
-
-
-function isScrolledIntoView(elem) {
-var docViewTop = $(window).scrollTop();
-var docViewBottom = docViewTop + $(window).height();
-
-var elemTop = $(elem).offset().top;
-var elemBottom = elemTop + $(elem).height();
-
-return((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-}
-
-
-function countAnime() {
-if (isScrolledIntoView($(".section-chiffres")) && ! viewed) {
-viewed = true;
-$('.count').each(function () {
-$(this).prop('Counter', 0).animate({
-Counter: $(this).text()
-}, {
-duration: 4000,
-easing: 'swing',
-step: function (now) {
-$(this).text(Math.ceil(now));
-}
-});
-});
-}
-}
-
-/* END */
-		</script>
-
+	<body id="body">
+	@@webRoot
+	{% block body %}{% endblock %}
+		
 	</body>
+
 </html>

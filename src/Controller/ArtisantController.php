@@ -12,7 +12,7 @@ class ArtisantController extends AbstractController
     private $pdo;
 
     public function __construct(){
-        $this->pdo = new PDO('mysql:host=localhost;dbname=artipole;port=3380;charset=utf8', 'artipole',  'artipole');
+        $this->pdo = new PDO('mysql:host=localhost;dbname=artisant_artipole;port=3306;charset=utf8', 'artisant_artipole',  'artisant_artipole');
     }
 
     public function __destruct()
@@ -41,7 +41,7 @@ class ArtisantController extends AbstractController
 
         // list($nbAdh,$nbfournisseurs)=$this->counter();
 
-        return $this->render('artisant/home2.html.twig',[
+        return $this->render('artisant/home.html.twig',[
             // 'nbadh' =>$nbAdh[0]['cnt'],
             // 'fournisseurs' => $nbfournisseurs[0]['cnt_fournisseurs'],
             'rand_metiers'=>$this->RandMetier(),
