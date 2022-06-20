@@ -40,9 +40,11 @@ $slidenav-large-padding-horizontal:              $slidenav-large-padding-vertica
     @if(mixin-exists(hook-slidenav)) {@include hook-slidenav();}
 }
 
-/* Hover */
-.uk-slidenav:hover {
+/* Hover + Focus */
+.uk-slidenav:hover,
+.uk-slidenav:focus {
     color: $slidenav-hover-color;
+    outline: none;
     @if(mixin-exists(hook-slidenav-hover)) {@include hook-slidenav-hover();}
 }
 

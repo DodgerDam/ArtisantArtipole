@@ -1,6 +1,7 @@
-import { hyphenate, isEmpty, memoize, remove, within } from 'uikit-util';
+import {hyphenate, isEmpty, memoize, remove, within} from 'uikit-util';
 
 export default function (UIkit) {
+
     const DATA = UIkit.data;
 
     UIkit.prototype.$create = function (component, element, data) {
@@ -8,7 +9,8 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$mount = function (el) {
-        const { name } = this.$options;
+
+        const {name} = this.$options;
 
         if (!el[DATA]) {
             el[DATA] = {};
@@ -33,7 +35,8 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$destroy = function (removeEl = false) {
-        const { el, name } = this.$options;
+
+        const {el, name} = this.$options;
 
         if (el) {
             this._callDisconnected();
@@ -41,7 +44,7 @@ export default function (UIkit) {
 
         this._callHook('destroy');
 
-        if (!el?.[DATA]) {
+        if (!el || !el[DATA]) {
             return;
         }
 
@@ -66,14 +69,19 @@ export default function (UIkit) {
 
     UIkit.prototype.$getComponent = UIkit.getComponent;
 
-    const componentName = memoize((name) => UIkit.prefix + hyphenate(name));
+    const componentName = memoize(name => UIkit.prefix + hyphenate(name));
     Object.defineProperties(UIkit.prototype, {
+
         $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
 
         $name: {
+
             get() {
                 return componentName(this.$options.name);
-            },
-        },
+            }
+
+        }
+
     });
+
 }

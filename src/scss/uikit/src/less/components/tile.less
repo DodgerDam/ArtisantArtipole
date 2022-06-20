@@ -59,7 +59,7 @@
     padding-right: @tile-padding-horizontal;
     padding-top: @tile-padding-vertical;
     padding-bottom: @tile-padding-vertical;
-    .hook-tile();
+    .hook-tile;
 }
 
 /* Phone landscape and bigger */
@@ -160,12 +160,8 @@
  */
 
 .uk-tile-default {
-    background-color: @tile-default-background;
-    .hook-tile-default();
-}
-
-.uk-tile-default.uk-tile-hover:hover {
-    .hook-tile-default-hover();
+    background: @tile-default-background;
+    .hook-tile-default;
 }
 
 /*
@@ -173,12 +169,8 @@
  */
 
 .uk-tile-muted {
-    background-color: @tile-muted-background;
-    .hook-tile-muted();
-}
-
-.uk-tile-muted.uk-tile-hover:hover {
-    .hook-tile-muted-hover();
+    background: @tile-muted-background;
+    .hook-tile-muted;
 }
 
 /*
@@ -186,12 +178,8 @@
  */
 
 .uk-tile-primary {
-    background-color: @tile-primary-background;
-    .hook-tile-primary();
-}
-
-.uk-tile-primary.uk-tile-hover:hover {
-    .hook-tile-primary-hover();
+    background: @tile-primary-background;
+    .hook-tile-primary;
 }
 
 // Color Mode
@@ -203,12 +191,8 @@
  */
 
 .uk-tile-secondary {
-    background-color: @tile-secondary-background;
-    .hook-tile-secondary();
-}
-
-.uk-tile-secondary.uk-tile-hover:hover {
-    .hook-tile-secondary-hover();
+    background: @tile-secondary-background;
+    .hook-tile-secondary;
 }
 
 // Color Mode
@@ -219,15 +203,11 @@
 // Hooks
 // ========================================================================
 
-.hook-tile-misc();
+.hook-tile-misc;
 
 .hook-tile() {}
 .hook-tile-default() {}
-.hook-tile-default-hover() {}
 .hook-tile-muted() {}
-.hook-tile-muted-hover() {}
 .hook-tile-primary() {}
-.hook-tile-primary-hover() {}
 .hook-tile-secondary() {}
-.hook-tile-secondary-hover() {}
 .hook-tile-misc() {}

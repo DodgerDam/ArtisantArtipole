@@ -1,54 +1,59 @@
 import Class from '../mixin/class';
-import Resize from '../mixin/resize';
-import { closest, css, dimensions, height, isVisible } from 'uikit-util';
+import {closest, css, dimensions, height, isVisible, toFloat, trigger} from 'uikit-util';
 
 export default {
-    mixins: [Class, Resize],
+
+    mixins: [Class],
 
     props: {
         selContainer: String,
-        selContent: String,
-        minHeight: Number,
+        selContent: String
     },
 
     data: {
         selContainer: '.uk-modal',
-        selContent: '.uk-modal-dialog',
-        minHeight: 150,
+        selContent: '.uk-modal-dialog'
     },
 
     computed: {
-        container({ selContainer }, $el) {
+
+        container({selContainer}, $el) {
             return closest($el, selContainer);
         },
 
-        content({ selContent }, $el) {
+        content({selContent}, $el) {
             return closest($el, selContent);
-        },
+        }
+
     },
 
-    resizeTargets() {
-        return [this.container, this.content];
+    connected() {
+        css(this.$el, 'minHeight', 150);
     },
 
     update: {
+
         read() {
+
             if (!this.content || !this.container || !isVisible(this.$el)) {
                 return false;
             }
 
             return {
-                max: Math.max(
-                    this.minHeight,
-                    height(this.container) - (dimensions(this.content).height - height(this.$el))
-                ),
+                current: toFloat(css(this.$el, 'maxHeight')),
+                max: Math.max(150, height(this.container) - (dimensions(this.content).height - height(this.$el)))
             };
         },
 
-        write({ max }) {
-            css(this.$el, { minHeight: this.minHeight, maxHeight: max });
+        write({current, max}) {
+            css(this.$el, 'maxHeight', max);
+            if (Math.round(current) !== Math.round(max)) {
+                trigger(this.$el, 'resize');
+            }
         },
 
-        events: ['resize'],
-    },
+        events: ['resize']
+
+    }
+
 };

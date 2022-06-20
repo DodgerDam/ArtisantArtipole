@@ -1,9 +1,11 @@
-import { $, apply, isString, mergeOptions, parents, toNode } from 'uikit-util';
+import {$, apply, isString, mergeOptions, parents, toNode} from 'uikit-util';
 
 export default function (UIkit) {
+
     const DATA = UIkit.data;
 
     UIkit.use = function (plugin) {
+
         if (plugin.installed) {
             return;
         }
@@ -20,6 +22,7 @@ export default function (UIkit) {
     };
 
     UIkit.extend = function (options) {
+
         options = options || {};
 
         const Super = this;
@@ -38,27 +41,29 @@ export default function (UIkit) {
     };
 
     UIkit.update = function (element, e) {
+
         element = element ? toNode(element) : document.body;
 
-        for (const parentEl of parents(element).reverse()) {
-            update(parentEl[DATA], e);
-        }
+        parents(element).reverse().forEach(element => update(element[DATA], e));
+        apply(element, element => update(element[DATA], e));
 
-        apply(element, (element) => update(element[DATA], e));
     };
 
     let container;
     Object.defineProperty(UIkit, 'container', {
+
         get() {
             return container || document.body;
         },
 
         set(element) {
             container = $(element);
-        },
+        }
+
     });
 
     function update(data, e) {
+
         if (!data) {
             return;
         }
@@ -68,5 +73,6 @@ export default function (UIkit) {
                 data[name]._callUpdate(e);
             }
         }
+
     }
 }

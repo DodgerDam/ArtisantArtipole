@@ -20,6 +20,7 @@
 
 @button-disabled-background:                    transparent;
 
+@button-text-color:                             @global-emphasis-color;
 @button-text-hover-color:                       @global-emphasis-color;
 
 //
@@ -50,6 +51,8 @@
 }
 
 .hook-button-hover() {}
+
+.hook-button-focus() {}
 
 .hook-button-active() {}
 
@@ -169,6 +172,7 @@
      */
 
     .uk-button-group .uk-button:hover,
+    .uk-button-group .uk-button:focus,
     .uk-button-group .uk-button:active,
     .uk-button-group .uk-button.uk-active {
         position: relative;
@@ -188,6 +192,7 @@
 @inverse-button-default-active-background:     transparent;
 @inverse-button-default-active-color:          @inverse-global-emphasis-color;
 
+@inverse-button-text-color:                    @inverse-global-emphasis-color;
 @inverse-button-text-hover-color:              @inverse-global-emphasis-color;
 
 .hook-inverse-button-default() { border-color: @inverse-global-color; }

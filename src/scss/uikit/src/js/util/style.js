@@ -1,16 +1,7 @@
-import {
-    each,
-    hyphenate,
-    isArray,
-    isNumber,
-    isNumeric,
-    isObject,
-    isString,
-    isUndefined,
-    memoize,
-    toNodes,
-    toWindow,
-} from './lang';
+import {isIE} from './env';
+import {append, remove} from './dom';
+import {addClass} from './class';
+import {each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, memoize, toNodes, toWindow} from './lang';
 
 const cssNumber = {
     'animation-iteration-count': true,
@@ -20,20 +11,22 @@ const cssNumber = {
     'flex-shrink': true,
     'font-weight': true,
     'line-height': true,
-    opacity: true,
-    order: true,
-    orphans: true,
+    'opacity': true,
+    'order': true,
+    'orphans': true,
     'stroke-dasharray': true,
     'stroke-dashoffset': true,
-    widows: true,
+    'widows': true,
     'z-index': true,
-    zoom: true,
+    'zoom': true
 };
 
 export function css(element, property, value, priority = '') {
-    const elements = toNodes(element);
-    for (const element of elements) {
+
+    return toNodes(element).map(element => {
+
         if (isString(property)) {
+
             property = propName(property);
 
             if (isUndefined(value)) {
@@ -41,25 +34,27 @@ export function css(element, property, value, priority = '') {
             } else if (!value && !isNumber(value)) {
                 element.style.removeProperty(property);
             } else {
-                element.style.setProperty(
-                    property,
-                    isNumeric(value) && !cssNumber[property] ? `${value}px` : value,
-                    priority
-                );
+                element.style.setProperty(property, isNumeric(value) && !cssNumber[property] ? `${value}px` : value, priority);
             }
+
         } else if (isArray(property)) {
+
             const styles = getStyles(element);
-            const props = {};
-            for (const prop of property) {
-                props[prop] = styles[propName(prop)];
-            }
-            return props;
+
+            return property.reduce((props, property) => {
+                props[property] = styles[propName(property)];
+                return props;
+            }, {});
+
         } else if (isObject(property)) {
             priority = value;
             each(property, (value, property) => css(element, property, value, priority));
         }
-    }
-    return elements[0];
+
+        return element;
+
+    })[0];
+
 }
 
 function getStyles(element, pseudoElt) {
@@ -70,29 +65,42 @@ function getStyle(element, property, pseudoElt) {
     return getStyles(element, pseudoElt)[property];
 }
 
-const propertyRe = /^\s*(["'])?(.*?)\1\s*$/;
+const parseCssVar = memoize(name => {
+    /* usage in css: .uk-name:before { content:"xyz" } */
+
+    const element = append(document.documentElement, document.createElement('div'));
+
+    addClass(element, `uk-${name}`);
+
+    name = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
+
+    remove(element);
+
+    return name;
+});
+
 export function getCssVar(name) {
-    return getStyles(document.documentElement)
-        .getPropertyValue(`--uk-${name}`)
-        .replace(propertyRe, '$2');
+    return !isIE
+        ? getStyles(document.documentElement).getPropertyValue(`--uk-${name}`)
+        : parseCssVar(name);
 }
 
 // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-setproperty
-export const propName = memoize((name) => vendorPropName(name));
+export const propName = memoize(name => vendorPropName(name));
 
-const cssPrefixes = ['webkit', 'moz'];
+const cssPrefixes = ['webkit', 'moz', 'ms'];
 
 function vendorPropName(name) {
+
     name = hyphenate(name);
 
-    const { style } = document.documentElement;
+    const {style} = document.documentElement;
 
     if (name in style) {
         return name;
     }
 
-    let i = cssPrefixes.length,
-        prefixedName;
+    let i = cssPrefixes.length, prefixedName;
 
     while (i--) {
         prefixedName = `-${cssPrefixes[i]}-${name}`;

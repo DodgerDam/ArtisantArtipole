@@ -1,17 +1,24 @@
-import { assign, fastdom, hasOwn, isEqual, isPlainObject } from 'uikit-util';
+import {assign, fastdom, hasOwn, isEqual, isPlainObject} from 'uikit-util';
 
 export default function (UIkit) {
+
     UIkit.prototype._callHook = function (hook) {
-        this.$options[hook]?.forEach((handler) => handler.call(this));
+
+        const handlers = this.$options[hook];
+
+        if (handlers) {
+            handlers.forEach(handler => handler.call(this));
+        }
     };
 
     UIkit.prototype._callConnected = function () {
+
         if (this._connected) {
             return;
         }
 
         this._data = {};
-        this._computed = {};
+        this._computeds = {};
 
         this._initProps();
 
@@ -26,6 +33,7 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._callDisconnected = function () {
+
         if (!this._connected) {
             return;
         }
@@ -37,9 +45,11 @@ export default function (UIkit) {
 
         this._connected = false;
         delete this._watch;
+
     };
 
     UIkit.prototype._callUpdate = function (e = 'update') {
+
         if (!this._connected) {
             return;
         }
@@ -55,9 +65,7 @@ export default function (UIkit) {
         if (!this._updates) {
             this._updates = new Set();
             fastdom.read(() => {
-                if (this._connected) {
-                    runUpdates.call(this, this._updates);
-                }
+                runUpdates.call(this, this._updates);
                 delete this._updates;
             });
         }
@@ -66,28 +74,54 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._callWatches = function () {
+
         if (this._watch) {
             return;
         }
 
-        const initial = !hasOwn(this, '_watch');
+        const initital = !hasOwn(this, '_watch');
 
         this._watch = fastdom.read(() => {
-            if (this._connected) {
-                runWatches.call(this, initial);
+
+            const {$options: {computed}, _computeds} = this;
+
+            for (const key in computed) {
+
+                const hasPrev = hasOwn(_computeds, key);
+                const prev = _computeds[key];
+
+                delete _computeds[key];
+
+                const {watch, immediate} = computed[key];
+                if (watch && (
+                    initital && immediate
+                    || hasPrev && !isEqual(prev, this[key])
+                )) {
+                    watch.call(this, this[key], prev);
+                }
+
             }
+
             this._watch = null;
+
         });
+
     };
 
     function runUpdates(types) {
-        for (const { read, write, events = [] } of this.$options.update) {
-            if (!types.has('update') && !events.some((type) => types.has(type))) {
+
+        const updates = this.$options.update;
+
+        for (let i = 0; i < updates.length; i++) {
+            const {read, write, events} = updates[i];
+
+            if (!types.has('update') && (!events || !events.some(type => types.has(type)))) {
                 continue;
             }
 
             let result;
             if (read) {
+
                 result = read.call(this, this._data, types);
 
                 if (result && isPlainObject(result)) {
@@ -98,25 +132,7 @@ export default function (UIkit) {
             if (write && result !== false) {
                 fastdom.write(() => write.call(this, this._data, types));
             }
-        }
-    }
 
-    function runWatches(initial) {
-        const {
-            $options: { computed },
-        } = this;
-        const values = { ...this._computed };
-        this._computed = {};
-
-        for (const key in computed) {
-            const { watch, immediate } = computed[key];
-            if (
-                watch &&
-                ((initial && immediate) ||
-                    (hasOwn(values, key) && !isEqual(values[key], this[key])))
-            ) {
-                watch.call(this, this[key], values[key]);
-            }
         }
     }
 }

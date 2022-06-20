@@ -1,6 +1,9 @@
 export default {
+
     update: {
+
         write() {
+
             if (this.stack.length || this.dragging) {
                 return;
             }
@@ -10,8 +13,11 @@ export default {
             if (!~this.prevIndex || this.index !== index) {
                 this.show(index);
             }
+
         },
 
-        events: ['resize'],
-    },
+        events: ['resize']
+
+    }
+
 };

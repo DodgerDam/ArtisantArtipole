@@ -1,20 +1,7 @@
-import Scroll from '../mixin/scroll';
-import {
-    $$,
-    css,
-    filter,
-    data as getData,
-    isInView,
-    once,
-    removeClass,
-    removeClasses,
-    toggleClass,
-    trigger,
-} from 'uikit-util';
+import {$$, css, filter, data as getData, isInView, once, Promise, removeClass, removeClasses, toggleClass, trigger} from 'uikit-util';
 
 const stateKey = '_ukScrollspy';
 export default {
-    mixins: [Scroll],
 
     args: 'cls',
 
@@ -25,23 +12,25 @@ export default {
         offsetTop: Number,
         offsetLeft: Number,
         repeat: Boolean,
-        delay: Number,
+        delay: Number
     },
 
     data: () => ({
-        cls: '',
+        cls: false,
         target: false,
         hidden: true,
         offsetTop: 0,
         offsetLeft: 0,
         repeat: false,
         delay: 0,
-        inViewClass: 'uk-scrollspy-inview',
+        inViewClass: 'uk-scrollspy-inview'
     }),
 
     computed: {
+
         elements: {
-            get({ target }, $el) {
+
+            get({target}, $el) {
                 return target ? $$(target, $el) : [$el];
             },
 
@@ -51,64 +40,91 @@ export default {
                 }
             },
 
-            immediate: true,
-        },
+            immediate: true
+
+        }
+
     },
 
     disconnected() {
-        for (const el of this.elements) {
-            removeClass(el, this.inViewClass, el[stateKey]?.cls || '');
+        this.elements.forEach(el => {
+            removeClass(el, this.inViewClass, el[stateKey] ? el[stateKey].cls : '');
             delete el[stateKey];
-        }
+        });
     },
 
     update: [
-        {
-            read() {
-                for (const el of this.elements) {
-                    if (!el[stateKey]) {
-                        el[stateKey] = { cls: getData(el, 'uk-scrollspy-class') || this.cls };
-                    }
 
-                    if (!this.repeat && el[stateKey].show) {
-                        continue;
+        {
+
+            read(data) {
+
+                // Let child components be applied at least once first
+                if (!data.update) {
+                    Promise.resolve().then(() => {
+                        this.$emit();
+                        data.update = true;
+                    });
+                    return false;
+                }
+
+                this.elements.forEach(el => {
+
+                    if (!el[stateKey]) {
+                        el[stateKey] = {cls: getData(el, 'uk-scrollspy-class') || this.cls};
                     }
 
                     el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
-                }
+
+                });
+
             },
 
             write(data) {
-                for (const el of this.elements) {
+
+                this.elements.forEach(el => {
+
                     const state = el[stateKey];
 
                     if (state.show && !state.inview && !state.queued) {
+
                         state.queued = true;
 
-                        data.promise = (data.promise || Promise.resolve())
-                            .then(() => new Promise((resolve) => setTimeout(resolve, this.delay)))
-                            .then(() => {
-                                this.toggle(el, true);
-                                setTimeout(() => {
-                                    state.queued = false;
-                                    this.$emit();
-                                }, 300);
-                            });
+                        data.promise = (data.promise || Promise.resolve()).then(() =>
+                            new Promise(resolve =>
+                                setTimeout(resolve, this.delay)
+                            )
+                        ).then(() => {
+                            this.toggle(el, true);
+                            setTimeout(() => {
+                                state.queued = false;
+                                this.$emit();
+                            }, 300);
+                        });
+
                     } else if (!state.show && state.inview && !state.queued && this.repeat) {
+
                         this.toggle(el, false);
+
                     }
-                }
+
+                });
+
             },
 
-            events: ['scroll', 'resize'],
-        },
+            events: ['scroll', 'resize']
+
+        }
+
     ],
 
     methods: {
+
         toggle(el, inview) {
+
             const state = el[stateKey];
 
-            state.off?.();
+            state.off && state.off();
 
             css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
 
@@ -116,12 +132,9 @@ export default {
             toggleClass(el, state.cls);
 
             if (/\buk-animation-/.test(state.cls)) {
-                const removeAnimationClasses = () => removeClasses(el, 'uk-animation-[\\w-]+');
-                if (inview) {
-                    state.off = once(el, 'animationcancel animationend', removeAnimationClasses);
-                } else {
-                    removeAnimationClasses();
-                }
+                state.off = once(el, 'animationcancel animationend', () =>
+                    removeClasses(el, 'uk-animation-\\w*')
+                );
             }
 
             trigger(el, inview ? 'inview' : 'outview');
@@ -129,6 +142,9 @@ export default {
             state.inview = inview;
 
             this.$update(el);
-        },
-    },
+        }
+
+    }
+
 };
+

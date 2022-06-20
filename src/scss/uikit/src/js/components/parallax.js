@@ -1,48 +1,34 @@
-import Resize from '../mixin/resize';
-import Scroll from '../mixin/scroll';
 import Parallax from '../mixin/parallax';
-import { css, parent, query, scrolledOver, toPx } from 'uikit-util';
+import {clamp, css, parent, query, scrolledOver} from 'uikit-util';
 
 export default {
-    mixins: [Parallax, Resize, Scroll],
+
+    mixins: [Parallax],
 
     props: {
         target: String,
-        viewport: Number, // Deprecated
-        easing: Number,
-        start: String,
-        end: String,
+        viewport: Number,
+        easing: Number
     },
 
     data: {
         target: false,
         viewport: 1,
-        easing: 1,
-        start: 0,
-        end: 0,
+        easing: 1
     },
 
     computed: {
-        target({ target }, $el) {
-            return getOffsetElement((target && query(target, $el)) || $el);
-        },
 
-        start({ start }) {
-            return toPx(start, 'height', this.target, true);
-        },
+        target({target}, $el) {
+            return getOffsetElement(target && query(target, $el) || $el);
+        }
 
-        end({ end, viewport }) {
-            return toPx(
-                end || ((viewport = (1 - viewport) * 100) && `${viewport}vh+${viewport}%`),
-                'height',
-                this.target,
-                true
-            );
-        },
     },
 
     update: {
-        read({ percent }, types) {
+
+        read({percent}, types) {
+
             if (!types.has('scroll')) {
                 percent = false;
             }
@@ -52,32 +38,39 @@ export default {
             }
 
             const prev = percent;
-            percent = ease(scrolledOver(this.target, this.start, this.end), this.easing);
+            percent = ease(scrolledOver(this.target) / (this.viewport || 1), this.easing);
 
             return {
                 percent,
-                style: prev === percent ? false : this.getCss(percent),
+                style: prev !== percent ? this.getCss(percent) : false
             };
         },
 
-        write({ style }) {
+        write({style}) {
+
             if (!this.matchMedia) {
                 this.reset();
                 return;
             }
 
             style && css(this.$el, style);
+
         },
 
-        events: ['scroll', 'resize'],
-    },
+        events: ['scroll', 'resize']
+    }
+
 };
 
 function ease(percent, easing) {
-    return easing >= 0 ? Math.pow(percent, easing + 1) : 1 - Math.pow(1 - percent, -easing + 1);
+    return clamp(percent * (1 - (easing - easing * percent)));
 }
 
 // SVG elements do not inherit from HTMLElement
 function getOffsetElement(el) {
-    return el ? ('offsetTop' in el ? el : getOffsetElement(parent(el))) : document.documentElement;
+    return el
+        ? 'offsetTop' in el
+            ? el
+            : getOffsetElement(parent(el))
+        : document.body;
 }

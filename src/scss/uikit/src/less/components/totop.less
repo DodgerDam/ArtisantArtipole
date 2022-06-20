@@ -28,26 +28,28 @@
 .uk-totop {
     padding: @totop-padding;
     color: @totop-color;
-    .hook-totop();
+    .hook-totop;
 }
 
-/* Hover */
-.uk-totop:hover {
+/* Hover + Focus */
+.uk-totop:hover,
+.uk-totop:focus {
     color: @totop-hover-color;
-    .hook-totop-hover();
+    outline: none;
+    .hook-totop-hover;
 }
 
 /* OnClick */
 .uk-totop:active {
     color: @totop-active-color;
-    .hook-totop-active();
+    .hook-totop-active;
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-totop-misc();
+.hook-totop-misc;
 
 .hook-totop() {}
 .hook-totop-hover() {}
@@ -66,17 +68,18 @@
 
     .uk-totop {
         color: @inverse-totop-color;
-        .hook-inverse-totop();
+        .hook-inverse-totop;
     }
 
-    .uk-totop:hover {
+    .uk-totop:hover,
+    .uk-totop:focus {
         color: @inverse-totop-hover-color;
-        .hook-inverse-totop-hover();
+        .hook-inverse-totop-hover;
     }
 
     .uk-totop:active {
         color: @inverse-totop-active-color;
-        .hook-inverse-totop-active();
+        .hook-inverse-totop-active;
     }
 
 }

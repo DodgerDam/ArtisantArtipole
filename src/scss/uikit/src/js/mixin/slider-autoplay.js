@@ -1,16 +1,17 @@
-import { $, attr, matches } from 'uikit-util';
+import {$, attr, matches} from 'uikit-util';
 
 export default {
+
     props: {
         autoplay: Boolean,
         autoplayInterval: Number,
-        pauseOnHover: Boolean,
+        pauseOnHover: Boolean
     },
 
     data: {
         autoplay: false,
         autoplayInterval: 7000,
-        pauseOnHover: true,
+        pauseOnHover: true
     },
 
     connected() {
@@ -26,7 +27,9 @@ export default {
     },
 
     events: [
+
         {
+
             name: 'visibilitychange',
 
             el() {
@@ -43,26 +46,32 @@ export default {
                 } else {
                     this.startAutoplay();
                 }
-            },
-        },
+            }
+
+        }
+
     ],
 
     methods: {
+
         startAutoplay() {
+
             this.stopAutoplay();
 
             this.interval = setInterval(
-                () =>
-                    (!this.draggable || !$(':focus', this.$el)) &&
-                    (!this.pauseOnHover || !matches(this.$el, ':hover')) &&
-                    !this.stack.length &&
-                    this.show('next'),
+                () => (!this.draggable || !$(':focus', this.$el))
+                    && (!this.pauseOnHover || !matches(this.$el, ':hover'))
+                    && !this.stack.length
+                    && this.show('next'),
                 this.autoplayInterval
             );
+
         },
 
         stopAutoplay() {
             this.interval && clearInterval(this.interval);
-        },
-    },
+        }
+
+    }
+
 };

@@ -41,7 +41,7 @@ class ArtisantController extends AbstractController
 
         // list($nbAdh,$nbfournisseurs)=$this->counter();
 
-        return $this->render('artisant/home2.html.twig',[
+        return $this->render('artisant/home.html.twig',[
             // 'nbadh' =>$nbAdh[0]['cnt'],
             // 'fournisseurs' => $nbfournisseurs[0]['cnt_fournisseurs'],
             'rand_metiers'=>$this->RandMetier(),

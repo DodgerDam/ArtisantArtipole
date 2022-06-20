@@ -1,42 +1,34 @@
 import Video from './video';
-import { css, Dimensions, parent } from 'uikit-util';
-import Resize from '../mixin/resize';
+import Class from '../mixin/class';
+import {css, Dimensions, parent} from 'uikit-util';
 
 export default {
-    mixins: [Resize, Video],
+
+    mixins: [Class, Video],
 
     props: {
         width: Number,
-        height: Number,
+        height: Number
     },
 
     data: {
-        automute: true,
-    },
-
-    events: {
-        load() {
-            this.$emit('resize');
-        },
-    },
-
-    resizeTargets() {
-        return [this.$el, parent(this.$el)];
+        automute: true
     },
 
     update: {
+
         read() {
+
             const el = this.$el;
-            const { offsetHeight: height, offsetWidth: width } =
-                getPositionedParent(el) || parent(el);
+            const {offsetHeight: height, offsetWidth: width} = getPositionedParent(el) || parent(el);
             const dim = Dimensions.cover(
                 {
                     width: this.width || el.naturalWidth || el.videoWidth || el.clientWidth,
-                    height: this.height || el.naturalHeight || el.videoHeight || el.clientHeight,
+                    height: this.height || el.naturalHeight || el.videoHeight || el.clientHeight
                 },
                 {
                     width: width + (width % 2 ? 1 : 0),
-                    height: height + (height % 2 ? 1 : 0),
+                    height: height + (height % 2 ? 1 : 0)
                 }
             );
 
@@ -47,12 +39,14 @@ export default {
             return dim;
         },
 
-        write({ height, width }) {
-            css(this.$el, { height, width });
+        write({height, width}) {
+            css(this.$el, {height, width});
         },
 
-        events: ['resize'],
-    },
+        events: ['resize']
+
+    }
+
 };
 
 function getPositionedParent(el) {
