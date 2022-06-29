@@ -12,7 +12,7 @@ class ArtisantController extends AbstractController
     private $pdo;
 
     public function __construct(){
-        $this->pdo = new PDO('mysql:host=localhost;dbname=artisant_artipole;port=3306;charset=utf8', 'artisant_artipole',  'artisant_artipole');
+        $this->pdo = new PDO('mysql:host=localhost;dbname=artipole;port=3380;charset=utf8', 'artipole',  'artipole');
     }
 
     public function __destruct()
@@ -39,11 +39,11 @@ class ArtisantController extends AbstractController
     public function home()
     { 
 
-        // list($nbAdh,$nbfournisseurs)=$this->counter();
+        list($nbAdh,$nbfournisseurs)=$this->counter();
 
         return $this->render('artisant/home.html.twig',[
-            // 'nbadh' =>$nbAdh[0]['cnt'],
-            // 'fournisseurs' => $nbfournisseurs[0]['cnt_fournisseurs'],
+            'nbadh' =>$nbAdh[0]['cnt'],
+            'fournisseurs' => $nbfournisseurs[0]['cnt_fournisseurs'],
             'rand_metiers'=>$this->RandMetier(),
             'selecteur_metiers'=> $this->SelectMetier(),
             'inspirations'=>$this->BlocInspi(),
@@ -84,20 +84,20 @@ class ArtisantController extends AbstractController
      *
      * @return void
      */
-    // private function Counter(){
+    private function Counter(){
 
-    //     // $pdo = new PDO('mysql:host=srvlinux;dbname=scabotheque;port=3306;charset=utf8', 'scabotheque',  'scabotheque');
+        // $pdo = new PDO('mysql:host=srvlinux;dbname=scabotheque;port=3306;charset=utf8', 'scabotheque',  'scabotheque');
 
-    //     $adh_count = $this->pdo ->prepare("SELECT count(*) as cnt FROM adherent where adhesion_artipole=1");
-    //     $adh_count->execute();
-    //     $nbAdh = $adh_count->fetchAll(PDO::FETCH_ASSOC);
+        $adh_count = $this->pdo ->prepare("SELECT count(*) as cnt FROM artisans");
+        $adh_count->execute();
+        $nbAdh = $adh_count->fetchAll(PDO::FETCH_ASSOC);
 
-    //     $founisseurs_count=$this->pdo->prepare("SELECT count(*) as cnt_fournisseurs FROM fournisseur_scabois_orcab");
-    //     $founisseurs_count->execute();
-    //     $nbfournisseurs = $founisseurs_count->fetchAll(PDO::FETCH_ASSOC);
+        $founisseurs_count=$this->pdo->prepare("SELECT count(*) as cnt_fournisseurs FROM fournisseurs");
+        $founisseurs_count->execute();
+        $nbfournisseurs = $founisseurs_count->fetchAll(PDO::FETCH_ASSOC);
 
-    //     return array ($nbAdh,$nbfournisseurs);
-    // }
+        return array ($nbAdh,$nbfournisseurs);
+    }
     
     /**
      * Requete pour le sélecteur de la homepage

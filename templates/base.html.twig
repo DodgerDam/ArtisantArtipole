@@ -26,7 +26,6 @@
 		<meta name="msapplication-TileImage" content="/assets/images/favicon/mstile-144x144.png"/>
 		<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-		<script src="./js/main.js"></script>
 
 
 		{% block stylesheets %}
@@ -37,10 +36,8 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body id="body">
-		@@webRoot
-		{% block body %}{% endblock %}
-
+	<body id="body"> {% block body %}{% endblock %}
+		<script src="./assets/js/main.js"></script>
 	</body>
 
 </html>
