@@ -476,5 +476,18 @@ const initReady = () => {
     });
 };
 
+//autocomplétion
+$(function() {
+	$("#Villes").autocomplete({
+	source: "home.html.twig",
+	minLength: 3,
+		select: function(event, ui) {
+            console.log(event);
+            console.log(ui);
+		alert(ui);
+		}
+	});
+});
+
 // Document ready
 document.addEventListener('DOMContentLoaded', initReady);

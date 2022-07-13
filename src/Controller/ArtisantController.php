@@ -48,6 +48,7 @@ class ArtisantController extends AbstractController
             'selecteur_metiers'=> $this->SelectMetier(),
             'inspirations'=>$this->BlocInspi(),
             'logo_fournisseurs'=>$this->BlocFournisseurs(),
+            // 'villes'=>$this->Autocomplete(),
         ]);
     }
 
@@ -72,9 +73,13 @@ class ArtisantController extends AbstractController
      */
     public function liste_adh()
     {
+        list($nbAdh,$nbfournisseurs)=$this->counter();
+
         return $this->render('artisant/liste_adh.html.twig',[
+            'nbadh' =>$nbAdh[0]['cnt'],
             'selecteur_metiers'=> $this->SelectMetier(),
             'rand_metiers'=>$this->RandMetier(),
+            'card_artisan'=>$this-> CarteArtisans(),
         ]);
     }
 
@@ -212,4 +217,30 @@ class ArtisantController extends AbstractController
         }
         return $inspirations_page;
     }
+
+    private function CarteArtisans(){
+        $card= $this->pdo->prepare("SELECT a.id_photo_artisan, a.nom, a.code_postal , a.ville , a.adresse , a.mail , a.telephone , p.images 
+        from artisans a 
+        inner join photos p on p.id  = a.id_photo_artisan ");
+        $card->execute();
+        $card_artisan = $card->fetchAll(PDO::FETCH_ASSOC);
+
+        return $card_artisan;
+    }
+
+    private function Autocomplete(){
+        // $query = $this->pdo->prepare ("SELECT libelle from commune WHERE libele LIKE '%" . addslashes($_GET['Ville']) . "%'");
+        $query = $this->pdo->prepare ("SELECT libelle from commune WHERE libelle LIKE '%dij%'");
+        $query->execute();
+ 
+        $tab[0] = "";
+        while($ville= $query->fetchAll(PDO::FETCH_ASSOC)) {
+ 
+            foreach($ville as $val)
+	        $tab[] = $val;
+        }          
+        $villes = print json_encode($tab);
+        return $villes;
+    }
+
 }
