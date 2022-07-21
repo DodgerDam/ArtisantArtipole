@@ -60,9 +60,10 @@ class ArtisantController extends AbstractController
     public function inspirations()
     {
         return $this->render('artisant/inspirations.html.twig',[
-            'selecteur_metiers'=> $this->SelectMetier(),
             'inspirations_page'=>$this->PageInspi(),
-            'rand_metiers'=>$this->RandMetier(),
+            'rand_inspirations' => $this->PageInspiRand(),
+            'selecteur_metiers'=> $this->SelectMetier(),
+
         ]);
     }
 
@@ -203,7 +204,7 @@ class ArtisantController extends AbstractController
 
         foreach($inspirations_page as &$valeur){
             $val=$valeur["id"];
-            $inspi_img=$this->pdo->prepare("SELECT p.images
+            $inspi_img=$this->pdo->prepare("SELECT p.images, pi2.legende
             from photos p
             inner join photos_inspirations pi2 on pi2.id_photos =p.id 
             where pi2.id_metiers = $val
@@ -216,8 +217,28 @@ class ArtisantController extends AbstractController
 
         }
         return $inspirations_page;
+
     }
 
+      /**
+     * Requete pour la page inspirations en random
+     *
+     * @return void
+     */
+    private function PageInspiRand(){
+
+        // $pdo2 = new PDO('mysql:host=localhost;dbname=artipole;port=3380;charset=utf8', 'artipole',  'artipole');
+        $inspi_rand=$this->pdo->query("SELECT p.id, p.images, pi2.legende
+        from photos p 
+        inner join photos_inspirations pi2 on p.id = pi2.id_photos 
+        order by rand()
+        limit 15
+        ");
+        $inspi_rand->execute();
+        $inspirations_page_rand= $inspi_rand->fetchAll(PDO::FETCH_ASSOC);
+
+        return $inspirations_page_rand;
+    }
     private function CarteArtisans(){
         $card= $this->pdo->prepare("SELECT a.id_photo_artisan, a.nom, a.code_postal , a.ville , a.adresse , a.mail , a.telephone , p.images 
         from artisans a 
@@ -228,6 +249,11 @@ class ArtisantController extends AbstractController
         return $card_artisan;
     }
 
+    /**
+     * autocomplétion de l'input ville
+     *
+     * @return void
+     */ 
     private function Autocomplete(){
         // $query = $this->pdo->prepare ("SELECT libelle from commune WHERE libele LIKE '%" . addslashes($_GET['Ville']) . "%'");
         $query = $this->pdo->prepare ("SELECT libelle from commune WHERE libelle LIKE '%dij%'");

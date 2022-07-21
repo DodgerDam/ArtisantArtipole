@@ -1579,7 +1579,7 @@
                     };
 
                     // Image
-                    if (type === 'image' || src.match(/\.(avif|jpe?g|a?png|gif|svg|webp)($|\?)/i)) {
+                     if (type === 'image'){
 
                         uikitUtil.getImage(src, attrs.srcset, attrs.size).then(
                             function (ref) {

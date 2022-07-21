@@ -482,8 +482,6 @@ $(function() {
 	source: "home.html.twig",
 	minLength: 3,
 		select: function(event, ui) {
-            console.log(event);
-            console.log(ui);
 		alert(ui);
 		}
 	});
